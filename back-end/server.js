@@ -1,26 +1,40 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const mysql = require("mysql2");
+const dotenv = require("dotenv");
+const authRoutes = require("./routes/auth.js"); // ✅ Importing routes
 
 dotenv.config();
 const app = express();
-app.use(cors());
-app.use(express.json());
 
+// ✅ Middleware
+app.use(cors()); 
+app.use(express.json()); 
+
+// ✅ MySQL Connection
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "your_database",
+  database: "jobsphere",
 });
 
 db.connect((err) => {
   if (err) {
     console.error("Database connection failed:", err);
   } else {
-    console.log("Connected to MySQL");
+    console.log("✅ Connected to MySQL");
   }
 });
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+// ✅ Register Routes
+app.use("/api/auth", authRoutes);  
+
+// ✅ Test Route for Root URL "/"
+app.get("/", (req, res) => {
+  res.send("Server is running! 🎉");
+});
+
+// ✅ Start the Server
+const PORT = 5000;
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
