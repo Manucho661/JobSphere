@@ -3,6 +3,7 @@ const cors = require("cors");
 const mysql = require("mysql2");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth.js"); // ✅ Importing routes
+const jobsRoutes = require('./routes/jobs');
 
 dotenv.config();
 const app = express();
@@ -10,6 +11,7 @@ const app = express();
 // ✅ Middleware
 app.use(cors()); 
 app.use(express.json()); 
+app.use('/jobs', jobsRoutes); // Use jobs routes
 
 // ✅ MySQL Connection
 const db = mysql.createConnection({
@@ -38,3 +40,5 @@ app.get("/", (req, res) => {
 // ✅ Start the Server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+
+module.exports = db; 

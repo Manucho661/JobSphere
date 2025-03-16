@@ -16,15 +16,21 @@ const db = mysql.createConnection({
   database: "jobsphere", // Make sure the database exists
 });
 
+router.get('/test', (_req, res) => {
+  res.json({ message: 'Auth route is working!' });
+});
 // 🔹 User Registration (Signup)
 router.post("/register", async (req, res) => {
   console.log("Received request headers:", req.headers);
   console.log("Received request body:", req.body); 
   
-  const { username, email, password } = req.body;
+  const { username, email,password,role } = req.body;
+
+  
+
 
   // ✅ Check if all fields are provided
-  if (!username || !email || !password) {
+  if (!username || !email || !password || !role) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -42,9 +48,9 @@ router.post("/register", async (req, res) => {
     try {
       // ✅ Ensure password is defined before hashing
       const hashedPassword = await bcrypt.hash(password, 10);
-      const sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+      const sql = "INSERT INTO users (username, email, password,role) VALUES (?, ?, ?,?)";
 
-      db.query(sql, [username, email, hashedPassword], (err) => {
+      db.query(sql, [username, email,role, hashedPassword], (err) => {
         if (err) {
           console.error(err);
           return res.status(500).json({ message: "Error registering user" });
