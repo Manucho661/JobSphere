@@ -34,7 +34,8 @@ router.get('/', async (req, res) => {
     const jobs = await Job.findAll();
     res.json(jobs);
   } catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error fetching jobs:", err);  // 🔥 Logs the real error
+    res.status(500).json({ error: "Internal server error", details: err.message });
   }
 });
 
