@@ -1,0 +1,18 @@
+/* home.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.home-container {
+    background-color: lightblue;
+    /* color: black; */
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* HEADER */
+  header{
+    /* color: #00192D !important; */
+  }

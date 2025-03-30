@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../api/apiClient";
- import "../styles/Home.css";
+ import "./styles/mainfile.css";
  import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
 
 console.log("🏡 Home Component Loaded"); // ✅ Check if Home is rendering
@@ -23,10 +23,10 @@ const Home = () => {
   if (error) return <p>Error fetching jobs: {error.message}</p>;
 
   return (
-    <div>
+    <div className="job-listing">
       
       <h1 className="text-primary" >JOBSPHERE</h1>
-      <ul>
+      <ul >
         {jobs && jobs.length > 0 ? (
           jobs.map((job) => (
             <li key={job.id}>
