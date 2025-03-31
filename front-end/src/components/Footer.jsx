@@ -1,9 +1,9 @@
-// import Home from "./styles/header.css";
+ import "./styles/footer.css";
 
 const Footer = () => {
     return (
-      <footer className="bg-blue-600 text-white">
-        <h1 className="text-primary bg-danger p-2">Footer</h1>
+      <footer class="footer">
+        <h1 className="">Footer</h1>
        
       </footer>
     );
