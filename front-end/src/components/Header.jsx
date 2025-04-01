@@ -33,12 +33,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">Login</a>
+                  <a class="nav-link login" href="#">Login</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">Register</a>
+                  <a class="nav-link register" href="#">Register</a>
                 </li>
+                <li class="nav-item active">
+                  <a class="nav-link employers" href="#">Employers</a>
+                </li>
+
               </ul>
+
+              
              
             </div>
           </nav>
