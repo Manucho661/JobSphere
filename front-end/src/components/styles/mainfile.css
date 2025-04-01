@@ -1,6 +1,6 @@
 
 .job-listing{
-    background-color: rgba(red, green, blue, alpha);
+    background-color: rgba(128,128,128,0.2);
     height: 80vh;
 }
 .job-card{
@@ -69,9 +69,9 @@
 }
 .openings{
     font-weight: 600;
-    background-color: #A5B4C2;
-    /* width: fit-content; */
+    background-color: rgba(128,128,128,0.2);
+     width: fit-content; 
     border-radius: 10px;
-    padding: 0 4px;
-    
+    padding: 0 8px;
+    margin: auto;
 }

@@ -25,7 +25,7 @@ const Home = () => {
   if (error) return <p>Error fetching jobs: {error.message}</p>;
 
   return (
-    <div class="container-fluid bg-light job-listing">
+    <div class="container-fluid job-listing">
       <div class="row">
 
            <div class="featured"> Featured Jobs</div>
