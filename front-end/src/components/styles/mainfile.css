@@ -18,6 +18,7 @@
     border-color: #FFC107;
     max-height: 100%;
     border-radius: 5px;
+    cursor: pointer;
 }
 .job-title{
     font-weight: 600;
@@ -27,7 +28,7 @@
     color: #a5a5a6;
 }
 .period{
-    color: #a5a5a6;   
+    color: #6BBF59;   
 }
 .company{
     
@@ -41,4 +42,36 @@
     font-size: 24px;
     font-weight: 600;
     letter-spacing: .5px;
+    width: 100%;
+    text-align: center;
+}
+.featured-job{
+    border: 1px solid white; 
+    padding:2px 4px;
+    background-color: white;
+    max-height: 30vh;
+    min-height: 30vh;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    
+}
+.featured-job:hover{
+    border-color: #FFC107;
+    max-height: 100%;
+    border-radius: 5px; 
+    cursor: pointer;
+}
+.icon{
+    color: #FFC107;
+}
+.openings{
+    font-weight: 600;
+    background-color: #A5B4C2;
+    /* width: fit-content; */
+    border-radius: 10px;
+    padding: 0 4px;
+    
 }

@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import apiClient from "../api/apiClient";
  import "./styles/mainfile.css";
  import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
+ import "@fortawesome/fontawesome-free/css/all.min.css";
+
 
 console.log("🏡 Home Component Loaded"); // ✅ Check if Home is rendering
 
@@ -109,16 +111,16 @@ const Home = () => {
 
       </div>
 
-      <div class="row">
-       <div class="featured-categories ">Features Categories</div>
+      <div class="row mt-3">
+       <div class="featured-categories ">Featured Categories</div>
         <div class="col-md-3">
         {jobs && jobs.length > 0 ? (
                     jobs.map((job) => (
-                      <div key={job.id} className="job-card">
-                        <h3>{job.title}</h3>
-                        <p>{job.description}</p>
-                        <p><strong>Location:</strong> {job.location}</p>
-                        <p><strong>Salary:</strong> ${job.salary}</p>
+                      <div key={job.id} className="featured-job">
+                        <h3> <i className="fas fa-graduation-cap icon"></i> </h3>
+                        <p> Education</p>
+                        <p class="openings">130 0penings</p>
+                       
                       </div>
                     ))
              
@@ -131,11 +133,11 @@ const Home = () => {
               <div class="col-md-3">
               {jobs && jobs.length > 0 ? (
                     jobs.map((job) => (
-                      <div key={job.id} className="job-card">
-                        <h3>{job.title}</h3>
-                        <p>{job.description}</p>
-                        <p><strong>Location:</strong> {job.location}</p>
-                        <p><strong>Salary:</strong> ${job.salary}</p>
+                      <div key={job.id} className="featured-job">
+                        <h3> <i className="fas fa-graduation-cap icon"></i>  </h3>
+                        <p>Education</p>
+                        <p class="openings" >130 0penings</p>
+                       
                       </div>
                     ))
              
@@ -148,11 +150,11 @@ const Home = () => {
               <div class="col-md-3">
               {jobs && jobs.length > 0 ? (
                     jobs.map((job) => (
-                      <div key={job.id} className="job-card">
-                        <h3>{job.title}</h3>
-                        <p>{job.description}</p>
-                        <p><strong>Location:</strong> {job.location}</p>
-                        <p><strong>Salary:</strong> ${job.salary}</p>
+                      <div key={job.id} className="featured-job">
+                        <h3> <i className="fas fa-graduation-cap icon"></i>  </h3>
+                        <p>Education</p>
+                        <p class="openings" >130 0penings</p>
+                       
                       </div>
                     ))
              
@@ -165,11 +167,11 @@ const Home = () => {
               <div class="col-md-3">
               {jobs && jobs.length > 0 ? (
                     jobs.map((job) => (
-                      <div key={job.id} className="job-card">
-                        <h3>{job.title}</h3>
-                        <p>{job.description}</p>
-                        <p><strong>Location:</strong> {job.location}</p>
-                        <p><strong>Salary:</strong> ${job.salary}</p>
+                      <div key={job.id} className="featured-job">
+                        <h3 class="icon"> <i className="fas fa-graduation-cap icon"></i>   </h3>
+                        <p>Education</p>
+                        <p class="openings" >130 0penings</p>
+                       
                       </div>
                     ))
              
@@ -177,7 +179,6 @@ const Home = () => {
                 <p>No jobs available</p>
 
               )}
-          
               </div>
 
       </div>
