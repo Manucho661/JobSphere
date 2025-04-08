@@ -23,7 +23,7 @@ const Home = () => {
   if (error) return <p>Error fetching jobs: {error.message}</p>;
 
   return (
-    <div>
+    <div className="homeStyle">
       
       <h1 className="text-primary" >JOBSPHERE</h1>
       <ul>

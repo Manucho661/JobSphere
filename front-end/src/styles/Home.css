@@ -6,6 +6,7 @@
 }
 
 .home-container {
+
     background-color: lightblue;
     /* color: black; */
     padding: 20px;
@@ -15,4 +16,7 @@
   /* HEADER */
   header{
     /* color: #00192D !important; */
+  }
+  .homeStyle{
+    background-image: url('bg.jpg'); /* Adjust the path if needed */
   }

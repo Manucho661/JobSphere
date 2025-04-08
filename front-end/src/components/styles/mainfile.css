@@ -1,12 +1,16 @@
 
 .job-listing{
-    background-color: rgba(128,128,128,0.2);
+    background-image: url('/images/yoyo.jpg');
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+
     height: 80vh;
 }
 .job-card{
     border: 1px solid white; 
     padding:2px 4px;
-    background-color: white;
+    /* background-color: white; */
     max-height: 30vh;
     min-height: 30vh;
     vertical-align: middle;
