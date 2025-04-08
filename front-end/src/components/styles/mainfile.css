@@ -1,10 +1,9 @@
 
 .job-listing{
-    background-image: url('/images/yoyo.jpg');
+    background-image: url('images/yoyo.jpg');
 background-repeat: no-repeat;
 background-size: cover;
 background-position: center;
-
     height: 80vh;
 }
 .job-card{
