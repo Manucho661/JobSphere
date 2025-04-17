@@ -3,7 +3,6 @@ const { Job } = require('../models');
 const db = require("../db"); 
 const { authenticateUser, authorizeEmployer } = require('../middleware/authMiddleware');
 
-const router = express.Router();
 
 // 🔒 Employers only - Create Job
 router.post("/", async (req, res) => {
