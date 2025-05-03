@@ -24,14 +24,16 @@ const Home = () => {
   if (isLoading) return <p>Loading jobs...</p>;
   if (error) return <p>Error fetching jobs: {error.message}</p>;
 
+
   return (
+    <div>
     <div class="container-fluid job-listing">
       <div class="row">
 
       <h1 class=" landing-header mt-5">Your Future Starts Here — Find the Job You Deserve.</h1>
               
       </div>
-{/* start row */}
+      {/* start row */}
       <div class="row ">
 
         <div class="col-md-8">
@@ -40,7 +42,7 @@ const Home = () => {
 
         <div class="col-md-4  d-flex justify-content-between">
 
-  {/* Start Card */}
+      {/* Start Card */}
           <div class="card">
             <div class="card-header search-header-label">
             Search For Your Dream Job
@@ -148,9 +150,31 @@ const Home = () => {
       </div>
 
       <div class="row">
-        
+      
       </div>    
       
+    </div>
+
+    <div class="container-fluid">
+
+    <h2 className="text-2xl font-bold mb-4">Featured Jobs</h2>
+      {jobs.length === 0 ? (
+        <p>No featured jobs found.</p>
+      ) : (
+        <ul className="space-y-4">
+          {jobs.map(job => (
+            <li key={job.id} className="p-4 border rounded shadow">
+              <h3 className="text-xl font-semibold">{job.title}</h3>
+              <p>{job.company}</p>
+              <p>{job.location}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    
+
     </div>
   );
 };
