@@ -1,6 +1,7 @@
 
 
                                  /* LANDING HEADER */
+
 .landing-header{
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
@@ -12,7 +13,7 @@
 background-repeat: no-repeat;
 background-size: cover;
 background-position: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 /*  */
 .job-card{
@@ -45,6 +46,14 @@ background-position: center;
 .company{
     
 }
+.featured-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0d6efd; /* Bootstrap primary blue */
+  border-left: 5px solid #0d6efd;
+  padding-left: 15px;
+}
+
 .featured{
     font-size: 24px;
     font-weight: 600;
@@ -153,4 +162,67 @@ background-position: center;
     border: 1px solid #002a4d;
     width: 100%;
     font-weight: 600;
+}
+
+
+                                                       /* SEARCH CARD */
+                                                .search-card {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 25px 30px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.search-card-header {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.search-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.half-width {
+  flex: 1 1 45%;
+}
+
+.search-input,
+.search-select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.btn-search {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-search:hover {
+  background-color: #0056b3;
 }
