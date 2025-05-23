@@ -151,13 +151,13 @@ const Home = () => {
         <div className="row">
           {/* Main Content Area */}
           <div className="col-md-9">
-          <h2 className="featured-heading mb-4">🌟 Featured Jobs</h2>
+            <h2 className="featured-heading mb-4">🌟 Featured Jobs</h2>
             <div className="row">
-              {jobs.length === 0 ? (
-                <p>No featured jobs found.</p>
-              ) : (
-                jobs.map((job) => (
-                 <div key={job.id} className="col-md-4 mb-4">
+                  {jobs.length === 0 ? (
+                    <p>No featured jobs found.</p>
+                  ) : (
+                    jobs.map((job) => (
+                <div key={job.id} className="col-md-4 mb-4">
                   <div className="card h-100 shadow-sm border-0">
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center">
@@ -180,9 +180,53 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                ))
-              )}
+                  ))
+                )}
             </div>
+
+            <div className="row">
+              <h2 className="featured-heading mb-4">🌟Featured Categories</h2>
+              <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card shadow-sm h-100 border-0">
+                  <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                      <i class="fas fa-calculator fa-2x text-primary"></i> 
+                    </div>
+                    <div>
+                      <h5 class="card-title mb-1">Accounting</h5>
+                      <p class="card-text text-muted mb-0">12 Active Jobs</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 mb-4">
+                <div class="card shadow-sm h-100 border-0">
+                  <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                      <i class="fas fa-calculator fa-2x text-primary"></i> 
+                    </div>
+                    <div>
+                      <h5 class="card-title mb-1">Accounting</h5>
+                      <p class="card-text text-muted mb-0">12 Active Jobs</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card shadow-sm h-100 border-0">
+                  <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                      <i class="fas fa-calculator fa-2x text-primary"></i> 
+                    </div>
+                    <div>
+                      <h5 class="card-title mb-1">Accounting</h5>
+                      <p class="card-text text-muted mb-0">12 Active Jobs</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
 
           {/* Sidebar */}
