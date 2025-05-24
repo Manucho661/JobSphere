@@ -1,5 +1,6 @@
   import "./styles/headerStyles.css";
-  
+  import { Link } from 'react-router-dom';
+
 
   const Header = () => {
     return (
@@ -13,7 +14,7 @@
         <ul className="nav-links">
           <li><a href="#">Home</a></li>
           <li><a href="#">Jobs</a></li>
-          <li><a href="#">Employers</a></li>
+          <li><Link to="/employer/dashboard">Employers</Link></li>
         </ul>
 
         <div className="mobile-toggle">
