@@ -4,17 +4,35 @@ import React from 'react';
 const CreateJobModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const jobData = {
-      title: e.target.title.value,
-      location: e.target.location.value,
-      salary: e.target.salary.value,
-      type: e.target.type.value,
-    };
-    console.log("Submitted Job:", jobData);
-    onClose(); // close modal after submit
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const jobData = {
+    title: e.target.title.value,
+    location: e.target.location.value,
+    salary: e.target.salary.value,
+    type: e.target.type.value,
   };
+
+  try {
+    const response = await fetch('http://localhost:5000/api/jobs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jobData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit job');
+    }
+
+    const data = await response.json();
+    console.log('Job submitted successfully:', data);
+    onClose();
+  } catch (error) {
+    console.error('Error submitting job:', error);
+  }
+};
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">

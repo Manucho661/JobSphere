@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CreateJobModal from '../../components/CreateJobModal';
+import CreateJobModal from '../../components/employers/CreateJobModal';
 
 const EmployerDashboard = () => {
   const [showModal, setShowModal] = useState(false);
