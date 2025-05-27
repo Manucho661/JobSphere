@@ -7,14 +7,16 @@ const { authenticateUser, authorizeEmployer } = require('../middleware/authMiddl
 
 // 🔒 Employers only - Create Job
 router.post("/", async (req, res) => {
+    console.log("🔥 POST / route triggered")
     console.log("Received Request Body:", req.body); // 🛠 Log input data
 
     // ✅ Ensure employerId is included
     const { title, description, salary, location, employerId } = req.body;
 
-    if (!title || !description || !salary || !location || !employerId) {
-        return res.status(400).json({ message: "All fields are required" });
-    }
+     if (!title || !description || !salary || !location || !employerId) {
+         return res.status(400).json({ message: "All fields are required" });
+     }
+
 
     const sql = "INSERT INTO jobs (title, description, salary, location, employerId) VALUES (?, ?, ?, ?, ?)";
     
