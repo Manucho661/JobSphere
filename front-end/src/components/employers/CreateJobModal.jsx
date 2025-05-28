@@ -11,6 +11,8 @@ const CreateJobModal = ({ isOpen, onClose }) => {
     const jobData = {
       title: e.target.title.value,
       location: e.target.location.value,
+      description: e.target.description.value,
+      employerId: e.target. employerId.value,
       salary: e.target.salary.value,
       type: e.target.type.value,
     };
@@ -32,7 +34,7 @@ const CreateJobModal = ({ isOpen, onClose }) => {
           <input type="text" name="title" placeholder="Job Title" className="w-full border p-2 rounded" required />
           <input type="text" name="location" placeholder="Location" className="w-full border p-2 rounded" required />
           <input type="text" name="description" placeholder="description" className="w-full border p-2 rounded" required />
-           <input type="number" name=" employerId" placeholder="id" className="w-full border p-2 rounded" required />
+           <input type="number" name="employerId" placeholder="employerId" className="w-full border p-2 rounded" required />
           <input type="number" name="salary" placeholder="Salary" className="w-full border p-2 rounded" required />
           <select name="type" className="w-full border p-2 rounded" required>
             <option value="">Select Type</option>

@@ -6,6 +6,8 @@ const authRoutes = require("./routes/auth.js"); // ✅ Importing routes
 const jobsRoutes = require('./routes/jobs');
 const adsRoutes = require('./routes/ads');
 
+
+
 dotenv.config();
 const app = express();
 
@@ -13,6 +15,12 @@ app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
+
+app.use((req, res, next) => {
+  console.log(`Global log: ${req.method} ${req.url}`);
+  next();
+});
+
 // ✅ Middleware
 app.use(cors()); 
 app.use(express.json()); 

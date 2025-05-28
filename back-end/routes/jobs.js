@@ -5,6 +5,11 @@ const db = require("../db");
 const { authenticateUser, authorizeEmployer } = require('../middleware/authMiddleware');
 
 
+router.use((req, res, next) => {
+  console.log("Middleware log - Incoming request:", req.method, req.url);
+  next();
+});
+
 // 🔒 Employers only - Create Job
 router.post("/", async (req, res) => {
     console.log("🔥 POST / route triggered")
@@ -14,8 +19,11 @@ router.post("/", async (req, res) => {
     const { title, description, salary, location, employerId } = req.body;
 
      if (!title || !description || !salary || !location || !employerId) {
-         return res.status(400).json({ message: "All fields are required" });
-     }
+         return res.status(400).json({ 
+        message: "All fields are required",
+        receivedBody: req.body // send back what was received
+      });
+    }
 
 
     const sql = "INSERT INTO jobs (title, description, salary, location, employerId) VALUES (?, ?, ?, ?, ?)";
