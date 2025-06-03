@@ -29,6 +29,8 @@ const EmployerDashboard = () => {
       {/* main */}
       <div className='main'>
         <div className='container mt-2'>
+          <h2 className='dashboard-title'>📊	Dashboard</h2>
+          <p className=' text-muted'>Manage your job listings</p>
           <div class="row">
             <div className="col-md-3">
               <div className="card border-0 shadow-sm h-100 hover-shadow transition">
