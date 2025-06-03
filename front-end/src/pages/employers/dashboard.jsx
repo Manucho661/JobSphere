@@ -31,14 +31,16 @@ const EmployerDashboard = () => {
         <div className='container mt-2'>
           <div class="row">
             <div className="col-md-3">
-              <div className="card border-0 shadow h-100">
+              <div className="card border-0 shadow-sm h-100 hover-shadow transition">
                 <div className="card-body d-flex flex-column">
                   <div className="d-flex align-items-center mb-3">
-                    <FaBriefcase size={24} className="me-2 text-primary"/>
-                    <h5 className="card-title mb-0">4 Job Postings</h5>
+                    <div className="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center me-3" style={{ width: 40, height: 40 }}>
+                      <FaBriefcase size={20} />
+                    </div>
+                    <h5 className="card-title mb-0 fw-semibold">4 Job Postings</h5>
                   </div>
-                  <p className="card-text">3 Active, 1 Expired</p>
-                  {/* <a href="#" className="btn btn-primary mt-auto">Manage</a> */}
+                  <p className="card-text text-muted mb-3">3 Active, 1 Expired</p>
+                  <a href="#" className="btn btn-outline-primary mt-auto">Manage</a>
                 </div>
               </div>
             </div>
