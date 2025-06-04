@@ -48,3 +48,15 @@
     .main{
       grid-area: main;
     }
+
+    /* summary section */
+    .manage{
+     background-color: #002B5B !important;
+    }
+    .manage:hover{
+      background-color:#00509D !important;
+      color: aliceblue !important;
+    }
+    .icons{
+      color: #00A6ED;
+    }
