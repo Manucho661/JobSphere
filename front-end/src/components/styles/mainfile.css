@@ -226,3 +226,8 @@ background-position: center;
 .btn-search:hover {
   background-color: #0056b3;
 }
+
+/* icons */
+.icon{
+  color: #00A6ED;
+}
