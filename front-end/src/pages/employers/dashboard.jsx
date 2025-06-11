@@ -104,42 +104,39 @@ const EmployerDashboard = () => {
             </div>
           </div>
           <div className='row mt-4'>
-             <h6 className='text-secondary'>Job Postings</h6>
-            <div className='col-md-8'>
-
-              <div className='jobPostingsTableContainer bg-white p-2 rounded shadow-sm'>
+            
+            <div className='col-md-8 '>
+              <h6 className='text-secondary'>Job Postings</h6>
+              <div className='jobPostingsTableContainer bg-white p-2 rounded shadow-sm' >
                 <div className='tableHeaderSection'>
-                  <div className='entries'>
-                    <p style={{ paddingLeft:5}}>5 entries</p>
+                  <div className='entries text-white rounded-top-2 p-2'>
+                   5 entries
                   </div>
                   <div>
 
                   </div>
                 </div>
                 <table class="table table-striped  table-hover rounded">
-                  <thead class="table-dark">
+                  <thead class="table-gray">
                     <tr>
-                      <th>#</th>
                       <th>Job Title</th>
                       <th>Posted On</th>
                       <th>Status</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1</td>
                       <td>Frontend Developer</td>
                       <td>May 30, 2025</td>
                       <td><span class="badge bg-success">Active</span></td>
                     </tr>
                     <tr>
-                      <td>2</td>
                       <td>Backend Developer</td>
                       <td>May 28, 2025</td>
                       <td><span class="badge bg-secondary">Closed</span></td>
                     </tr>
                     <tr>
-                      <td>3</td>
                       <td>UI/UX Designer</td>
                       <td>May 25, 2025</td>
                       <td><span class="badge bg-warning text-dark">Pending</span></td>
@@ -149,8 +146,7 @@ const EmployerDashboard = () => {
               </div> 
             </div>
             <div className='col-4'>
-              <h4 className='text-secondary'>📩 Messages</h4>
-              <hr />
+              <h6 className='text-secondary'>Messages</h6>
               <div class="card mb-4 shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">Messages <span class="badge bg-primary">3 new</span></h5>
@@ -173,46 +169,53 @@ const EmployerDashboard = () => {
               </div>
             </div>
           </div>
-
-          <div className='row'>
-
-            <div className='col-md-8'>
-              <h4>Applicaions</h4>
-              <hr />
-              <table class="table table-striped table-bordered table-hover">
-                <thead class="table-light">
-                  <tr>
-                    <th>#</th>
-                    <th>Applicant Name</th>
-                    <th>Applied For</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>Frontend Developer</td>
-                    <td><span class="badge bg-info text-dark">Under Review</span></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>Backend Developer</td>
-                    <td><span class="badge bg-success">Shortlisted</span></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Ali Mwangi</td>
-                    <td>UI/UX Designer</td>
-                    <td><span class="badge bg-danger">Rejected</span></td>
-                  </tr>
-                </tbody>
-              </table>
+          {/* start Row */}
+          <div className='row mt-4'>
+            <div className='col-md-8 '>
+              <h6 className='text-secondary'>Applications</h6>
+              <div className='applicationsTableContainer bg-white p-2 rounded shadow-sm'>
+                <div className='tableHeaderSection'>
+                   <div className='entries text-white rounded-top-2 p-2'>
+                   5 entries
+                  </div>
+                </div>
+                <div>
+                  <table class="table table-striped table-hover">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>Applicant Name</th>
+                      <th>Applied For</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>John Doe</td>
+                      <td>Frontend Developer</td>
+                      <td><span class="badge bg-info text-dark">Under Review</span></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Jane Smith</td>
+                      <td>Backend Developer</td>
+                      <td><span class="badge bg-success">Shortlisted</span></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Ali Mwangi</td>
+                      <td>UI/UX Designer</td>
+                      <td><span class="badge bg-danger">Rejected</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
             </div>
             <div className='col-md-4'>
-               <h4>Interviews</h4>
-              <hr />
+              <h6 className='text-secondary'>Interviews</h6>
               <div class="card shadow-sm"style={{ flex: '1 1 45%', minWidth: '300px' }} >
                 <div class="card-header">
                   <h5>Interviews</h5>
