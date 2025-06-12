@@ -50,7 +50,7 @@
     }
 
     .dashboard-title{
-      font-family: 'Poppins', sans-serif;
+   font-family: ProximaNova, arial, sans-serif;
       font-weight: 600;
       letter-spacing: .5px;
     }
@@ -69,7 +69,7 @@
 
     /* Tables section*/
     .entries{
-      background-color: #002B5B;
+      background-color:#00A6ED;
       font-weight: 700;
       font-family: ProximaNova, arial, sans-serif;
       color: white;

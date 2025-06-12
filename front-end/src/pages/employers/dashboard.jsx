@@ -16,27 +16,107 @@ const EmployerDashboard = () => {
     <div className="app-wrapper p-6">
        <nav class="sidebar">
         <h5 class="text-center text-uppercase">Dashboard</h5>
-        <a href="#">🏠 Home</a>
-        <a href="#">🏢 Properties</a>
-        <a href="#">👥 Tenants</a>
-        <a href="#">🛠 Maintenance</a>
-       
-        <a class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#goalsMenu" role="button" aria-expanded="false" aria-controls="goalsMenu">
-            🎯 Goals
-            <span class="caret" id="caretIcon">▼</span>
-        </a>
-        <div class="collapse submenu" id="goalsMenu">
-            <a href="#">📅 Monthly</a>
-            <a href="#">📆 Yearly</a>
-        </div>
+        <a href="#">🏠 Dashboard</a>
+        <a href="#">➕ Post Job</a>
+        <a href="#">📄  Manage Jobs</a>
+        <a href="#">🏢 Applications</a>
+        <a href="#">📅 Interviews</a>
+        <a href="#">📄  Manage Jobs</a>
+        <a href="#">🏢 Company Profile</a>
         <a href="#">⚙️ Settings</a>
+        <a href="#">🚪 Log Out</a>
       </nav>
       {/* main */}
       <div className='main'>
         <div className='container mt-2'>
-          <h4 className='dashboard-title text-muted'>Your	Dashboard</h4>
-          
+         
+          <div className='row  mt-4'>
+            <div className='col-12 d-flex justify-content-between'>
+              <div>
+                <h4 className='dashboard-title'>Your	Dashboard</h4>
+              </div> 
+              <div className='d-flex'>
+                <button
+                  className="btn btn-sm"
+                  style={{
+                    backgroundColor: '#198754', // Bootstrap success green
+                    marginLeft: '2px',
+                    marginRight: '2px',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 12px',
+                    borderRadius: '4px',
+                    fontWeight: '500',
+                  }}
+                  title="Post Job"
+                >
+                  <i className="fas fa-briefcase"></i>
+                  Post Job
+                </button>
+                <button
+                  className="btn btn-sm"
+                  style={{
+                    backgroundColor: '#6c757d', // Bootstrap secondary grey
+                    marginLeft: '2px',
+                    marginRight: '2px',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 12px',
+                    borderRadius: '4px',
+                    fontWeight: '500',
+                  }}
+                  title="Help"
+                  >
+                  <i className="fas fa-question-circle"></i>
+                  Help
+                </button>
+              </div>
+              {/* <div>
+                <button
+                
+                title="Post Job">
+                <i className="fas fa-briefcase"></i>
+                  Post JobclassName="btn btn-sm"
+                  style={{
+                    backgroundColor: '#198754', // Bootstrap success green
+                    marginLeft: '2px',
+                    marginRight: '2px',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 12px',
+                    borderRadius: '4px',
+                    fontWeight: '500',
+                  }}
+                </button>
+                <button
+                  className="btn btn-sm"
+                  style={{
+                    backgroundColor: '#6c757d', // Bootstrap secondary grey
+                    marginLeft: '2px',
+                    marginRight: '2px',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 12px',
+                    borderRadius: '4px',
+                    fontWeight: '500',
+                  }}
+                  title="Help">
+                  <i className="fas fa-question-circle"></i>
+                  Help
+                </button> 
+              </div> */}
+            </div>
+          </div>
           <div class="row">
+                <h6 className="text-secondary">Summary</h6>
             <div className="col-md-3">
               <div className="card border-0 shadow-sm h-100 hover-shadow transition">
                 <div className="card-body d-flex flex-column">
@@ -130,16 +210,128 @@ const EmployerDashboard = () => {
                       <td>Frontend Developer</td>
                       <td>May 30, 2025</td>
                       <td><span class="badge bg-success">Active</span></td>
+                      <td>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#0d6efd', // Bootstrap primary blue
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="View">
+                          <i className="fas fa-eye"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#1e6f5c',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="Edit"
+                            >
+                          <i className="fas fa-edit"></i>
+                        </button>
+                                                <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#b02a37',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="Delete"
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                        </td>
                     </tr>
                     <tr>
                       <td>Backend Developer</td>
                       <td>May 28, 2025</td>
                       <td><span class="badge bg-secondary">Closed</span></td>
+                      <td>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#0d6efd', // Bootstrap primary blue
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="View">
+                          <i className="fas fa-eye"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#1e6f5c',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="Edit"
+                            >
+                          <i className="fas fa-edit"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#b02a37',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="Delete"
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
                     </tr>
                     <tr>
                       <td>UI/UX Designer</td>
                       <td>May 25, 2025</td>
                       <td><span class="badge bg-warning text-dark">Pending</span></td>
+                      <td>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#0d6efd', // Bootstrap primary blue
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="View"
+                        >
+                          <i className="fas fa-eye"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#1e6f5c',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="Edit"
+                            >
+                          <i className="fas fa-edit"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#b02a37',
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="Delete"
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -192,22 +384,61 @@ const EmployerDashboard = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1</td>
                       <td>John Doe</td>
                       <td>Frontend Developer</td>
                       <td><span class="badge bg-info text-dark">Under Review</span></td>
+                      <td><span class="badge bg-success">Active</span></td>
+                      <td>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#0d6efd', // Bootstrap primary blue
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="View">
+                          <i className="fas fa-eye"></i>
+                        </button>
+                      </td>
                     </tr>
                     <tr>
-                      <td>2</td>
                       <td>Jane Smith</td>
                       <td>Backend Developer</td>
                       <td><span class="badge bg-success">Shortlisted</span></td>
+                      <td><span class="badge bg-success">Active</span></td>
+                      <td>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#0d6efd', // Bootstrap primary blue
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="View">
+                          <i className="fas fa-eye"></i>
+                        </button>
+                      </td>
                     </tr>
                     <tr>
-                      <td>3</td>
                       <td>Ali Mwangi</td>
                       <td>UI/UX Designer</td>
                       <td><span class="badge bg-danger">Rejected</span></td>
+                       <td><span class="badge bg-success">Active</span></td>
+                      <td>
+                        <button
+                          className="btn btn-sm"
+                          style={{
+                            backgroundColor: '#0d6efd', // Bootstrap primary blue
+                            marginLeft: '2px',
+                            marginRight: '2px',
+                            color: '#fff',
+                          }}
+                          title="View">
+                          <i className="fas fa-eye"></i>
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
