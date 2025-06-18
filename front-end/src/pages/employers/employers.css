@@ -130,3 +130,18 @@
     background-color: #f9f9f9 !important;
     cursor: pointer;
   }
+
+  /* Messages */
+  .messages{
+    background-color: #00A6ED !important;
+    padding: 0px !important;
+  }
+  .interviews{
+     background-color: #00A6ED !important;
+  }
+  .list-group.messages{
+    border: none !important;
+  }
+  .card.messages{
+    /* padding: 0px; */
+  }

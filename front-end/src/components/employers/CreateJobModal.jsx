@@ -27,32 +27,64 @@ const CreateJobModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Create New Job</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input type="text" name="title" placeholder="Job Title" className="w-full border p-2 rounded" required />
-          <input type="text" name="location" placeholder="Location" className="w-full border p-2 rounded" required />
-          <input type="text" name="description" placeholder="description" className="w-full border p-2 rounded" required />
-           <input type="number" name="employerId" placeholder="employerId" className="w-full border p-2 rounded" required />
-          <input type="number" name="salary" placeholder="Salary" className="w-full border p-2 rounded" required />
-          <select name="type" className="w-full border p-2 rounded" required>
-            <option value="">Select Type</option>
-            <option value="Full-Time">Full-Time</option>
-            <option value="Part-Time">Part-Time</option>
-            <option value="Remote">Remote</option>
-          </select>
-          <div className="flex justify-end gap-2">
-            <button type="button" onClick={onClose} className="px-4 py-2 border rounded">
-              Cancel
+    <div className="modal show fade d-block" tabIndex="-1" role="dialog" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}>
+  <div className="modal-dialog modal-lg modal-dialog-centered">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title"><i className="fas fa-briefcase me-2"></i>Create New Job</h5>
+        <button type="button" className="btn-close" onClick={onClose}></button>
+      </div>
+      <div className="modal-body">
+        <form onSubmit={handleSubmit}>
+          <div className="form-floating mb-3">
+            <input type="text" name="title" className="form-control" id="jobTitle" placeholder="Job Title" required />
+            <label htmlFor="jobTitle"><i className="fas fa-briefcase me-2"></i>Job Title</label>
+          </div>
+
+          <div className="form-floating mb-3">
+            <input type="text" name="location" className="form-control" id="jobLocation" placeholder="Location" required />
+            <label htmlFor="jobLocation"><i className="fas fa-map-marker-alt me-2"></i>Location</label>
+          </div>
+
+          <div className="form-floating mb-3">
+            <input type="text" name="description" className="form-control" id="jobDescription" placeholder="Description" required />
+            <label htmlFor="jobDescription"><i className="fas fa-align-left me-2"></i>Description</label>
+          </div>
+
+          <div className="form-floating mb-3">
+            <input type="number" name="employerId" className="form-control" id="employerId" placeholder="Employer ID" required />
+            <label htmlFor="employerId"><i className="fas fa-id-badge me-2"></i>Employer ID</label>
+          </div>
+
+          <div className="form-floating mb-3">
+            <input type="number" name="salary" className="form-control" id="jobSalary" placeholder="Salary" required />
+            <label htmlFor="jobSalary"><i className="fas fa-dollar-sign me-2"></i>Salary</label>
+          </div>
+
+          <div className="form-floating mb-4">
+            <select className="form-select" name="type" id="jobType" required>
+              <option value=""></option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Part-Time">Part-Time</option>
+              <option value="Remote">Remote</option>
+            </select>
+            <label htmlFor="jobType"><i className="fas fa-clock me-2"></i>Job Type</label>
+          </div>
+
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={onClose}>
+              <i className="fas fa-times me-1"></i> Cancel
             </button>
-            <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
-              Post Job
+            <button type="submit" className="btn btn-primary">
+              <i className="fas fa-paper-plane me-1"></i> Post Job
             </button>
           </div>
         </form>
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 

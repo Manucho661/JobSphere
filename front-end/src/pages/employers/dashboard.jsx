@@ -338,15 +338,14 @@ const EmployerDashboard = () => {
               </div> 
             </div>
             <div className='col-4'>
-              <h6 className='text-secondary'>Messages</h6>
-              <div class="card mb-4 shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <h5 class="mb-0">Messages <span class="badge bg-primary">3 new</span></h5>
-                  <a href="/messages" class="small">View All</a>
+              <h6 className='text-secondary'>In-App Messages</h6>
+              <div className='bg-white p-2 rounded shadow-sm'>
+                <div className='messages-header-section'>
+                   <div className='entries text-white rounded-top-2 p-2'>
+                   5 entries
+                  </div>
                 </div>
-                <div class="card-body">
-                
-                  <ul class="list-group">
+                  <ul class="list-group rounded-top-0">
                     <li class="list-group-item">
                       <strong>John Doe:</strong> Thanks for the update!
                     </li>
@@ -357,7 +356,6 @@ const EmployerDashboard = () => {
                       <strong>Ali Mwangi:</strong> I uploaded my resume.
                     </li>
                   </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -447,17 +445,18 @@ const EmployerDashboard = () => {
             </div>
             <div className='col-md-4'>
               <h6 className='text-secondary'>Interviews</h6>
-              <div class="card shadow-sm"style={{ flex: '1 1 45%', minWidth: '300px' }} >
-                <div class="card-header">
-                  <h5>Interviews</h5>
+               <div className='bg-white p-2 rounded shadow-sm'>
+                <div className='messages-header-section'>
+                   <div className='entries text-white rounded-top-2 p-2'>
+                   5 entries
+                  </div>
                 </div>
-                <div class="card-body">
-                  <ul class="list-group list-group-flush">
+                  <ul class="list-group rounded-top-0">
                     <li class="list-group-item">John Doe - May 5, 10:00 AM</li>
                     <li class="list-group-item">Jane Smith - May 6, 2:00 PM</li>
                     <li class="list-group-item">Grace Wambui - May 7, 11:00 AM</li>
+
                   </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -468,7 +467,6 @@ const EmployerDashboard = () => {
               + Create New Job
             </button>
             <CreateJobModal isOpen={showModal} onClose={() => setShowModal(false)} />
-            <p>Posted jobs will appear here...</p>
         </div>  
       </div>
     </div>
