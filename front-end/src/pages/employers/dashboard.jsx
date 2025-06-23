@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import CreateJobModal from '../../components/employers/CreateJobModal';
-import employerSidebar from '../../components/employers/employerSidebar';
+import Sidebar from '../../components/employers/employerSidebar';
 import { FaBriefcase } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa"; 
 import { FaEnvelope } from "react-icons/fa"; 
 import { FaCalendarCheck } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 import "./employers.css";
@@ -14,18 +15,7 @@ const EmployerDashboard = () => {
 
   return (
     <div className="app-wrapper p-6">
-       <nav class="sidebar">
-        <h5 class="text-center text-uppercase">Dashboard</h5>
-        <a href="#">🏠 Dashboard</a>
-        <a href="#">➕ Post Job</a>
-        <a href="#">📄  Manage Jobs</a>
-        <a href="#">🏢 Applications</a>
-        <a href="#">📅 Interviews</a>
-        <a href="#">📄  Manage Jobs</a>
-        <a href="#">🏢 Company Profile</a>
-        <a href="#">⚙️ Settings</a>
-        <a href="#">🚪 Log Out</a>
-      </nav>
+       <Sidebar />
       {/* main */}
       <div className='main'>
         <div className='container mt-2'>
@@ -36,7 +26,8 @@ const EmployerDashboard = () => {
                 <h4 className='dashboard-title'>Your	Dashboard</h4>
               </div> 
               <div className='d-flex'>
-                <button
+              <Link
+                  to="/employer/post-job"
                   className="btn btn-sm"
                   style={{
                     backgroundColor: '#198754', // Bootstrap success green
@@ -49,12 +40,13 @@ const EmployerDashboard = () => {
                     padding: '6px 12px',
                     borderRadius: '4px',
                     fontWeight: '500',
+                    textDecoration: 'none',
                   }}
                   title="Post Job"
                 >
                   <i className="fas fa-briefcase"></i>
                   Post Job
-                </button>
+                </Link>
                 <button
                   className="btn btn-sm"
                   style={{
@@ -75,44 +67,6 @@ const EmployerDashboard = () => {
                   Help
                 </button>
               </div>
-              {/* <div>
-                <button
-                
-                title="Post Job">
-                <i className="fas fa-briefcase"></i>
-                  Post JobclassName="btn btn-sm"
-                  style={{
-                    backgroundColor: '#198754', // Bootstrap success green
-                    marginLeft: '2px',
-                    marginRight: '2px',
-                    color: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '6px 12px',
-                    borderRadius: '4px',
-                    fontWeight: '500',
-                  }}
-                </button>
-                <button
-                  className="btn btn-sm"
-                  style={{
-                    backgroundColor: '#6c757d', // Bootstrap secondary grey
-                    marginLeft: '2px',
-                    marginRight: '2px',
-                    color: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '6px 12px',
-                    borderRadius: '4px',
-                    fontWeight: '500',
-                  }}
-                  title="Help">
-                  <i className="fas fa-question-circle"></i>
-                  Help
-                </button> 
-              </div> */}
             </div>
           </div>
           <div class="row">
@@ -144,7 +98,7 @@ const EmployerDashboard = () => {
                     <h5 className="card-title mb-0 fw-semibold">12 Applications</h5>
                   </div>
                   <p className="card-text text-muted mb-3">5 New, 4 Reviewed, 3 Shortlisted</p>
-                  <a href="#" className="btn btn-outline manage mt-auto">View Applications</a>
+                  <a href="#" className="btn btn-outline manage mt-auto">View </a>
                 </div>
               </div>
             </div>
@@ -161,7 +115,7 @@ const EmployerDashboard = () => {
                     <h5 className="card-title mb-0 fw-semibold">8 Messages</h5>
                   </div>
                   <p className="card-text text-muted mb-3">2 Unread, 6 Read</p>
-                  <a href="#" className="btn btn-outline manage mt-auto">Open Inbox</a>
+                  <a href="#" className="btn btn-outline manage mt-auto">Open</a>
                 </div>
               </div>
             </div>
