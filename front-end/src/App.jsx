@@ -6,7 +6,7 @@ import JobDetails from "./pages/JobDetails"; // ✅ Make sure this file exists
 import Footer from "./components/Footer";
  import Mainfile from "./components/mainFile"; // ✅ Make sure this file exists
 // import EmployerDashboard from './pages/employers/dashboard';
-import EmployerLayout from './layouts/employerlayout'
+import EmployerLayout from './layouts/employerlayout';
 import PostJob from './pages/employers/postJob';
 
 function App() {
