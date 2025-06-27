@@ -6,8 +6,6 @@ import { FaFileAlt } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa"; 
 import { FaCalendarCheck } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-
-
 import "./employers.css";
 
 const EmployerDashboard = () => {
