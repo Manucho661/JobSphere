@@ -4,6 +4,7 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 
 const PostJobForm = () => {
+  console.log("✅ PostJobForm loaded"); // 👈 Add this line here
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     title: '',

@@ -5,7 +5,8 @@ import Header from "./components/Header";
 import JobDetails from "./pages/JobDetails"; // ✅ Make sure this file exists
 import Footer from "./components/Footer";
  import Mainfile from "./components/mainFile"; // ✅ Make sure this file exists
-import EmployerDashboard from './pages/employers/Dashboard';
+import EmployerDashboard from './pages/employers/dashboard';
+import PostJob from './pages/employers/postJob';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/" element={<Mainfile />} />
         <Route path="/job/:id" element={<JobDetails />} />
         <Route path="/employers/dashboard" element={<EmployerDashboard />} /> {/* ✅ Add this */}
+        <Route path="/employer/post-job" element={<PostJob />} />
+
       </Routes>
 
 
