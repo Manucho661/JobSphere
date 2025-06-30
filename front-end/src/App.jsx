@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 // import EmployerDashboard from './pages/employers/dashboard';
 import EmployerLayout from './layouts/employerlayout';
 import PostJob from './pages/employers/postJob';
-
+import Dashboard from './pages/employers/dashboard';
 function App() {
   return (
     
@@ -26,7 +26,7 @@ function App() {
           path="/employer/dashboard"
           element={            // What to show at this URL
             <EmployerLayout>   // Wrap content inside layout
-              {/* <Dashboard />    // Dashboard page is the child content */}
+              <Dashboard />    // Dashboard page is the child content
             </EmployerLayout>
           }
         />

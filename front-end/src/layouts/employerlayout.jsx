@@ -6,7 +6,9 @@ const EmployerLayout = ({ children}) =>{
         <div className="app-wrapper p-6">
             <Sidebar />
             <div className="main p-6">{children}</div>
+            
         </div>
+        
     )
 }
   export default EmployerLayout;
