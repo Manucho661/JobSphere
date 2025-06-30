@@ -12,12 +12,10 @@ const EmployerDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="app-wrapper p-6">
-       <Sidebar />
-      {/* main */}
-      <div className='main'>
+    // <div className="app-wrapper p-6">
+      // <div className='main'>
         <div className='container mt-2'>
-         
+          
           <div className='row  mt-4'>
             <div className='col-12 d-flex justify-content-between'>
               <div>
@@ -420,8 +418,8 @@ const EmployerDashboard = () => {
             </button>
             <CreateJobModal isOpen={showModal} onClose={() => setShowModal(false)} />
         </div>  
-      </div>
-    </div>
+      // </div>
+    // </div>
   );
 };
 

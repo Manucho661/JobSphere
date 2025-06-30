@@ -22,12 +22,19 @@ function App() {
         <Route path= "/employerlayout" element={<EmployerLayout/>} />
         {/* <Route path="/employers/dashboard" element={<EmployerDashboard />} /> ✅ Add this */}
         <Route path="/employer/post-job" element={<PostJob />} />
+        <Route
+          path="/employer/dashboard"
+          element={            // What to show at this URL
+            <EmployerLayout>   // Wrap content inside layout
+              {/* <Dashboard />    // Dashboard page is the child content */}
+            </EmployerLayout>
+          }
+        />
 
       </Routes>
-
-
       {/* Header will always be visible */}
-      < Footer />
+      {/* < Footer /> */}
+      
     </Router>
   );
 }

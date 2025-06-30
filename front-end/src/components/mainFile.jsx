@@ -4,8 +4,7 @@ import apiClient from "../api/apiClient";
  import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
  import "@fortawesome/fontawesome-free/css/all.min.css";
  import { Heart } from 'lucide-react'; // install with `npm install lucide-react`
-
-
+import Footer from "./Footer";
 
 console.log("🏡 Home Component Loaded"); // ✅ Check if Home is rendering
 
@@ -256,6 +255,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+       <Footer />
 
     </div>
   );
