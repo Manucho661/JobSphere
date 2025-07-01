@@ -14,7 +14,7 @@
         <ul className="nav-links">
           <li><a href="#">Home</a></li>
           <li><a href="#">Jobs</a></li>
-          <li><Link to="/employerlayout">Employers</Link></li>
+          <li><Link to="/employer">Employers</Link></li>
         </ul>
 
         <div className="mobile-toggle">
