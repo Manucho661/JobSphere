@@ -7,15 +7,20 @@ import Mainfile from "./components/mainFile";
 import EmployerLayout from './layouts/employerlayout';
 import PostJob from './pages/employers/postJob';
 import Dashboard from './pages/employers/dashboard';
+import HomePage from './pages/common/homePage';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
     <Router>
       {/* Header will always be visible */}
-      <Header />
+      {/* <Header /> */}
 
       <Routes>
-        <Route path="/" element={<Mainfile />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          {/* Other common pages */}
+        </Route>
         <Route path="/job/:id" element={<JobDetails />} />
         {/* <Route path="/employerlayout" element={<EmployerLayout />} /> */}
         {/* <Route path="/employer/post-job" element={<PostJob />} /> */}

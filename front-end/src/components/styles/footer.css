@@ -1,8 +1,8 @@
 .main-footer {
-  background-color:  #002B5B;
+  background-color: #002B5B;
   padding: 30px 40px 20px;
-  color: #333;
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+  color: #f1f1f1;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   font-size: 0.95rem;
 }
 
@@ -20,13 +20,14 @@
 }
 
 .footer-logo {
-  height: 30px;
+  height: 35px;
   margin-right: 10px;
 }
 
 .footer-brand {
-  font-size: 1.3rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .footer-links {
@@ -34,21 +35,26 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 
 .footer-links li a {
   text-decoration: none;
-  color: #333;
+  color: #f1f1f1;
   transition: color 0.3s ease;
+  font-weight: 500;
 }
 
 .footer-links li a:hover {
-  color: #007bff;
+  color: #FFC107;
 }
 
 .footer-bottom {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 25px;
   font-size: 0.85rem;
-  color: #666;
+  color: #bbbbbb;
+  border-top: 1px solid #334b73;
+  padding-top: 10px;
 }
