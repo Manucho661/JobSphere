@@ -1,12 +1,45 @@
-/* home.css */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+    .main {
+      grid-area: main;
+      /* padding: 20px; */
+      padding-top: var(--header-height);
+
+    }
+    /* input */
+      input.form-control {
+       border-color:  rgba(128, 128, 128, 0.3) !important;  
+      transition: border-color 0.2s ease;
+      box-shadow: none !important;
+    }
+
+    input.form-control:focus {
+      outline: none;
+      border-color: rgba(0, 123, 255, 0.5); /* stays consistent */
+      box-shadow: none !important;
+    }
+
+    input.form-control:hover {
+      border-color: rgba(0, 123, 255, 0.5) !important; /* soft blue hover */
+    }
+
+    /* Optional: Reset hover after mouse leaves */
+    input.form-control:not(:hover):not(:focus) {
+      border-color: gray; 
+    }
+
+    .footer {
+      grid-area: footer;
+      background-color: #00192D;
+      color: #fff;
+      padding: 40px 20px 20px;
+      font-size: 14px;
+    }
 
 .home-container {
-
     background-color: lightblue;
     /* color: black; */
     padding: 20px;

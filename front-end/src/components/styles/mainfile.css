@@ -96,45 +96,7 @@ background-position: center;
     padding: 0 8px;
     margin: auto;
 }
-
-                                                /* SELECT, INPUT, TEXT_AREA */ 
-                                                select {
-                                                    background-size: 16px;
-                                                    padding-right: 30px;
-                                                  }
-                                                  input:focus, select:focus, textarea:focus {
-                                                    border-color: #FFC107;
-                                                    outline: none;
-                                                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-                                                  }
-                                                  
-                                                  input, select {
-                                                     width:100%; 
-                                                    padding: 10px;
-                                                    border: 1px solid #00192D;
-                                                    border-radius: 5px;
-                                                    font-size: 16px;
-                                                    background-color: #fff;
-                                                    cursor: pointer;
-                                                    margin-right: 20px;
-                                                    color: #4f4f52;
-                                                  }
-                                                  input .job{
-                                                    width: 100%;
-                                                  }
-                                                  input:hover{
-                                                    border: 1px solid #FFC107;
-                                                  }
-                                                  select:hover{
-                                                    border: 1px solid #FFC107;
-                                                  }
-                                                  label{
-
-                                                    font-size: 14px;
-                                                    font-weight: 400;
-                                                    font-family: ProximaNova, arial, sans-serif;
-                                                    color: #4f4f52;
-                                                        }
+                                                
 /* MAIN SEARCH AREA */
 .search-header-label{
     padding: 15px 40px 15px 20px;
