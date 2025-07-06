@@ -4,9 +4,199 @@
     box-sizing: border-box;
 }
 body{
-      background-image: url('images/yoyo.jpg');
+    
 
 }
+/* nav links */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.nav-links.header{
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.nav-links.header li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+ .nav-tabs .nav-link {
+      background-color: #002B5B;
+       color: #FFC107 !important; 
+      border-radius: 8px;
+      font-weight: 500;
+      padding: 5px 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border-color: transparent !important;
+    }
+ 
+
+.nav-links li a:hover {
+  /* color: #007bff; */
+  /* color: #002B5B; */
+}
+
+/* job listings */
+.nav-tabs {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-tabs .nav-link:hover {
+      background-color: #FFC107;
+      color: #00192D;
+      z-index: 2;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #FFC107 !important;
+      color: #00192D !important;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .nav-tabs .nav-link::before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: 100%;
+      height: 100%;
+      background-color: #FFC107;
+      transition: all 0.4s ease;
+      z-index: 0;
+    }
+  .nav-tabs .nav-link:hover::before {
+      left: 0;
+    }
+
+    .nav-tabs .nav-link:hover {
+      color: #00192D;
+    }
+
+    .nav-tabs .nav-link span {
+      position: relative;
+      z-index: 2;
+    }
+   .nav-tabs .nav-link span:hover{
+    color: #00192D;
+   }
+ .tab-content {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      padding: 24px;
+    }  
+ .job-card {
+      width: 100%;
+      padding: 24px;
+      margin-bottom: 24px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+   @media (max-width: 768px) {
+      .row {
+        gap: 2rem;
+      }
+    }
+
+    .job-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0d6efd;
+    }
+
+    .badge-skill {
+      background-color: #e9ecef;
+      color: #333;
+      margin-right: 5px;
+    }
+
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .read-toggle {
+      color: #0d6efd;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    /* Sidebar links hover effect */
+    .text-dark:hover {
+      color: #FF5722 !important;
+      /* text-decoration: underline; */
+    }
+
+    /* Optional: make scroll prettier */
+    div[style*="overflow-y: auto"]::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    div[style*="overflow-y: auto"]::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 3px;
+    }
+
+    .apply-btn:hover {
+      text-decoration: none !important;
+      color: #00192D !important;
+    }  
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+
+
+
+
+
+.mobile-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar.active .nav-links {
+    display: flex;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+
     .main {
       grid-area: main;
       /* padding: 20px; */
@@ -50,10 +240,7 @@ body{
     text-align: center;
   }
 
-  /* HEADER */
-  header{
-    /* color: #00192D !important; */
-  }
+  
   .homeStyle{
     background-image: url('bg.jpg'); /* Adjust the path if needed */
   }

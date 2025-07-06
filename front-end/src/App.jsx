@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Header from "./components/Header";
-import JobDetails from "./pages/JobDetails";
-import Footer from "./components/Footer";
-import Mainfile from "./components/mainFile";
-import EmployerLayout from './layouts/employerlayout';
-import PostJob from './pages/employers/postJob';
-import Dashboard from './pages/employers/dashboard';
-import HomePage from './pages/common/homePage';
+// import Home from "./pages/Home";
+import Header from "./components/common/Header";
+// import JobDetails from "./pages/JobDetails";
+import Footer from "./components/common/Footer";
+// import Mainfile from "./components/mainFile";
+// import EmployerLayout from './layouts/employerlayout';
+// import PostJob from './pages/employers/postJob';
+// import Dashboard from './pages/employers/dashboard';
+import HomePage from './pages/common/HomePage';
 import MainLayout from './layouts/MainLayout';
 
 function App() {
@@ -19,18 +19,10 @@ function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
-          {/* Other common pages */}
         </Route>
-        <Route path="/job/:id" element={<JobDetails />} />
-        {/* <Route path="/employerlayout" element={<EmployerLayout />} /> */}
-        {/* <Route path="/employer/post-job" element={<PostJob />} /> */}
-
+        {/* <Route path="/job/:id" element={<JobDetails />} /> */}
         {/* ✅ NESTED ROUTE using layout */}
-        <Route path="/employer" element={<EmployerLayout />}>
-          <Route index element={<Dashboard />} /> {/* 👈 This handles /employer */}
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="post-job" element={<PostJob />} />
-        </Route>
+        
       </Routes>
 
       {/* <Footer /> */}

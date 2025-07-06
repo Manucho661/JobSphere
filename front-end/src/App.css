@@ -6,18 +6,7 @@
 body{
   background-color: black;
 }
- .app-wrapper {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: 60px 1fr;
-      grid-template-areas:
-        "header header"
-        "main main"
-        "footer footer";
-      max-width: 100vw;
-      min-height: 100vh;
-    }
-    
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
