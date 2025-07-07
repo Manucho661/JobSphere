@@ -88,12 +88,12 @@ const HomePage = ()=>{
                                     <button className="btn btn-dark w-100" style={{backgroundColor:'#00192D'}}>Subscribe</button>
                                 </div>
                                <div className="p-4 mb-4 shadow-sm bg-white border border-primary rounded">
-                                    <h6 className="fw-bold text-primary mb-2">💼 Featured Service: TalentLink Recruiters</h6>
+                                    <h6 className="fw-bold mb-2" style={{color:'#002B5B'}}>💼 Featured Service: TalentLink Recruiters</h6>
                                     <p className="text-dark small mb-1">
                                         Looking to grow your team? <strong>TalentLink</strong> connects you with top professionals in finance, tech, marketing, and more.
                                     </p>
                                     <div className="mb-2">
-                                        <span className="badge bg-primary text-white me-1">Verified Candidates</span>
+                                        <span className="badge text-white me-1" style={{background:'#002B5B'}}>Verified Candidates</span>
                                         <span className="badge bg-light text-dark border">Industry Experts</span>
                                     </div>
                                     <a href="#" className="btn btn-sm btn-outline-warning text-dark w-100">Find Talent with TalentLink</a>
