@@ -41,6 +41,9 @@ const HomePage = ()=>{
                                     <button className="nav-link active " id="find-tab" data-bs-toggle="tab" data-bs-target="#find" type="button" role="tab"> <span>Find a Job</span> </button>
                                 </li>
                                 <li className="nav-item" role="presentation">
+                                    <button className="nav-link" id="find-tab" data-bs-toggle="tab" data-bs-target="#find" type="button" role="tab"> <span>Featured Jobs</span> </button>
+                                </li>
+                                <li className="nav-item" role="presentation">
                                     <button class="nav-link" id="apps-tab" data-bs-toggle="tab" data-bs-target="#applications" type="button" role="tab"><span>Your Applications</span> </button>
                                 </li>
                                 <li className="nav-item" role="presentation">
@@ -65,7 +68,7 @@ const HomePage = ()=>{
                                                         Posted: {new Date(job.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })} •
                                                         Salary: {job.salary}
                                                     </div> 
-                                                     <p>{job.employer.companyDescription}</p>
+                                                     <p style={{color:'rgb(0 28 63 / 60%)'}}>{job.employer.companyDescription}</p>
                                                 </div>
                                                 
                                                 <div className="text-end" style={{whitespace: 'nowrap'}}>
