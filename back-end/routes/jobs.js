@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router(); // This line is missing in your code
 const { Job } = require('../models');
+const {Employer} = require('../models');
 const db = require("../db"); 
 const { authenticateUser, authorizeEmployer } = require('../middleware/authMiddleware');
 
@@ -41,8 +42,20 @@ router.post("/", async (req, res) => {
 // Public - Get All Jobs
 router.get('/', async (req, res) => {
   try {
-    const jobs = await Job.findAll();
-    res.json(jobs);
+    const jobs = await Job.findAll({
+      include: [
+        {
+          model: Employer,
+          as: 'employer',
+          attributes: ['companyName', 'companyDescription'], // Only what you need
+          required: true // Optional: ensures only jobs with employers are fetched
+        }
+      ]
+
+    });
+    console.dir(jobs, { depth: null }); // This logs deeply nested employer info
+     res.json(jobs);
+    
   } catch (err) {
     console.error("Error fetching jobs:", err);  // Logs the error
     res.status(500).json({ error: "Internal server error", details: err.message });

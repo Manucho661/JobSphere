@@ -59,13 +59,13 @@ const HomePage = ()=>{
                                             <div className="d-flex justify-content-between">
                                                 <div className="" style={{width:'100%'}}>
                                                     <div className="title" style={{fontWeight:'bold', color: '#00192D'}}>
-                                                       {job.title}
+                                                       {job.title} At {job.employer.companyName}
                                                     </div>
                                                     <div className="text-muted mb-2">
                                                         Posted: {new Date(job.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })} •
                                                         Salary: {job.salary}
                                                     </div> 
-                                                     <p>{job.description}</p>
+                                                     <p>{job.employer.companyDescription}</p>
                                                 </div>
                                                 
                                                 <div className="text-end" style={{whitespace: 'nowrap'}}>

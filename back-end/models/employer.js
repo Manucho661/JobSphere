@@ -1,6 +1,17 @@
-// models/Employer.js
+'use strict';
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  const Employer = sequelize.define("Employer", {
+  class Employer extends Model {
+    static associate(models) {
+      Employer.hasMany(models.Job, {
+        foreignKey: 'employer_id',
+        as: 'jobs',
+      });
+    }
+  }
+
+  Employer.init({
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
@@ -30,10 +41,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    companyDescription: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
+    companyDescription: DataTypes.TEXT,
+  }, {
+    sequelize,
+    modelName: 'Employer',
+    tableName: 'employers',
+    timestamps: true,
   });
 
   return Employer;
