@@ -60,6 +60,17 @@ const HomePage = ()=>{
                                         jobs.map((job) => (
                                         <div key={job.id} className="job-card mb-3 p-3 bg-white shadow-sm rounded">
                                             <div className="d-flex justify-content-between">
+                                                <div className="px-2">
+                                                    <img
+                                                    src={
+                                                        job.employer.logoUrl
+                                                        ? job.employer.logoUrl
+                                                        : `https://ui-avatars.com/api/?name=${encodeURIComponent(job.employer.companyName)}&background=random&size=50`
+                                                    }
+                                                    alt={`${job.employer.companyName} Logo`}
+                                                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '8px' }}
+                                                    />
+                                                </div>
                                                 <div className="" style={{width:'100%'}}>
                                                     <div className="title" style={{fontWeight:'bold', color: '#00192D'}}>
                                                        {job.title} At {job.employer.companyName}

@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
       ]
 
     });
-    console.dir(jobs, { depth: null }); // This logs deeply nested employer info
+    // console.dir(jobs, { depth: null }); // This logs deeply nested employer info
      res.json(jobs);
     
   } catch (err) {
