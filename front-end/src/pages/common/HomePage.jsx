@@ -1,6 +1,8 @@
 import Header from "../../components/common/Header";
 import apiClient from "../../api/apiClient";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+
 
 import "../../styles/Home.css";
 
@@ -16,6 +18,8 @@ const HomePage = ()=>{
     queryKey: ["jobs"],
     queryFn: fetchJobs,
     });
+    const handleLike = async (jobId) => { }
+
     return(
         <>
             <div className="container-fluid py-3">

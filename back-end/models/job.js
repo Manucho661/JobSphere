@@ -38,9 +38,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     employer_id: {
-      type: DataTypes.UUID, // Match Employer.id type
+      type: DataTypes.UUID, 
       allowNull: false
-    }
+    },
+   
+    likes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+
   }, {
     sequelize,
     modelName: 'Job',
