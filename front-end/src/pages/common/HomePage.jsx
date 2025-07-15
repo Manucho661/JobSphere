@@ -18,7 +18,15 @@ const HomePage = ()=>{
     queryKey: ["jobs"],
     queryFn: fetchJobs,
     });
-    const handleLike = async (jobId) => { }
+    const [likesMap, setLikesMap] = useState({});
+
+    const handleLike = async (jobId) => { 
+    const res = await axios.post(`/api/jobs/like/${jobId}`);
+     setLikesMap((prev) => ({
+        ...prev,
+        [jobId]: res.data.likes,
+      }));
+    }
 
     return(
         <>
