@@ -34,64 +34,77 @@ const Login = () => {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center min-vh-100">
-      <div className="card shadow-sm p-4" style={{ width: "100%", maxWidth: "400px" }}>
-        <h3 className="text-center mb-4">Login</h3>
+    <div className="container">
+      <div className="left-side">
 
-        {error && (
-          <div className="alert alert-danger text-sm py-2">{error}</div>
-        )}
-
-        <form onSubmit={handleLogin}>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="example@email.com"
-              required
-            />
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-
-          <div className="d-grid mb-2">
-            <button type="submit" className="btn btn-primary">
-              Log In
-            </button>
-          </div>
-
-          <div className="text-center">
-            <small>
-              Don't have an account?{" "}
-              <a href="/register" className="text-decoration-none">
-                Register here
-              </a>
-            </small>
-          </div>
-        </form>
       </div>
-    </div>
+      <div className="right-side">
+        <div className="login-box">
+          <p className="text-white">yoyo</p>
+          <div className="logo-container">
+            <img src="logosp.jpg" alt="JengoPay Logo" class="logo-img" />
+          </div>
+          <div style={{
+            fontSize: '22px',
+            fontWeight: 'bold',
+            fontStyle: 'italic',
+            color: '#FFC107',
+            letterSpacing: '1px'
+            }}>
+            <h2>Welcome back to Job<span style={{ color: '#FFC107' }}>Sphere</span></h2>
+            <form method="POST" action="#">
+              <div className="form-group">
+                <label htmlFor="email">
+                  <i className="fas fa-envelope"></i> Email
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div className="form-group password-wrapper">
+                <label htmlFor="password">
+                  <i className="fas fa-lock"></i> Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <span className="toggle-password" onclick="togglePassword()">👁</span>
+              <div className="forgot">
+                <a href="#">Forgot password?</a>
+              </div>
+              <input type="submit" value="Sign In" />
+            </form>
+            <div className="center-separator">Or</div>
+            <div className="social-login">
+              <p className="social-text">Sign in with:</p>
+              <div className="social-buttons">
+                <button className="social-btn facebook">
+                  <i className="fab fa-facebook-f"></i> Facebook
+                </button>
+                <button className="social-btn google">
+                  <i className="fab fa-google"></i> Google
+                </button>
+                <button className="social-btn linkedin">
+                  <i className="fab fa-linkedin-in"></i> LinkedIn
+                </button>
+              </div>
+              <div className="signup">
+                Don’t have an account? <a href="#">Sign Up</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div >
   );
 };
 
