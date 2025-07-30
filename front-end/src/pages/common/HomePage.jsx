@@ -18,7 +18,12 @@ const HomePage = () => {
         queryKey: ["jobs"],
         queryFn: fetchJobs,
     });
+    // hooks
     const [likesMap, setLikesMap] = useState({});
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
 
     const handleLike = async (jobId) => {
         const res = await axios.post(`/api/jobs/like/${jobId}`);
@@ -98,8 +103,7 @@ const HomePage = () => {
                                                     <div className="text-end d-flex flex-column align-items-end" style={{ whiteSpace: 'nowrap' }}>
                                                         <button
                                                             className="btn btn-outline-warning apply-btn text-dark mb-2"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#applyModal"
+                                                            onClick={openModal}
                                                         >
                                                             Apply
                                                         </button>
@@ -173,7 +177,12 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+            {/* Modal and overlay */}
+            {isOpen && (
+                <>
 
+                </>
+            )}
         </>
 
     );
