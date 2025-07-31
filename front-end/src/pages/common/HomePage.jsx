@@ -75,10 +75,9 @@ const HomePage = () => {
                                     {
                                         jobs &&
                                         jobs.map((job) => (
-
                                             <div key={job.id} className="job-card mb-3 p-3 bg-white shadow-sm rounded">
                                                 <div className="d-flex justify-content-between">
-                                                    <div className="px-2">
+                                                    <div className="px-2 company-logo" >
                                                         <img
                                                             src={
                                                                 job.employer.logoUrl
@@ -90,31 +89,26 @@ const HomePage = () => {
                                                         />
                                                     </div>
                                                     <div className="" style={{ width: '100%' }}>
-                                                        <div className="title" style={{ fontWeight: 'bold', color: '#00192D' }}>
-                                                            {job.title} At {job.employer.companyName}
+                                                        <div className="d-flex justify-content-between title" >
+                                                            <div className="titleCompanyName" style={{ fontWeight: 'bold', color: '#00192D' }}>
+                                                                {job.title} At {job.employer.companyName}
+                                                            </div>
+                                                            <div className="text-end d-flex flex-column align-items-end" style={{ whiteSpace: 'nowrap' }}>
+                                                                <button
+                                                                    className="btn btn-sm btn-light border text-muted"
+                                                                    onClick={() => handleLike(job.id)}
+                                                                >
+                                                                    👍 {likesMap[job.id] ?? job.likes}
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                         <div className="text-muted mb-2">
                                                             Posted: {new Date(job.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })} •
                                                             Salary: {job.salary}
                                                         </div>
-                                                        <p style={{ color: 'rgb(0 28 63 / 60%)' }}>{job.employer.companyDescription}</p>
+                                                        <p onClick={openModal} style={{ color: 'rgb(0 28 63 / 60%)' }}>{job.employer.companyDescription}</p>
                                                     </div>
 
-                                                    <div className="text-end d-flex flex-column align-items-end" style={{ whiteSpace: 'nowrap' }}>
-                                                        <button
-                                                            className="btn btn-outline-warning apply-btn text-dark mb-2"
-                                                            onClick={openModal}
-                                                        >
-                                                            Apply
-                                                        </button>
-
-                                                        <button
-                                                            className="btn btn-sm btn-light border text-muted"
-                                                            onClick={() => handleLike(job.id)}
-                                                        >
-                                                            👍 {likesMap[job.id] ?? job.likes}
-                                                        </button>
-                                                    </div>
                                                 </div>
                                             </div>
 

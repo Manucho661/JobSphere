@@ -5,7 +5,6 @@
 }
 body{
     
-
 }
 /* nav links */
 .navbar {
@@ -167,10 +166,6 @@ body{
 }
 
 
-
-
-
-
 .mobile-toggle {
   display: none;
   font-size: 1.5rem;
@@ -195,8 +190,6 @@ body{
     display: block;
   }
 }
-
-
     .main {
       grid-area: main;
       /* padding: 20px; */
@@ -244,3 +237,16 @@ body{
   .homeStyle{
     background-image: url('bg.jpg'); /* Adjust the path if needed */
   }
+
+  /* media queries */
+  /* Hide elements when viewport width is 600px or less (commonly used phone size) */
+@media screen and (max-width: 600px) {
+  .company-logo {
+    display: none;
+  }
+}
+
+/* Jobs container */
+.titleCompanyName{
+cursor: pointer;
+}

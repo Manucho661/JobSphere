@@ -8,7 +8,6 @@ body {
     min-height: 100vh;
 }
 
-
 .app-wrapper {
     display: grid;
     grid-template-columns: auto 1fr;
