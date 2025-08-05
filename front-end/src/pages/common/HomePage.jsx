@@ -48,7 +48,7 @@ const HomePage = () => {
     <>
       <div className="container-fluid">
         <div className="container">
-          <h4 className="landing-header" style={{color:"#002B5B;"}}>
+          <h4 className="landing-header" style={{ color: "#002B5B;" }}>
             Your Tech Future Starts Here — Find the Job You Deserve.
           </h4>
           <form
@@ -162,8 +162,8 @@ const HomePage = () => {
                                 job.employer.logoUrl
                                   ? job.employer.logoUrl
                                   : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                      job.employer.companyName
-                                    )}&background=random&size=50`
+                                    job.employer.companyName
+                                  )}&background=random&size=50`
                               }
                               alt={`${job.employer.companyName} Logo`}
                               style={{
@@ -347,10 +347,28 @@ const HomePage = () => {
                 onClick={closeModal}
               ></div>
               <div className={`job-modal ${showModal ? "active" : ""}`}>
-                <button className="close-btn" onclick="closeModal()">
-                  &#10005;
+                <button
+                  className="close-btn"
+                  onClick={closeModal}
+                  style={{
+                    backgroundColor: 'transparent',
+                    color: '#00192D',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>←</span> Back
                 </button>
-                <div className="job-modal-header">Front-End Developer</div>
+
+                <div className="job-modal-header d-flex">
+                  <h3>Front-End Developer</h3>&nbsp; at &nbsp;<h3>Elytica</h3>
+                </div>
                 <div className="company-desc">
                   Pixelyte Tech is a fast-growing software company that helps
                   startups and enterprises deliver beautiful, scalable digital
@@ -374,39 +392,39 @@ const HomePage = () => {
                   <div>
                     <span className="label">Field:</span> Software Development
                   </div>
-                  
+
                 </div>
-                 <div>
-      <div className="section-title">Duties & Responsibilities</div>
-      <ul>
-        <li>Develop responsive web interfaces using HTML, CSS, and JavaScript.</li>
-        <li>Collaborate with UI/UX designers to implement modern user experiences.</li>
-        <li>Consume REST APIs and integrate backend services seamlessly.</li>
-        <li>Maintain code quality through code reviews and testing.</li>
-        <li>Stay updated with emerging front-end trends and technologies.</li>
-      </ul>
-    </div>
-    <div>
-      <div className="section-title">Required Qualifications</div>
-      <ul>
-        <li>Diploma or higher in Computer Science or related field.</li>
-        <li>Strong understanding of HTML5, CSS3, and JavaScript (ES6+).</li>
-        <li>Familiarity with frameworks like React, Vue, or Angular.</li>
-        <li>Good grasp of version control (Git) and build tools (Webpack, Vite).</li>
-        <li>Excellent communication and teamwork skills.</li>
-      </ul>
-    </div>
-     <div>
-      <div className="section-title">How to Apply</div>
-      <p style={{lineHeight: "1.6;" ,color: "#333;"}}>
-        Interested candidates should send their CV and portfolio to
-        <a href="mailto:careers@pixelytetech.com"
-          style={{color: "#0057b8;", textDecoration: "none;"}}>careers@pixelytetech.com</a>
-        with the subject line <strong>"Application for Front-End Developer – Nairobi"</strong>.
-      
-        Applications will be reviewed on a rolling basis. Early applicants will be given priority.
-      </p>
-    </div>
+                <div className="dutiesResponsibilities bg-light">
+                  <div className="section-title">Duties & Responsibilities</div>
+                  <ul>
+                    <li>Develop responsive web interfaces using HTML, CSS, and JavaScript.</li>
+                    <li>Collaborate with UI/UX designers to implement modern user experiences.</li>
+                    <li>Consume REST APIs and integrate backend services seamlessly.</li>
+                    <li>Maintain code quality through code reviews and testing.</li>
+                    <li>Stay updated with emerging front-end trends and technologies.</li>
+                  </ul>
+                </div>
+                <div className="requiredQualifications bg-light">
+                  <div className="section-title">Required Qualifications</div>
+                  <ul>
+                    <li>Diploma or higher in Computer Science or related field.</li>
+                    <li>Strong understanding of HTML5, CSS3, and JavaScript (ES6+).</li>
+                    <li>Familiarity with frameworks like React, Vue, or Angular.</li>
+                    <li>Good grasp of version control (Git) and build tools (Webpack, Vite).</li>
+                    <li>Excellent communication and teamwork skills.</li>
+                  </ul>
+                </div>
+                <div>
+                  <div className="section-title">How to Apply</div>
+                  <p style={{ lineHeight: "1.6;", color: "#333;" }}>
+                    Interested candidates should send their CV and portfolio to
+                    <a href="mailto:careers@pixelytetech.com"
+                      style={{ color: "#0057b8;", textDecoration: "none;" }}>careers@pixelytetech.com</a>
+                    with the subject line <strong>"Application for Front-End Developer – Nairobi"</strong>.
+
+                    Applications will be reviewed on a rolling basis. Early applicants will be given priority.
+                  </p>
+                </div>
               </div>
             </>
           )}
