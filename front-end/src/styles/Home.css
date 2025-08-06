@@ -324,7 +324,7 @@ cursor: pointer;
 
     .label {
       font-weight: bold;
-      color: #0074d9;
+      color:#00192D;
     }
 
     .dutiesResponsibilities{
@@ -348,4 +348,7 @@ cursor: pointer;
       transition: all 0.3s ease;
       color:rgb(0 28 63 / 60%);
       font-weight:500;
+    }
+    .qualification .experience .location .field{
+
     }

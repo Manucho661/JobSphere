@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import Sidebar from '../components/employers/employerSidebar';
+import Sidebar from '../components/employers/EmployerSidebar';
+import Header from '../components/employers/EmployerHeader';
 import './employerlayout.css';
 import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {
   return (
     <div>
-        <Sidebar/>
-      <h1>Employer Layout</h1>
+      <Header/>
+      <Sidebar />
       <Outlet />
     </div>
   );
 };
 
-  export default EmployerLayout;
+export default EmployerLayout;

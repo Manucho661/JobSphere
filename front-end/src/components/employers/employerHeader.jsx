@@ -1,27 +1,33 @@
-  import "./styles/headerStyles.css";
+  // import "./styles/headerStyles.css";
   import { Link } from 'react-router-dom';
 
 
   const Header = () => {
     return (
-      <header className="main-header">
-      <nav className="navbar">
-        <div className="logo-section">
-          <img src="images/logo.png" alt="JobSphere Logo" className="logo-img" />
-          <span className="brand-name">JobSphere</span>
-        </div>
-
-        <ul className="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Jobs</a></li>
-          <li><Link to="/employers/dashboard">Employers</Link></li>
-        </ul>
-
-        <div className="mobile-toggle">
-          <span>&#9776;</span>
-        </div>
-      </nav>
-    </header>
+      <div className="header">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <div className="logo-section">
+                <img src="images/logo.png" alt="JobSphere Logo" className="logo-img" />
+                <span className="brand-name">JobSphere</span>
+              </div>
+              <h1 style={{ margin: 0, fontSize: '20px' }}>
+                <i className="fas fa-users"  style={{ color: "#00192D", textDecoration: "none" }}></i> Welcome Back
+              </h1>
+            </div>
+            <div className="nav-links" style={{ display: "flex", gap: "20px" }}>
+      
+              <b>
+                 <Link to="/login" style={{ color: "#00192D", textDecoration: "none" }}>
+                  <i className="fas fa-sign-out-alt"></i> Login/Register
+                </Link>
+              </b>
+              <b>
+                <Link to="/employer" style={{ color: "#00192D", textDecoration: "none" }}>
+                  <i className="fas fa-sign-out-alt"></i> Employer
+                </Link>
+              </b>
+            </div>
+          </div>
     );
   };
   

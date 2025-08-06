@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CreateJobModal from '../../components/employers/CreateJobModal';
-import Sidebar from '../../components/employers/employerSidebar';
+import Sidebar from '../../components/employers/EmployerSidebar';
 import { FaBriefcase } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa"; 
 import { FaEnvelope } from "react-icons/fa"; 

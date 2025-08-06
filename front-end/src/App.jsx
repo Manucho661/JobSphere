@@ -5,6 +5,7 @@ import HomePage from './pages/common/HomePage';
 import Login from './pages/login';
 import Employer from './pages/employers/dashboard';
 import MainLayout from './layouts/MainLayout';
+import EmployerLayout from './layouts/EmployerLayout';
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
         </Route>
-
+        <Route path="/employer" element={<EmployerLayout />}>
+          <Route path="dashboard" element={<Employer />} />
+        </Route>
         {/* ✅ Login route placed correctly */}
-        <Route path="/login" element={<Login />}/>
-        <Route path="/employer" element={<Employer />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );

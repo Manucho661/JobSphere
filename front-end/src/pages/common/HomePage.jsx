@@ -377,20 +377,20 @@ const HomePage = () => {
                 </div>
                 <div className="job-details">
                   <div>
-                    <span className="label">Job Type:</span> Full-Time
+                    <span className="label jobtype">Job Type:</span> Full-Time
                   </div>
                   <div>
-                    <span className="label">Qualification:</span> Diploma in
+                    <span className="label qualification">Qualification:</span> Diploma in
                     Computer Science
                   </div>
                   <div>
-                    <span className="label">Experience:</span> 2+ Years
+                    <span className="label experience">Experience:</span> 2+ Years
                   </div>
                   <div>
-                    <span className="label">Location:</span> Nairobi, Kenya
+                    <span className="label location">Location:</span> Nairobi, Kenya
                   </div>
                   <div>
-                    <span className="label">Field:</span> Software Development
+                    <span className="label field">Field:</span> Software Development
                   </div>
 
                 </div>
@@ -419,7 +419,7 @@ const HomePage = () => {
                   <p style={{ lineHeight: "1.6;", color: "#333;" }}>
                     Interested candidates should send their CV and portfolio to
                     <a href="mailto:careers@pixelytetech.com"
-                      style={{ color: "#0057b8;", textDecoration: "none;" }}>careers@pixelytetech.com</a>
+                      style={{ color: "#0057b8;", textDecoration: "none;" }}> careers@pixelytetech.com</a>
                     with the subject line <strong>"Application for Front-End Developer – Nairobi"</strong>.
 
                     Applications will be reviewed on a rolling basis. Early applicants will be given priority.
