@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {
   return (
-    <div>
+    <div className='app-wrapper'>
       <Header/>
       <Sidebar />
       <Outlet />
