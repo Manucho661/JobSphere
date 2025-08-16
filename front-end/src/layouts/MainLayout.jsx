@@ -10,7 +10,6 @@ const MainLayout = () => {
     <>
       <Header />
       <main className="main min-h-screen">
-       
         <Outlet /> 
       </main>
       <Footer />

@@ -16,6 +16,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
         </Route>
         <Route path="/employer" element={<EmployerLayout />}>
+          <Route index element={<Employer />} />   {/* ✅ shows dashboard when only /employer */}
           <Route path="dashboard" element={<Employer />} />
         </Route>
         {/* ✅ Login route placed correctly */}

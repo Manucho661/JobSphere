@@ -162,8 +162,8 @@ const HomePage = () => {
                                 job.employer.logoUrl
                                   ? job.employer.logoUrl
                                   : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                    job.employer.companyName
-                                  )}&background=random&size=50`
+                                      job.employer.companyName
+                                    )}&background=random&size=50`
                               }
                               alt={`${job.employer.companyName} Logo`}
                               style={{
@@ -351,19 +351,19 @@ const HomePage = () => {
                   className="close-btn"
                   onClick={closeModal}
                   style={{
-                    backgroundColor: 'transparent',
-                    color: '#00192D',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    cursor: 'pointer',
+                    backgroundColor: "transparent",
+                    color: "#00192D",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    cursor: "pointer",
                   }}
                 >
-                  <span style={{ fontSize: '18px' }}>←</span> Back
+                  <span style={{ fontSize: "18px" }}>←</span> Back
                 </button>
 
                 <div className="job-modal-header d-flex">
@@ -380,37 +380,63 @@ const HomePage = () => {
                     <span className="label jobtype">Job Type:</span> Full-Time
                   </div>
                   <div>
-                    <span className="label qualification">Qualification:</span> Diploma in
-                    Computer Science
+                    <span className="label qualification">Qualification:</span>{" "}
+                    Diploma in Computer Science
                   </div>
                   <div>
-                    <span className="label experience">Experience:</span> 2+ Years
+                    <span className="label experience">Experience:</span> 2+
+                    Years
                   </div>
                   <div>
-                    <span className="label location">Location:</span> Nairobi, Kenya
+                    <span className="label location">Location:</span> Nairobi,
+                    Kenya
                   </div>
                   <div>
-                    <span className="label field">Field:</span> Software Development
+                    <span className="label field">Field:</span> Software
+                    Development
                   </div>
-
                 </div>
                 <div className="dutiesResponsibilities bg-light">
                   <div className="section-title">Duties & Responsibilities</div>
                   <ul>
-                    <li>Develop responsive web interfaces using HTML, CSS, and JavaScript.</li>
-                    <li>Collaborate with UI/UX designers to implement modern user experiences.</li>
-                    <li>Consume REST APIs and integrate backend services seamlessly.</li>
-                    <li>Maintain code quality through code reviews and testing.</li>
-                    <li>Stay updated with emerging front-end trends and technologies.</li>
+                    <li>
+                      Develop responsive web interfaces using HTML, CSS, and
+                      JavaScript.
+                    </li>
+                    <li>
+                      Collaborate with UI/UX designers to implement modern user
+                      experiences.
+                    </li>
+                    <li>
+                      Consume REST APIs and integrate backend services
+                      seamlessly.
+                    </li>
+                    <li>
+                      Maintain code quality through code reviews and testing.
+                    </li>
+                    <li>
+                      Stay updated with emerging front-end trends and
+                      technologies.
+                    </li>
                   </ul>
                 </div>
                 <div className="requiredQualifications bg-light">
                   <div className="section-title">Required Qualifications</div>
                   <ul>
-                    <li>Diploma or higher in Computer Science or related field.</li>
-                    <li>Strong understanding of HTML5, CSS3, and JavaScript (ES6+).</li>
-                    <li>Familiarity with frameworks like React, Vue, or Angular.</li>
-                    <li>Good grasp of version control (Git) and build tools (Webpack, Vite).</li>
+                    <li>
+                      Diploma or higher in Computer Science or related field.
+                    </li>
+                    <li>
+                      Strong understanding of HTML5, CSS3, and JavaScript
+                      (ES6+).
+                    </li>
+                    <li>
+                      Familiarity with frameworks like React, Vue, or Angular.
+                    </li>
+                    <li>
+                      Good grasp of version control (Git) and build tools
+                      (Webpack, Vite).
+                    </li>
                     <li>Excellent communication and teamwork skills.</li>
                   </ul>
                 </div>
@@ -418,11 +444,19 @@ const HomePage = () => {
                   <div className="section-title">How to Apply</div>
                   <p style={{ lineHeight: "1.6;", color: "#333;" }}>
                     Interested candidates should send their CV and portfolio to
-                    <a href="mailto:careers@pixelytetech.com"
-                      style={{ color: "#0057b8;", textDecoration: "none;" }}> careers@pixelytetech.com</a>
-                    with the subject line <strong>"Application for Front-End Developer – Nairobi"</strong>.
-
-                    Applications will be reviewed on a rolling basis. Early applicants will be given priority.
+                    <a
+                      href="mailto:careers@pixelytetech.com"
+                      style={{ color: "#0057b8;", textDecoration: "none;" }}
+                    >
+                      {" "}
+                      careers@pixelytetech.com
+                    </a>
+                    with the subject line{" "}
+                    <strong>
+                      "Application for Front-End Developer – Nairobi"
+                    </strong>
+                    . Applications will be reviewed on a rolling basis. Early
+                    applicants will be given priority.
                   </p>
                 </div>
               </div>

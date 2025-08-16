@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import Sidebar from '../components/employers/EmployerSidebar';
-import Header from '../components/employers/EmployerHeader';
-import './employerlayout.css';
+import React, { useState } from "react";
+import Sidebar from "../components/employers/EmployerSidebar";
+import Header from "../components/employers/EmployerHeader";
+import "./employerlayout.css";
 import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {
   return (
-    <div className='app-wrapper'>
-      <Header/>
+    <div className="app-wrapper">
+      <Header />
       <Sidebar />
-      <Outlet />
+      <div className="main min-h-screen">
+        <Outlet />
+      </div>
     </div>
   );
 };

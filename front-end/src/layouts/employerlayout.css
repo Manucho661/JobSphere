@@ -1,20 +1,21 @@
 .app-wrapper {
   display: grid;
-  grid-template-columns: 250px 1fr;
-  grid-template-rows: 60px 1fr; 
+  grid-template-columns: 250px 1fr;   /* sidebar + main */
+  grid-template-rows: 60px 1fr;       /* header + fill rest */
   grid-template-areas:
-    "header header" 
+    "header header"
     "sidebar main";
-     max-width: 100vw;
-    min-height: 100vh; 
-    background-color: rgba(128,128,128, 0.1);
+  width: 100vw;
+  height: 100vh;  /* ✅ force wrapper to take full screen height */
+
+  overflow: hidden; /* ✅ prevent wrapper scroll */
 }
 .header {
   height: var(--header-height);
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 10px 30px;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   top: 0;
   z-index: 1000;
@@ -22,6 +23,7 @@
   display: flex; /* ✅ added */
   align-items: center; /* ✅ vertically center items */
   justify-content: space-between; /* ✅ put logo on left, nav on right */
+   grid-area: header;
 }
 @media (max-width: 768px) {
   .header {
@@ -35,15 +37,13 @@
   }
 }
 
+/* SIDEBAR */
 .sidebar {
-    width: 250px;
-    background-color: #002B5B;
-    color: white;
-    flex-shrink: 0;
-    padding-top: 1rem;
-    grid-area: sidebar;
-    /* min-height: 100vh; */
-    padding-top: 50px;
+  grid-area: sidebar;
+  background-color: #002B5B;
+  color: white;
+  padding-top: 1rem;
+  overflow-y: auto; /* ✅ sidebar scrolls if tall */
 }
 .sidebar a {
     color: white;
@@ -58,4 +58,16 @@
 .sidebar .submenu a {
     padding-left: 40px;
     font-size: 0.95rem;
+}
+.main {
+  grid-area: main;
+  padding: 20px;
+  overflow-y: auto;  /* ✅ only main scrolls */
+  height: 100%;      /* ✅ fill its grid cell */
+}
+
+
+/* buttons */
+.delete{
+/* background-color: color-mix(in srgb, var(--redcolor), transparent 90%) !important */
 }
