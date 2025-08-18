@@ -185,17 +185,19 @@ const EmployerDashboard = () => {
               </div>
 
               {/* Applicants */}
-              <div className="col-md-2 fw-semibold bg-danger text-white">24 Applicants</div>
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
 
               {/* Dates */}
-              <div className="col-md-3 small">
-                <div className="m-0 text-sm-muted">
-                  <span className="fw-semibold">Posted:</span>{" "}
-                  <span className="text-success">12 Aug 2025</span>{" "}
-                </div>
+              <div className="col-md-3 d-flex gap-2 justify-content-end small">
                 <div>
-                  <span className="fw-semibold">Expires:</span>{" "}
-                  <span className="text-danger">20 Aug 2025</span>{" "}
+                  <div className="m-0 text-sm-muted">
+                    <span className="fw-semibold">Posted:</span>{" "}
+                    <span className="text-success">12 Aug 2025</span>{" "}
+                  </div>
+                  <div>
+                    <span className="fw-semibold">Expires:</span>{" "}
+                    <span className="text-danger">20 Aug 2025</span>{" "}
+                  </div>
                 </div>
               </div>
 
@@ -226,17 +228,63 @@ const EmployerDashboard = () => {
               </div>
 
               {/* Applicants */}
-              <div className="col-md-2 fw-semibold">24 Applicants</div>
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
+
 
               {/* Dates */}
-              <div className="col-md-3 small">
-                <div className="m-0 text-sm-muted">
-                  <span className="fw-semibold">Posted:</span>{" "}
-                  <span className="text-success">12 Aug 2025</span>{" "}
-                </div>
+              <div className="col-md-3 d-flex gap-2 justify-content-end small">
                 <div>
-                  <span className="fw-semibold">Expires:</span>{" "}
-                  <span className="text-danger">20 Aug 2025</span>{" "}
+                  <div className="m-0 text-sm-muted">
+                    <span className="fw-semibold">Posted:</span>{" "}
+                    <span className="text-success">12 Aug 2025</span>{" "}
+                  </div>
+                  <div>
+                    <span className="fw-semibold">Expires:</span>{" "}
+                    <span className="text-danger">20 Aug 2025</span>{" "}
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="col-md-3 d-flex gap-2 justify-content-end">
+                <button className="btn btn-sm btn-outline-primary border-0">
+                  {" "}
+                  <i className="bi bi-pencil-square"></i>
+                </button>
+                <button className="btn btn-sm btn-outline-danger border-0">
+                  {" "}
+                  <i className="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div className="row align-items-center text-dark py-4 rounded-1 mb-2 border-0 bg-light">
+              {/* Job title & description */}
+              <div className="col-md-4 text-truncate">
+                <strong>Software Engineer</strong>
+                <div
+                  className="small text-muted text-truncate"
+                  style={{ maxWidth: "250px" }}
+                >
+                  Exciting opportunity to join our growing dev team working with
+                  React, Node.js, and cloud...
+                </div>
+              </div>
+
+              {/* Applicants */}
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
+
+
+              {/* Dates */}
+              <div className="col-md-3 d-flex gap-2 justify-content-end small">
+                <div>
+                  <div className="m-0 text-sm-muted">
+                    <span className="fw-semibold">Posted:</span>{" "}
+                    <span className="PostedDate text-success">12 Aug 2025</span>{" "}
+                  </div>
+                  <div>
+                    <span className="fw-semibold">Expires:</span>{" "}
+                    <span className="text-danger">20 Aug 2025</span>{" "}
+                  </div>
                 </div>
               </div>
 
@@ -262,11 +310,13 @@ const EmployerDashboard = () => {
               </div>
 
               {/* Applicants */}
-              <div className="col-md-2 fw-semibold">24 Applicants</div>
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
+
 
               {/* Dates */}
-              <div className="col-md-3 small">
-                <div className="m-0 text-sm-muted">
+              <div className="col-md-3 d-flex gap-2 justify-content-end small">
+                <div>
+                  <div className="m-0 text-sm-muted">
                   <span className="fw-semibold">Posted:</span>{" "}
                   <span className="text-success">12 Aug 2025</span>{" "}
                 </div>
@@ -274,41 +324,6 @@ const EmployerDashboard = () => {
                   <span className="fw-semibold">Expires:</span>{" "}
                   <span className="text-danger">20 Aug 2025</span>{" "}
                 </div>
-              </div>
-
-              {/* Actions */}
-              <div className="col-md-3 d-flex gap-2 justify-content-end">
-                <button className="btn btn-sm btn-outline-primary">Edit</button>
-                <button className="btn btn-sm btn-outline-danger">
-                  Delete
-                </button>
-              </div>
-            </div>
-            <div className="row align-items-center text-dark py-4 rounded mb-2 border-0 bg-light">
-              {/* Job title & description */}
-              <div className="col-md-4 text-truncate">
-                <strong>Software Engineer</strong>
-                <div
-                  className="small text-muted text-truncate"
-                  style={{ maxWidth: "250px" }}
-                >
-                  Exciting opportunity to join our growing dev team working with
-                  React, Node.js, and cloud...
-                </div>
-              </div>
-
-              {/* Applicants */}
-              <div className="col-md-2 fw-semibold">24 Applicants</div>
-
-              {/* Dates */}
-              <div className="col-md-3 small">
-                <div className="m-0 text-sm-muted">
-                  <span className="fw-semibold">Posted:</span>{" "}
-                  <span className="text-success">12 Aug 2025</span>{" "}
-                </div>
-                <div>
-                  <span className="fw-semibold">Expires:</span>{" "}
-                  <span className="text-danger">20 Aug 2025</span>{" "}
                 </div>
               </div>
 

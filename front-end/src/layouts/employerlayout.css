@@ -71,3 +71,7 @@
 .delete{
 /* background-color: color-mix(in srgb, var(--redcolor), transparent 90%) !important */
 }
+.PostedDate{
+      color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
+
+}
