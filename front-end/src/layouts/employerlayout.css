@@ -66,12 +66,34 @@
   height: 100%;      /* ✅ fill its grid cell */
 }
 
+/* Posted Job Row */
+.postedJobRow{
+  transition: transform 0.3s ease; /* smooth animation */
 
+}
+.postedJobRow:hover{
+  transform: scale(1.01); /* expand by 5% */
+  cursor: pointer;
+
+}
 /* buttons */
-.delete{
-/* background-color: color-mix(in srgb, var(--redcolor), transparent 90%) !important */
+.delete-btn{
+ background-color: rgba(236, 91, 83, 0.3) !important ;
+ padding-left: 8px;
+ padding-right: 8px;
+ color: #ec5b53;
+ font-weight: 900;
+ font-size: 16px;
+}
+.edit-btn{
+  background-color: rgba(0, 43, 91, 0.3) !important;
+   padding-left: 8px;
+ padding-right: 8px;
+ color: #002B5B;
+ font-weight: 900;
+ font-size: 16px;
 }
 .PostedDate{
       color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
-
 }
+

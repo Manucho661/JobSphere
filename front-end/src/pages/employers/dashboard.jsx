@@ -171,7 +171,7 @@ const EmployerDashboard = () => {
         <div className="container">
           <div className="card bg-white px-4 border-0">
             <p>recent job posts</p>
-            <div className="row align-items-center text-dark py-4 rounded mb-2 border-0 bg-light">
+            <div className="row align-items-center text-dark py-4 rounded mb-2 border-0 bg-light postedJobRow">
               {/* Job title & description */}
               <div className="col-md-4 text-truncate">
                 <strong>Software Engineer</strong>
@@ -203,11 +203,12 @@ const EmployerDashboard = () => {
 
               {/* Actions */}
               <div className="col-md-3 d-flex gap-2 justify-content-end">
-                <button className="btn btn-sm btn-outline-primary border-0">
+                <button className="btn btn-sm btn-outline-primary edit-btn border-0">
                   {" "}
                   <i className="bi bi-pencil-square"></i>
                 </button>
-                <button className="btn btn-sm btn-outline-danger border-0">
+                                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
+
                   {" "}
                   <i className="bi bi-trash"></i>
                 </button>
@@ -247,11 +248,12 @@ const EmployerDashboard = () => {
 
               {/* Actions */}
               <div className="col-md-3 d-flex gap-2 justify-content-end">
-                <button className="btn btn-sm btn-outline-primary border-0">
+                <button className="btn btn-sm btn-outline-primary edit-btn border-0">
                   {" "}
                   <i className="bi bi-pencil-square"></i>
                 </button>
-                <button className="btn btn-sm btn-outline-danger border-0">
+                                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
+
                   {" "}
                   <i className="bi bi-trash"></i>
                 </button>
@@ -290,9 +292,14 @@ const EmployerDashboard = () => {
 
               {/* Actions */}
               <div className="col-md-3 d-flex gap-2 justify-content-end">
-                <button className="btn btn-sm btn-outline-primary">Edit</button>
-                <button className="btn btn-sm btn-outline-danger">
-                  Delete
+                              <button className="btn btn-sm btn-outline-primary edit-btn border-0">
+                  {" "}
+                  <i className="bi bi-pencil-square"></i>
+                </button>
+                                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
+
+                  {" "}
+                  <i className="bi bi-trash"></i>
                 </button>
               </div>
             </div>
@@ -329,9 +336,14 @@ const EmployerDashboard = () => {
 
               {/* Actions */}
               <div className="col-md-3 d-flex gap-2 justify-content-end">
-                <button className="btn btn-sm btn-outline-primary">Edit</button>
-                <button className="btn btn-sm btn-outline-danger">
-                  Delete
+                
+                <button className="btn btn-sm btn-outline-primary edit-btn border-0">
+                  {" "}
+                  <i className="bi bi-pencil-square"></i>
+                </button>
+                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
+                  {" "}
+                  <i className="bi bi-trash"></i>
                 </button>
               </div>
             </div>
