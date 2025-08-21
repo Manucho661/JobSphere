@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CreateJobModal from "../../components/employers/CreateJobModal";
 import Sidebar from "../../components/employers/EmployerSidebar";
+import JobTrendsChart from "../../components/employers/postedJobsGraph";
 import { FaBriefcase } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
@@ -85,7 +86,7 @@ const EmployerDashboard = () => {
       </div>
       <div class="row">
         <div className="col-md-3">
-          <div className="card border-0  h-100 hover-shadow transition">
+          <div className="card shadow-sm border-0  h-100 hover-shadow transition">
             <div className="card-body d-flex flex-column">
               <div className="flex-column justify-content-center align-items-center ">
                 <div className="d-flex justify-content-center">
@@ -107,7 +108,7 @@ const EmployerDashboard = () => {
           </div>
         </div>
         <div class="col-md-3">
-          <div className="card border-0  h-100 hover-shadow transition">
+          <div className="card shadow-sm border-0  h-100 hover-shadow transition">
             <div className="card-body d-flex flex-column">
               <div className=" align-items-center ">
                 <div className="d-flex justify-content-center">
@@ -128,7 +129,7 @@ const EmployerDashboard = () => {
           </div>
         </div>
         <div class="col-md-3">
-          <div className="card border-0 h-100 hover-shadow transition">
+          <div className="card shadow-sm border-0 h-100 hover-shadow transition">
             <div className="card-body d-flex flex-column">
               <div className=" align-items-center ">
                 <div className="d-flex justify-content-center">
@@ -147,7 +148,7 @@ const EmployerDashboard = () => {
           </div>
         </div>
         <div class="col-md-3">
-          <div className="card border-0  h-100 hover-shadow transition">
+          <div className="card shadow-sm border-0  h-100 hover-shadow transition">
             <div className="card-body d-flex flex-column">
               <div className=" align-items-center">
                 <div className="d-flex justify-content-center">
@@ -158,10 +159,6 @@ const EmployerDashboard = () => {
                     <FaCalendarCheck size={20} />
                   </div>
                 </div>
-
-                <div className="d-flex justify-content-center">
-                  <h5 className="card-title mb-0 fw-semibold">3 Interviews</h5>
-                </div>
               </div>
             </div>
           </div>
@@ -170,8 +167,22 @@ const EmployerDashboard = () => {
       <div className="row  mt-4">
         <div className="container">
           <div className="card bg-white px-4 border-0">
-            <p>recent job posts</p>
-            <div className="row align-items-center text-dark py-4 rounded mb-2 border-0 bg-light postedJobRow">
+            <p
+              className="text-muted"
+              style={{
+                fontWeight: "bold",
+                display: "flex",
+                alignItems: "center",
+                padding: "5px",
+                height: "fit-content",
+                margin: 0
+              }}
+            >
+              Recent job posts
+            </p>
+
+
+            <div className="row shadow-sm align-items-center text-dark py-4 rounded mb-2 border-0 bg-light postedJobRow">
               {/* Job title & description */}
               <div className="col-md-4 text-truncate">
                 <strong>Software Engineer</strong>
@@ -185,7 +196,7 @@ const EmployerDashboard = () => {
               </div>
 
               {/* Applicants */}
-              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize: '14px' }}>24 Applicants</div>
 
               {/* Dates */}
               <div className="col-md-3 d-flex gap-2 justify-content-end small">
@@ -207,7 +218,7 @@ const EmployerDashboard = () => {
                   {" "}
                   <i className="bi bi-pencil-square"></i>
                 </button>
-                                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
+                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
 
                   {" "}
                   <i className="bi bi-trash"></i>
@@ -215,7 +226,7 @@ const EmployerDashboard = () => {
               </div>
             </div>
 
-            <div className="row align-items-center text-dark py-4 rounded mb-2 border-0 bg-light">
+            <div className="row shadow-sm align-items-center text-dark py-4 rounded mb-2 border-0 bg-light postedJobRow">
               {/* Job title & description */}
               <div className="col-md-4 text-truncate">
                 <strong>Software Engineer</strong>
@@ -229,7 +240,7 @@ const EmployerDashboard = () => {
               </div>
 
               {/* Applicants */}
-              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize: '14px' }}>24 Applicants</div>
 
 
               {/* Dates */}
@@ -252,14 +263,14 @@ const EmployerDashboard = () => {
                   {" "}
                   <i className="bi bi-pencil-square"></i>
                 </button>
-                                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
+                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
 
                   {" "}
                   <i className="bi bi-trash"></i>
                 </button>
               </div>
             </div>
-            <div className="row align-items-center text-dark py-4 rounded-1 mb-2 border-0 bg-light">
+            <div className="row shadow-sm align-items-center text-dark py-4 rounded-1 mb-2 border-0 bg-light postedJobRow">
               {/* Job title & description */}
               <div className="col-md-4 text-truncate">
                 <strong>Software Engineer</strong>
@@ -273,7 +284,7 @@ const EmployerDashboard = () => {
               </div>
 
               {/* Applicants */}
-              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize: '14px' }}>24 Applicants</div>
 
 
               {/* Dates */}
@@ -292,18 +303,18 @@ const EmployerDashboard = () => {
 
               {/* Actions */}
               <div className="col-md-3 d-flex gap-2 justify-content-end">
-                              <button className="btn btn-sm btn-outline-primary edit-btn border-0">
+                <button className="btn btn-sm btn-outline-primary edit-btn border-0">
                   {" "}
                   <i className="bi bi-pencil-square"></i>
                 </button>
-                                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
+                <button className="btn btn-sm btn-outline-danger delete-btn border-0">
 
                   {" "}
                   <i className="bi bi-trash"></i>
                 </button>
               </div>
             </div>
-            <div className="row align-items-center text-dark py-4 rounded mb-2 border-0 bg-light">
+            <div className="row shadow-sm  align-items-center text-dark py-4 rounded mb-2 border-0 bg-light postedJobRow">
               {/* Job title & description */}
               <div className="col-md-4 text-truncate">
                 <strong>Software Engineer</strong>
@@ -317,26 +328,26 @@ const EmployerDashboard = () => {
               </div>
 
               {/* Applicants */}
-              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize:'14px' }}>24 Applicants</div>
+              <div className="col-md-2 text-white rounded-1" style={{ background: '#336699', width: 'fit-content', fontSize: '14px' }}>24 Applicants</div>
 
 
               {/* Dates */}
               <div className="col-md-3 d-flex gap-2 justify-content-end small">
                 <div>
                   <div className="m-0 text-sm-muted">
-                  <span className="fw-semibold">Posted:</span>{" "}
-                  <span className="text-success">12 Aug 2025</span>{" "}
-                </div>
-                <div>
-                  <span className="fw-semibold">Expires:</span>{" "}
-                  <span className="text-danger">20 Aug 2025</span>{" "}
-                </div>
+                    <span className="fw-semibold">Posted:</span>{" "}
+                    <span className="text-success">12 Aug 2025</span>{" "}
+                  </div>
+                  <div>
+                    <span className="fw-semibold">Expires:</span>{" "}
+                    <span className="text-danger">20 Aug 2025</span>{" "}
+                  </div>
                 </div>
               </div>
 
               {/* Actions */}
               <div className="col-md-3 d-flex gap-2 justify-content-end">
-                
+
                 <button className="btn btn-sm btn-outline-primary edit-btn border-0">
                   {" "}
                   <i className="bi bi-pencil-square"></i>
@@ -352,125 +363,11 @@ const EmployerDashboard = () => {
       </div>
       {/* start Row */}
       <div className="row mt-4">
-        <div className="col-md-8 ">
-          <h6 className="text-secondary">Applications</h6>
-          <div className="applicationsTableContainer bg-white p-2 rounded shadow-sm">
-            <div className="tableHeaderSection">
-              <div className="entries text-white rounded-top-2 p-2">
-                5 entries
-              </div>
-            </div>
-            <div>
-              <table class="table table-striped table-hover">
-                <thead class="table-light">
-                  <tr>
-                    <th>#</th>
-                    <th>Applicant Name</th>
-                    <th>Applied For</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>Frontend Developer</td>
-                    <td>
-                      <span class="badge bg-info text-dark">Under Review</span>
-                    </td>
-                    <td>
-                      <span class="badge bg-success">Active</span>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-sm"
-                        style={{
-                          backgroundColor: "#0d6efd", // Bootstrap primary blue
-                          marginLeft: "2px",
-                          marginRight: "2px",
-                          color: "#fff",
-                        }}
-                        title="View"
-                      >
-                        <i className="fas fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Jane Smith</td>
-                    <td>Backend Developer</td>
-                    <td>
-                      <span class="badge bg-success">Shortlisted</span>
-                    </td>
-                    <td>
-                      <span class="badge bg-success">Active</span>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-sm"
-                        style={{
-                          backgroundColor: "#0d6efd", // Bootstrap primary blue
-                          marginLeft: "2px",
-                          marginRight: "2px",
-                          color: "#fff",
-                        }}
-                        title="View"
-                      >
-                        <i className="fas fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Ali Mwangi</td>
-                    <td>UI/UX Designer</td>
-                    <td>
-                      <span class="badge bg-danger">Rejected</span>
-                    </td>
-                    <td>
-                      <span class="badge bg-success">Active</span>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-sm"
-                        style={{
-                          backgroundColor: "#0d6efd", // Bootstrap primary blue
-                          marginLeft: "2px",
-                          marginRight: "2px",
-                          color: "#fff",
-                        }}
-                        title="View"
-                      >
-                        <i className="fas fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <h6 className="text-secondary">Interviews</h6>
-          <div className="bg-white p-2 rounded shadow-sm">
-            <div className="messages-header-section">
-              <div className="entries text-white rounded-top-2 p-2">
-                5 entries
-              </div>
-            </div>
-            <ul class="list-group rounded-top-0">
-              <li class="list-group-item">John Doe - May 5, 10:00 AM</li>
-              <li class="list-group-item">Jane Smith - May 6, 2:00 PM</li>
-              <li class="list-group-item">Grace Wambui - May 7, 11:00 AM</li>
-            </ul>
-          </div>
+        <div className="col-md-12 ">
+          <JobTrendsChart title="Job Activity (Last 4 Weeks)" />
         </div>
       </div>
-      <button
-        onClick={() => setShowModal(true)}
-        className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
-      >
-        + Create New Job
-      </button>
+      
       <CreateJobModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
     // </div>

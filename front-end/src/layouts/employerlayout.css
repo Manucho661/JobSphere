@@ -67,7 +67,7 @@
 }
 
 /* Posted Job Row */
-.postedJobRow{
+ .postedJobRow{
   transition: transform 0.3s ease; /* smooth animation */
 
 }

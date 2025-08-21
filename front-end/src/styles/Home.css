@@ -128,11 +128,7 @@
       font-weight: 500;
     }
 
-    /* Sidebar links hover effect */
-    .text-dark:hover {
-      color: #FF5722 !important;
-      /* text-decoration: underline; */
-    }
+  
 
     /* Optional: make scroll prettier */
     div[style*="overflow-y: auto"]::-webkit-scrollbar {
