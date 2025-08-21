@@ -18,7 +18,16 @@ export default function JobTrendsChart({
   return (
     <div className="card shadow-sm mb-4 border-0">
       <div className="card-header bg-white border-0">
-        <h5 className="card-title mb-0 text-primary fw-bold">{title}</h5>
+        <p className="card-title text-muted mb-0 fw-bold"
+        style={{
+                fontWeight: "bold",
+                display: "flex",
+                alignItems: "center",
+                padding: "5px",
+                height: "fit-content",
+                margin: 0
+              }}
+        >{title}</p>
       </div>
       <div className="card-body">
         <div style={{ width: "100%", height }}>
@@ -45,7 +54,7 @@ export default function JobTrendsChart({
                 type="monotone"
                 dataKey="posted"
                 name="Posted Jobs"
-                stroke="#0d6efd" // Bootstrap primary
+                stroke="#002B5B" // Bootstrap primary
                 strokeWidth={3}
                 dot={{ r: 3 }}
                 activeDot={{ r: 6 }}
@@ -54,7 +63,7 @@ export default function JobTrendsChart({
                 type="monotone"
                 dataKey="expired"
                 name="Expired Jobs"
-                stroke="#dc3545" // Bootstrap danger
+                stroke="#e66b77ff" // Bootstrap danger
                 strokeWidth={3}
                 dot={{ r: 3 }}
                 activeDot={{ r: 6 }}
