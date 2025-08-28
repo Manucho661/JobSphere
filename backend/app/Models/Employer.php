@@ -19,4 +19,9 @@ class Employer extends Model
         'verified',
         'companyDescription',
     ];
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
 }

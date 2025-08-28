@@ -159,7 +159,7 @@ const HomePage = () => {
                           <div className="px-2 company-logo">
                             <img
                               src={
-                                job.employer.logoUrl
+                                job.title
                                   ? job.employer.logoUrl
                                   : `https://ui-avatars.com/api/?name=${encodeURIComponent(
                                       job.employer.companyName

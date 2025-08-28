@@ -19,6 +19,8 @@ class EmployerFactory extends Factory
     {
         return [
             'userId' => User::inRandomOrder()->first()->id ?? User::factory(),
+            'companyName' => $this->faker->company(), // ✅ added company name
+            'logoUrl' => $this->faker->imageUrl(200, 200, 'business', true, 'logo'), // ✅ fake logo
             'phone' => $this->faker->phoneNumber(), // ✅ comes before website
             'website' => $this->faker->url(),
             'location' => $this->faker->city(),

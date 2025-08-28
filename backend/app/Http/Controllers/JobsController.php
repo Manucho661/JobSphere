@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Job;
+use Illuminate\Http\Request;
+
+class JobsController extends Controller
+{
+      // GET /api/jobs
+    public function index()
+    {
+        return response()->json(Job::with('employer')->latest()->get());
+    }
+}

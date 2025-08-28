@@ -17,5 +17,9 @@ class Job extends Model
         'likes',
         'active',
     ];
-}
 
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class);
+    }
+}
