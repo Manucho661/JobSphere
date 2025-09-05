@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import App from './App';
+import "./index.css"; // ✅ import Tailwind here
+
 
 // Create a React Query Client
 const queryClient = new QueryClient();

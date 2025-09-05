@@ -46,417 +46,317 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="container">
-          <h4 className="landing-header" style={{ color: "#002B5B;" }}>
+      <div className="w-full bg-gray-100 py-10">
+        <div className="max-w-5xl mx-auto text-center px-4">
+          {/* Heading */}
+          <h4 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-6">
             Your Tech Future Starts Here — Find the Job You Deserve.
           </h4>
-          <form
-            className="d-flex justify-content-center"
-            role="search"
-            action=""
-          >
+
+          {/* Search Form */}
+          <form className="flex justify-center items-center space-x-3" role="search">
             <input
-              className="form-control me-2 w-50 border-0"
               type="search"
               placeholder="Search Jobs"
               aria-label="Search"
-              style={{ borderRadius: "8px" }}
+              className="w-1/2 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
             <button
-              className="btn"
               type="submit"
-              style={{
-                backgroundColor: "#FFC107",
-                color: "#00192D",
-                fontWeight: 600,
-              }}
+              className="px-6 py-2 rounded-lg font-semibold bg-yellow-400 text-[#00192D] hover:bg-yellow-500 transition"
             >
               Search
             </button>
           </form>
         </div>
       </div>
-      <div className="container-fluid py-3">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-9">
-              <ul
-                className="nav nav-tabs mb-3 gap-3"
-                id="jobTabs"
-                role="tablist"
-              >
-                <li className="nav-item" role="presentation">
+
+      <div className="py-6 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Left content */}
+            <div className="lg:col-span-9">
+              {/* Tabs */}
+              <ul className="flex flex-wrap gap-3 border-b mb-4" role="tablist">
+                <li>
                   <button
-                    className="nav-link active "
-                    id="find-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#find"
-                    type="button"
+                    className="px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600"
                     role="tab"
                   >
-                    {" "}
-                    <span>Find a Job</span>{" "}
+                    Find a Job
                   </button>
                 </li>
-                <li className="nav-item" role="presentation">
+                <li>
                   <button
-                    className="nav-link"
-                    id="find-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#find"
-                    type="button"
+                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600"
                     role="tab"
                   >
-                    {" "}
-                    <span>Featured Jobs</span>{" "}
+                    Featured Jobs
                   </button>
                 </li>
-                <li className="nav-item" role="presentation">
+                <li>
                   <button
-                    class="nav-link"
-                    id="apps-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#applications"
-                    type="button"
+                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600"
                     role="tab"
                   >
-                    <span>Your Applications</span>{" "}
+                    Your Applications
                   </button>
                 </li>
-                <li className="nav-item" role="presentation">
+                <li>
                   <button
-                    className="nav-link"
-                    id="history-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#history"
-                    type="button"
+                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600"
                     role="tab"
                   >
-                    <span>Previous Jobs</span>
+                    Previous Jobs
                   </button>
                 </li>
               </ul>
-              <div
-                className="tab-content bg-white border-0 rounded-2"
-                id="jobTabsContent"
-              >
-                <div
-                  className="tab-pane fade show active"
-                  id="find"
-                  role="tabpanel"
-                >
-                  <div className="section-title text-mute">Latest Jobs</div>
-                </div>
-                <div className="" style={{ paddingRight: "10px" }}>
-                  {jobs &&
-                    jobs.map((job) => (
-                      <div
-                        key={job.id}
-                        className="job-card mb-3 p-3 bg-light shadow-sm rounded"
-                      >
-                        <div className="d-flex justify-content-between">
-                          <div className="px-2 company-logo">
-                            <img
-                              src={
-                                job.title
-                                  ? job.employer.logoUrl
-                                  : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                      job.employer.companyName
-                                    )}&background=random&size=50`
-                              }
-                              alt={`${job.employer.companyName} Logo`}
-                              style={{
-                                width: "50px",
-                                height: "50px",
-                                objectFit: "cover",
-                                borderRadius: "8px",
-                              }}
-                            />
-                          </div>
-                          <div className="" style={{ width: "100%" }}>
-                            <div className="d-flex justify-content-between title">
-                              <div
-                                className="titleCompanyName"
-                                onClick={openModal}
-                                style={{ fontWeight: "bold", color: "#00192D" }}
-                              >
-                                {job.title} At {job.employer.companyName}
-                              </div>
-                              <div
-                                className="text-end d-flex flex-column align-items-end"
-                                style={{ whiteSpace: "nowrap" }}
-                              >
-                                <button
-                                  className="btn btn-sm btn-light border text-muted"
-                                  onClick={() => handleLike(job.id)}
-                                >
-                                  👍 {likesMap[job.id] ?? job.likes}
-                                </button>
-                              </div>
-                            </div>
-                            <div className="text-muted mb-2">
-                              Posted:{" "}
-                              {new Date(job.createdAt).toLocaleDateString(
-                                "en-US",
-                                { day: "numeric", month: "long" }
-                              )}{" "}
-                              • Salary: {job.salary}
-                            </div>
-                            <p
+
+              {/* Job list */}
+              <div className="bg-white rounded-lg shadow p-4">
+                <h2 className="text-gray-600 text-sm mb-4">Latest Jobs</h2>
+                {jobs &&
+                  jobs.map((job) => (
+                    <div
+                      key={job.id}
+                      className="bg-gray-50 rounded-lg shadow-sm p-4 mb-4"
+                    >
+                      <div className="flex gap-3">
+                        <div className="flex-shrink-0">
+                          <img
+                            src={
+                              job.title
+                                ? job.employer.logoUrl
+                                : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                  job.employer.companyName
+                                )}&background=random&size=50`
+                            }
+                            alt={`${job.employer.companyName} Logo`}
+                            className="w-12 h-12 object-cover rounded-md"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start">
+                            <div
+                              className="font-semibold text-gray-900 cursor-pointer"
                               onClick={openModal}
-                              style={{ color: "rgb(0 28 63 / 60%)" }}
                             >
-                              {job.employer.companyDescription}
-                            </p>
+                              {job.title} at {job.employer.companyName}
+                            </div>
+                            <button
+                              className="text-sm text-gray-500 border rounded px-2 py-1 hover:bg-gray-100"
+                              onClick={() => handleLike(job.id)}
+                            >
+                              👍 {likesMap[job.id] ?? job.likes}
+                            </button>
                           </div>
+                          <div className="text-gray-500 text-sm mb-2">
+                            Posted:{" "}
+                            {new Date(job.createdAt).toLocaleDateString("en-US", {
+                              day: "numeric",
+                              month: "long",
+                            })}{" "}
+                            • Salary: {job.salary}
+                          </div>
+                          <p
+                            className="text-gray-600 text-sm"
+                            onClick={openModal}
+                          >
+                            {job.employer.companyDescription}
+                          </p>
                         </div>
                       </div>
-                    ))}
-                </div>
+                    </div>
+                  ))}
               </div>
             </div>
-            <div className="col-lg-3">
-              <div
-                className="position-sticky"
-                style={{
-                  top: "80px",
-                  maxHeight: "calc(100vh - 80px)",
-                  overflowY: "auto",
-                }}
-              >
-                <div class="p-4 mb-4 shadow-sm bg-white rounded border-0">
-                  <h5 className="fw-bold">📬 Subscribe to Job Alert</h5>
-                  <p className="small text-muted">
-                    Join thousands getting job updates weekly
-                  </p>
-                  <input
-                    type="email"
-                    class="form-control mb-2"
-                    placeholder="Enter your email here!"
-                  />
-                  <button
-                    className="btn btn-dark w-100"
-                    style={{ backgroundColor: "#00192D" }}
-                  >
-                    Subscribe
-                  </button>
+
+            {/* Right sidebar */}
+            <div className="lg:col-span-3 space-y-4">
+              {/* Subscribe */}
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h5 className="font-bold">📬 Subscribe to Job Alert</h5>
+                <p className="text-sm text-gray-500">
+                  Join thousands getting job updates weekly
+                </p>
+                <input
+                  type="email"
+                  placeholder="Enter your email here!"
+                  className="w-full border rounded px-3 py-2 text-sm mb-2 focus:ring-2 focus:ring-blue-500"
+                />
+                <button className="w-full bg-[#00192D] text-white rounded py-2 text-sm">
+                  Subscribe
+                </button>
+              </div>
+
+              {/* Featured Service */}
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h6 className="font-bold mb-2 text-[#002B5B]">
+                  💼 Featured Service: TalentLink Recruiters
+                </h6>
+                <p className="text-sm text-gray-700 mb-2">
+                  Looking to grow your team? <strong>TalentLink</strong> connects you
+                  with top professionals in finance, tech, marketing, and more.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="bg-[#002B5B] text-white text-xs px-2 py-1 rounded">
+                    Verified Candidates
+                  </span>
+                  <span className="bg-gray-100 border text-gray-700 text-xs px-2 py-1 rounded">
+                    Industry Experts
+                  </span>
                 </div>
-                <div className="p-4 mb-4 shadow-sm bg-white border-0 rounded">
-                  <h6 className="fw-bold mb-2" style={{ color: "#002B5B" }}>
-                    💼 Featured Service: TalentLink Recruiters
-                  </h6>
-                  <p className="text-dark small mb-1">
-                    Looking to grow your team? <strong>TalentLink</strong>{" "}
-                    connects you with top professionals in finance, tech,
-                    marketing, and more.
-                  </p>
-                  <div className="mb-2">
-                    <span
-                      className="badge text-white me-1"
-                      style={{ background: "#002B5B" }}
+                <a
+                  href="#"
+                  className="block text-center border border-yellow-500 text-yellow-600 text-sm py-2 rounded hover:bg-yellow-50"
+                >
+                  Find Talent with TalentLink
+                </a>
+              </div>
+
+              {/* Jobs by Category */}
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h6 className="font-bold mb-2">🗂 Jobs by Category</h6>
+                <div className="flex flex-col gap-2 text-sm">
+                  {[
+                    "Accounting",
+                    "Finance",
+                    "Marketing",
+                    "Human Resources (HR)",
+                    "Information Technology (IT)",
+                    "Customer Service",
+                    "Sales",
+                    "Operations Management",
+                  ].map((cat) => (
+                    <a
+                      key={cat}
+                      href="#"
+                      className="text-gray-700 hover:text-blue-600"
                     >
-                      Verified Candidates
-                    </span>
-                    <span className="badge bg-light text-dark border">
-                      Industry Experts
-                    </span>
-                  </div>
-                  <a
-                    href="#"
-                    className="btn btn-sm btn-outline-warning text-dark w-100"
-                  >
-                    Find Talent with TalentLink
-                  </a>
+                      {cat}
+                    </a>
+                  ))}
                 </div>
-                {/* <!-- Category --> */}
-                <div className="p-3 mb-4 bg-white shadow-sm rounded border-0">
-                  <h6 className="fw-bold">🗂 Jobs by Category</h6>
-                  <div className="d-flex flex-column gap-2 small">
-                    <a href="#" className="text-decoration-none text-dark">
-                      Accounting
+              </div>
+
+              {/* Jobs by Location */}
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h6 className="font-bold mb-2">📍 Jobs by Location</h6>
+                <div className="flex flex-wrap gap-2 text-sm">
+                  {[
+                    "Nairobi",
+                    "Mombasa",
+                    "Kisumu",
+                    "Eldoret",
+                    "Nakuru",
+                    "Thika",
+                    "Kitale",
+                    "Machakos",
+                  ].map((loc) => (
+                    <a
+                      key={loc}
+                      href="#"
+                      className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200"
+                    >
+                      {loc}
                     </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Finance
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Marketing
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Human Resources (HR)
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Information Technology (IT)
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Customer Service
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Sales
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Operations Management
-                    </a>
-                  </div>
+                  ))}
                 </div>
-                {/* <!-- Location --> */}
-                <div className="p-3 shadow-sm bg-white rounded border-0">
-                  <h6 className="fw-bold">📍 Jobs by Location</h6>
-                  <div className="d-flex flex-wrap gap-2 small">
-                    <a href="#" className="text-decoration-none text-dark">
-                      Nairobi
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Mombasa
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Kisumu
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Eldoret
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Nakuru
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Thika
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Kitale
-                    </a>
-                    <a href="#" className="text-decoration-none text-dark">
-                      Machakos
-                    </a>
-                  </div>
-                  <button class="btn btn-warning btn-sm mt-2">
-                    View All Locations
-                  </button>
-                </div>
+                <button className="mt-3 bg-yellow-500 text-white text-sm px-3 py-2 rounded hover:bg-yellow-600">
+                  View All Locations
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       {/* Modal and overlay */}
       {isOpen && (
         <>
           {isOpen && (
             <>
+              {/* Overlay */}
               <div
-                className={`modal-overlay ${showModal ? "active" : ""}`}
+                className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${showModal ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                  }`}
                 onClick={closeModal}
-              ></div>
-              <div className={`job-modal ${showModal ? "active" : ""}`}>
+              />
+
+              {/* Modal */}
+              <div
+                className={`fixed top-1/2 left-1/2 w-full max-w-2xl bg-white rounded-lg shadow-lg transform transition-all p-6 overflow-y-auto max-h-[90vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
+                  }`}
+              >
+                {/* Close / Back button */}
                 <button
-                  className="close-btn"
+                  className="flex items-center gap-2 text-[#00192D] font-bold text-base hover:text-[#0057b8]"
                   onClick={closeModal}
-                  style={{
-                    backgroundColor: "transparent",
-                    color: "#00192D",
-                    border: "none",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    cursor: "pointer",
-                  }}
                 >
-                  <span style={{ fontSize: "18px" }}>←</span> Back
+                  <span className="text-lg">←</span> Back
                 </button>
 
-                <div className="job-modal-header d-flex">
-                  <h3>Front-End Developer</h3>&nbsp; at &nbsp;<h3>Elytica</h3>
+                {/* Header */}
+                <div className="flex gap-2 mt-4">
+                  <h3 className="font-bold text-lg">Front-End Developer</h3>
+                  <span>at</span>
+                  <h3 className="font-bold text-lg">Elytica</h3>
                 </div>
-                <div className="company-desc">
-                  Pixelyte Tech is a fast-growing software company that helps
-                  startups and enterprises deliver beautiful, scalable digital
-                  experiences. With a collaborative team and remote-friendly
-                  culture, we prioritize innovation and employee growth.
+
+                {/* Company description */}
+                <div className="mt-2 text-gray-700">
+                  Pixelyte Tech is a fast-growing software company that helps startups and
+                  enterprises deliver beautiful, scalable digital experiences. With a
+                  collaborative team and remote-friendly culture, we prioritize innovation
+                  and employee growth.
                 </div>
-                <div className="job-details">
-                  <div>
-                    <span className="label jobtype">Job Type:</span> Full-Time
-                  </div>
-                  <div>
-                    <span className="label qualification">Qualification:</span>{" "}
-                    Diploma in Computer Science
-                  </div>
-                  <div>
-                    <span className="label experience">Experience:</span> 2+
-                    Years
-                  </div>
-                  <div>
-                    <span className="label location">Location:</span> Nairobi,
-                    Kenya
-                  </div>
-                  <div>
-                    <span className="label field">Field:</span> Software
-                    Development
-                  </div>
+
+                {/* Job details */}
+                <div className="mt-4 space-y-1 text-gray-800">
+                  <div><span className="font-semibold">Job Type:</span> Full-Time</div>
+                  <div><span className="font-semibold">Qualification:</span> Diploma in Computer Science</div>
+                  <div><span className="font-semibold">Experience:</span> 2+ Years</div>
+                  <div><span className="font-semibold">Location:</span> Nairobi, Kenya</div>
+                  <div><span className="font-semibold">Field:</span> Software Development</div>
                 </div>
-                <div className="dutiesResponsibilities bg-light">
-                  <div className="section-title">Duties & Responsibilities</div>
-                  <ul>
-                    <li>
-                      Develop responsive web interfaces using HTML, CSS, and
-                      JavaScript.
-                    </li>
-                    <li>
-                      Collaborate with UI/UX designers to implement modern user
-                      experiences.
-                    </li>
-                    <li>
-                      Consume REST APIs and integrate backend services
-                      seamlessly.
-                    </li>
-                    <li>
-                      Maintain code quality through code reviews and testing.
-                    </li>
-                    <li>
-                      Stay updated with emerging front-end trends and
-                      technologies.
-                    </li>
+
+                {/* Duties & Responsibilities */}
+                <div className="mt-6 bg-gray-100 p-4 rounded-lg">
+                  <div className="font-semibold mb-2">Duties & Responsibilities</div>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                    <li>Develop responsive web interfaces using HTML, CSS, and JavaScript.</li>
+                    <li>Collaborate with UI/UX designers to implement modern user experiences.</li>
+                    <li>Consume REST APIs and integrate backend services seamlessly.</li>
+                    <li>Maintain code quality through code reviews and testing.</li>
+                    <li>Stay updated with emerging front-end trends and technologies.</li>
                   </ul>
                 </div>
-                <div className="requiredQualifications bg-light">
-                  <div className="section-title">Required Qualifications</div>
-                  <ul>
-                    <li>
-                      Diploma or higher in Computer Science or related field.
-                    </li>
-                    <li>
-                      Strong understanding of HTML5, CSS3, and JavaScript
-                      (ES6+).
-                    </li>
-                    <li>
-                      Familiarity with frameworks like React, Vue, or Angular.
-                    </li>
-                    <li>
-                      Good grasp of version control (Git) and build tools
-                      (Webpack, Vite).
-                    </li>
+
+                {/* Required Qualifications */}
+                <div className="mt-6 bg-gray-100 p-4 rounded-lg">
+                  <div className="font-semibold mb-2">Required Qualifications</div>
+                  <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                    <li>Diploma or higher in Computer Science or related field.</li>
+                    <li>Strong understanding of HTML5, CSS3, and JavaScript (ES6+).</li>
+                    <li>Familiarity with frameworks like React, Vue, or Angular.</li>
+                    <li>Good grasp of version control (Git) and build tools (Webpack, Vite).</li>
                     <li>Excellent communication and teamwork skills.</li>
                   </ul>
                 </div>
-                <div>
-                  <div className="section-title">How to Apply</div>
-                  <p style={{ lineHeight: "1.6;", color: "#333;" }}>
-                    Interested candidates should send their CV and portfolio to
+
+                {/* How to Apply */}
+                <div className="mt-6">
+                  <div className="font-semibold mb-2">How to Apply</div>
+                  <p className="text-gray-700 leading-relaxed">
+                    Interested candidates should send their CV and portfolio to{" "}
                     <a
                       href="mailto:careers@pixelytetech.com"
-                      style={{ color: "#0057b8;", textDecoration: "none;" }}
+                      className="text-blue-600 hover:underline"
                     >
-                      {" "}
                       careers@pixelytetech.com
-                    </a>
+                    </a>{" "}
                     with the subject line{" "}
-                    <strong>
-                      "Application for Front-End Developer – Nairobi"
-                    </strong>
-                    . Applications will be reviewed on a rolling basis. Early
-                    applicants will be given priority.
+                    <strong>"Application for Front-End Developer – Nairobi"</strong>. Applications will be reviewed on a rolling basis. Early applicants will be given priority.
                   </p>
                 </div>
               </div>
