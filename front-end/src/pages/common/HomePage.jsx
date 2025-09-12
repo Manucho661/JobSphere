@@ -113,7 +113,7 @@ const HomePage = () => {
               </ul>
 
               {/* Job list */}
-              <div className="bg-white rounded-lg shadow p-4">
+              <div className="tab-content">
                 <h2 className="text-gray-600 text-sm mb-4">Latest Jobs</h2>
                 {jobs &&
                   jobs.map((job) => (
@@ -121,8 +121,8 @@ const HomePage = () => {
                       key={job.id}
                       className="bg-gray-50 rounded-lg shadow-sm p-4 mb-4"
                     >
-                      <div className="flex gap-3">
-                        <div className="flex-shrink-0">
+                      <div className="job-card flex gap-3">
+                        <div className="logo-section flex-shrink-0">
                           <img
                             src={
                               job.title
@@ -135,10 +135,10 @@ const HomePage = () => {
                             className="w-12 h-12 object-cover rounded-md"
                           />
                         </div>
-                        <div className="flex-1">
+                        <div className=" flex-1">
                           <div className="flex justify-between items-start">
                             <div
-                              className="font-semibold text-gray-900 cursor-pointer"
+                              className="job-title font-semibold text-gray-900 cursor-pointer"
                               onClick={openModal}
                             >
                               {job.title} at {job.employer.companyName}
@@ -285,7 +285,7 @@ const HomePage = () => {
 
               {/* Modal */}
               <div
-                className={`fixed top-1/2 left-1/2 w-full max-w-2xl bg-white rounded-lg shadow-lg transform transition-all p-6 overflow-y-auto max-h-[90vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
+                className={`job-modal fixed top-1/2 left-1/2 w-full max-w-2xl bg-white rounded-lg shadow-lg transform transition-all p-6 overflow-y-auto max-h-[90vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
                   }`}
               >
                 {/* Close / Back button */}
