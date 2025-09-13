@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "../components/employers/EmployerSidebar";
 import Header from "../components/employers/EmployerHeader";
-import "./employerlayout.css";
+import Footer from "../components/employers/Footer";
+import "../styles/EmployerLayout.scss";
 import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {
@@ -12,6 +13,7 @@ const EmployerLayout = () => {
       <div className="main min-h-screen">
         <Outlet />
       </div>
+      <Footer/>
     </div>
   );
 };
