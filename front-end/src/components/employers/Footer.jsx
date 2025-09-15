@@ -1,9 +1,10 @@
+  import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
         <>
             <footer>
-                <div className="footer-container">
+                <div className="footer-container" style={{background:'white'}}>
                     <div>
                         <h3>About</h3>
                         <p>We build modern web apps and share development insights.</p>

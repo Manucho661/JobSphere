@@ -12,8 +12,8 @@ const EmployerLayout = () => {
       <Sidebar />
       <div className="main min-h-screen">
         <Outlet />
+        <Footer />
       </div>
-      <Footer/>
     </div>
   );
 };

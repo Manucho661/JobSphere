@@ -6,9 +6,7 @@
   /* header + fill rest */
   grid-template-areas:
     "header header"
-    "sidebar main"
-    "footer footer";
-
+    "sidebar main";
   width: 100vw;
   height: 100vh;
   /* ✅ force wrapper to take full screen height */
@@ -124,10 +122,10 @@
 
 // footer
 footer {
-    grid-area: footer;
-  background: #222;
-  color: #ccc;
+  // color: #ccc;
   padding: 1.5rem 1rem;
+    height: var(--header-height);
+
 }
 
 footer .footer-container {
