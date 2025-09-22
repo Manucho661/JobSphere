@@ -3,7 +3,7 @@ import "../styles/footer.css";
 const Footer = () => {
   return (
     <footer className="main-footer">
-      <div className="bg-gray-100 text-[#00192D] px-6 py-8">
+      <div className="text-[#00192D] px-6 py-8">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Left: Logo + Brand */}
@@ -13,7 +13,7 @@ const Footer = () => {
               alt="JobSphere Logo"
               className="w-10 h-10 object-contain"
             />
-            <span className="text-xl font-bold">JobSphere</span>
+            <span className="text-xl font-bold text-white">JobSphere</span>
           </div>
 
           {/* Right: Links */}
@@ -43,7 +43,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="mt-6 text-center border-t border-gray-300 pt-4 text-sm text-gray-600">
-          <p>&copy; {new Date().getFullYear()} JobSphere. All rights reserved.</p>
+          <p className="text-white">&copy; {new Date().getFullYear()} JobSphere. All rights reserved.</p>
         </div>
       </div>
 
