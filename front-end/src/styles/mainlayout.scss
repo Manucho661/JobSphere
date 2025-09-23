@@ -1,0 +1,124 @@
+body {
+  background-color: #f5f5f5 !important;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+:root {
+  --header-height: 10vh;
+}
+
+.app-wrapper {
+  display: grid;
+  grid-template-rows: var(--header-height) 1fr auto;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  grid-area: header;
+  height: var(--header-height);
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 10px 30px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  color: #002B5B;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+  }
+}
+
+/* Main */
+.main {
+  grid-area: main;
+  padding-top: var(--header-height); /* avoids overlap */
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* Footer */
+.footer {
+  grid-area: footer;
+  background-color: black !important;
+}
+
+.main-footer {
+  background-color: #002B5B;
+  padding: 30px 40px 20px;
+  color: #f1f1f1;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.footer-logo {
+  height: 35px;
+  margin-right: 10px;
+}
+
+.footer-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links li a {
+  text-decoration: none;
+  color: #f1f1f1;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.footer-links li a:hover {
+  color: #FFC107;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.85rem;
+  color: #bbbbbb;
+  border-top: 1px solid #334b73;
+  padding-top: 10px;
+}

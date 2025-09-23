@@ -2,7 +2,7 @@ import "../styles/footer.css";
 
 const Footer = () => {
   return (
-    <footer className="main-footer">
+    <footer className="main-footer" style={{background:'black'}}>
       <div className="text-[#00192D] px-6 py-8">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">

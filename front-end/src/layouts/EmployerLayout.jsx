@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {
   return (
-    <div className="app-wrapper">
+    <div className="employer-app-wrapper">
       <Header />
       <Sidebar />
       <div className="main min-h-screen">
