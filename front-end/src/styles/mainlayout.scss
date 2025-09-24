@@ -61,4 +61,31 @@ body {
 /* Footer */
 .footer {
   grid-area: footer;
+  padding: 40px 20px 20px !important;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section h2 {
+  color: #FFC107;
+  margin-bottom: 15px;
+}
+.footer-section p{
+    margin-bottom: 10px;
+}
+.footer-grid{
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+.footer-bottom{
+      text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+    padding-top :15px;
+    color: #ccc;
 }
