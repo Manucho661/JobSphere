@@ -7,7 +7,8 @@ const Footer = () => {
 
         {/* About Section */}
         <div className="flex-1 min-w-[200px]">
-          <h2 className="text-[#FFC107] mb-4 text-xl font-semibold">JobSphere</h2>
+          <h2 className="text-[#FFC107] mb-4 text-2xl font-semibold">JobSphere</h2>
+
           <p>
             Jengo Pay is your trusted platform for managing properties, tenants, and
             service providers efficiently. Empowering real estate with smart tech.
@@ -16,7 +17,7 @@ const Footer = () => {
 
         {/* Links Section */}
         <div className="flex-1 min-w-[200px]">
-          <h3 className="text-[#FFC107] mb-4 text-lg font-semibold">Quick Links</h3>
+          <h2 className="text-[#FFC107] mb-4 text-2xl font-semibold">Quick Links</h2>
           <ul className="space-y-2">
             <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Dashboard</a></li>
             <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Units</a></li>
@@ -27,7 +28,8 @@ const Footer = () => {
 
         {/* Contact Section */}
         <div className="flex-1 min-w-[200px]">
-          <h3 className="text-[#FFC107] mb-4 text-lg font-semibold">Contact Us</h3>
+          <h2 className="text-[#FFC107] mb-4 text-2xl font-semibold">Contact Us</h2>
+
           <p className="flex items-center gap-2">
             <i className="fas fa-phone-alt"></i> +254 712 345 678
           </p>
