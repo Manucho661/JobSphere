@@ -3,7 +3,7 @@ import apiClient from "../../api/apiClient";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import "../../styles/Home.css";
+import "./Home.css";
 
 const fetchJobs = async () => {
   console.log("📡 Fetching jobs..."); // ✅ Check if fetch function runs
@@ -46,8 +46,8 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="w-full bg-gray-100 py-10">
-        <div className="max-w-5xl mx-auto text-center px-4">
+      <div className="w-full bg-gray-100 py-5">
+        <div className="max-w-5xl mx-auto text-center px-2">
           {/* Heading */}
           <h4 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-6">
             Your Tech Future Starts Here — Find the Job You Deserve.

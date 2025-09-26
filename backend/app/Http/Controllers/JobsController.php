@@ -10,6 +10,6 @@ class JobsController extends Controller
       // GET /api/jobs
     public function index()
     {
-        return response()->json(Job::with('employer')->latest()->get());
+return response()->json(Job::with('employer')->latest()->paginate(10)); 
     }
 }
