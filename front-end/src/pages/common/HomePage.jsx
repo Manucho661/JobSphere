@@ -1,25 +1,27 @@
 import Header from "../../components/common/Header";
 import apiClient from "../../api/apiClient";
 import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 import "./Home.css";
 
-const fetchJobs = async () => {
-  console.log("📡 Fetching jobs..."); // ✅ Check if fetch function runs
-  const response = await apiClient.get("/jobs");
-  console.log("✅ Fetched Jobs:", response.data); // ✅ See API response
+const fetchJobs = async (page = 1) => {
+  const response = await apiClient.get(`/jobs?page=${page}`);
   return response.data;
 };
 
 const HomePage = () => {
+  const [page, setPage] = useState(1);
+
   const {
     data: jobs,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["jobs"],
-    queryFn: fetchJobs,
+    queryKey: ["jobs", page], // ✅ React Query refetches when page changes
+    queryFn: () => fetchJobs(page),
+    keepPreviousData: true, // ✅ smooth transition when switching pages
   });
   // hooks
   const [likesMap, setLikesMap] = useState({});
@@ -115,60 +117,93 @@ const HomePage = () => {
               {/* Job list */}
               <div className="tab-content">
                 <h2 className="text-gray-600 text-sm mb-4">Latest Jobs</h2>
-                {jobs &&
-                  jobs.map((job) => (
-                    <div
-                      key={job.id}
-                      className="bg-gray-50 rounded-lg shadow-sm p-4 mb-4"
-                    >
-                      <div className="job-card flex gap-3">
-                        <div className="logo-section flex-shrink-0">
-                          <img
-                            src={
-                              job.title
-                                ? job.employer.logoUrl
-                                : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                  job.employer.companyName
-                                )}&background=random&size=50`
-                            }
-                            alt={`${job.employer.companyName} Logo`}
-                            className="w-12 h-12 object-cover rounded-md"
-                          />
-                        </div>
-                        <div className=" flex-1">
-                          <div className="flex justify-between items-start">
-                            <div
-                              className="job-title font-semibold text-gray-900 cursor-pointer"
-                              onClick={openModal}
-                            >
-                              {job.title} at {job.employer.companyName}
-                            </div>
-                            <button
-                              className="text-sm text-gray-500 border rounded px-2 py-1 hover:bg-gray-100"
-                              onClick={() => handleLike(job.id)}
-                            >
-                              👍 {likesMap[job.id] ?? job.likes}
-                            </button>
-                          </div>
-                          <div className="text-gray-500 text-sm mb-2">
-                            Posted:{" "}
-                            {new Date(job.createdAt).toLocaleDateString("en-US", {
-                              day: "numeric",
-                              month: "long",
-                            })}{" "}
-                            • Salary: {job.salary}
-                          </div>
-                          <p
-                            className="text-gray-600 text-sm"
+                {jobs?.data?.map((job) => (
+                  <div
+                    key={job.id}
+                    className="bg-gray-50 rounded-lg shadow-sm p-4 mb-4"
+                  >
+                    <div className="job-card flex gap-3">
+                      <div className="logo-section flex-shrink-0">
+                        <img
+                          src={
+                            job.employer.logoUrl
+                              ? job.employer.logoUrl
+                              : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                job.employer.companyName
+                              )}&background=random&size=50`
+                          }
+                          alt={`${job.employer.companyName} Logo`}
+                          className="w-12 h-12 object-cover rounded-md"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start">
+                          <div
+                            className="job-title font-semibold text-gray-900 cursor-pointer"
                             onClick={openModal}
                           >
-                            {job.employer.companyDescription}
-                          </p>
+                            {job.title} at {job.employer.companyName}
+                          </div>
+                          <button
+                            className="text-sm text-gray-500 border rounded px-2 py-1 hover:bg-gray-100"
+                            onClick={() => handleLike(job.id)}
+                          >
+                            👍 {likesMap[job.id] ?? job.likes}
+                          </button>
                         </div>
+                        <div className="text-gray-500 text-sm mb-2">
+                          Posted:{" "}
+                          {new Date(job.createdAt).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "long",
+                          })}{" "}
+                          • Salary: {job.salary}
+                        </div>
+                        <p
+                          className="text-gray-600 text-sm"
+                          onClick={openModal}
+                        >
+                          {job.employer.companyDescription}
+                        </p>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
+              <div className="flex justify-between items-center mt-6">
+  {/* Previous Button */}
+  <button
+    disabled={!jobs?.prev_page_url}
+    onClick={() => setPage((old) => Math.max(old - 1, 1))}
+    className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
+               bg-[#002B5B] text-white hover:bg-[#FFC107] hover:text-[#002B5B]
+               disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+  >
+    <ArrowLeft className="w-4 h-4" />
+    Previous
+  </button>
+
+  {/* Page Info */}
+  <span className="text-[#002B5B] font-medium">
+    Page {jobs?.current_page} of {jobs?.last_page}
+  </span>
+
+  {/* Next Button */}
+  <button
+    disabled={!jobs?.next_page_url}
+    onClick={() =>
+      setPage((old) => (jobs?.next_page_url ? old + 1 : old))
+    }
+    className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
+               bg-[#002B5B] text-white hover:bg-[#FFC107] hover:text-[#002B5B]
+               disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+  >
+    Next
+    <ArrowRight className="w-4 h-4" />
+  </button>
+</div>
+
+
             </div>
 
             {/* Right sidebar */}
