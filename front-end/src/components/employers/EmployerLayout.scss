@@ -1,36 +1,26 @@
 .employer-app-wrapper {
   display: grid;
   grid-template-columns: 250px 1fr;
-  /* sidebar + main */
-  grid-template-rows: 60px 1fr;
-  /* header + fill rest */
+  grid-template-rows: 10vh 1fr auto;
   grid-template-areas:
     "header header"
-    "sidebar main";
-  width: 100vw;
-  height: 100vh;
-  /* ✅ force wrapper to take full screen height */
-
-  overflow: hidden;
-  /* ✅ prevent wrapper scroll */
+    "sidebar main"
+    "sidebar footer";
+  // width: 100vw;
+  // height: 100vh; /* 👈 ensures sidebar has a stable full height reference */
 }
 
 .header {
-  height: var(--header-height);
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 10px 30px;
-  /* position: fixed; */
   width: 100%;
   top: 0;
   z-index: 1000;
   color: #002B5B;
   display: flex;
-  /* ✅ added */
   align-items: center;
-  /* ✅ vertically center items */
   justify-content: space-between;
-  /* ✅ put logo on left, nav on right */
   grid-area: header;
 }
 
@@ -52,7 +42,10 @@
   background-color: #002B5B;
   color: white;
   padding-top: 1rem;
+  top:10vh;
   overflow-y: auto;
+  height: calc(100vh - 10vh); /* 👈 subtract header height if needed */
+  position: sticky;
   /* ✅ sidebar scrolls if tall */
 }
 
@@ -74,13 +67,19 @@
   font-size: 0.95rem;
 }
 
-.main {
+.employerMain {
   grid-area: main;
-  padding: 20px;
+  // padding: 20px;
   overflow-y: auto;
   /* ✅ only main scrolls */
-  height: 100%;
+  // height: 100%;
   /* ✅ fill its grid cell */
+}
+.footer{
+grid-area: footer;
+}
+.footer h2{
+  
 }
 
 /* Posted Job Row */
@@ -119,58 +118,3 @@
 .PostedDate {
   color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
 }
-
-// // footer
-// footer {
-//   // color: #ccc;
-//   padding: 1.5rem 1rem;
-//     height: var(--header-height);
-
-// }
-
-// footer .footer-container {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: space-between;
-//   gap: 1.5rem;
-//   max-width: 1000px;
-//   margin: auto;
-// }
-
-// footer h3 {
-//   color: #fff;
-//   font-size: 1rem;
-//   margin-bottom: 0.5rem;
-// }
-
-// footer p,
-// footer ul {
-//   font-size: 0.9rem;
-//   margin: 0;
-//   padding: 0;
-//   list-style: none;
-//   line-height: 1.4;
-// }
-
-// footer ul li {
-//   margin-bottom: 0.3rem;
-// }
-
-// footer a {
-//   color: #ccc;
-//   text-decoration: none;
-//   transition: color 0.2s;
-// }
-
-// footer a:hover {
-//   color: #3498db;
-// }
-
-// .footer-bottom {
-//   text-align: center;
-//   margin-top: 1rem;
-//   border-top: 1px solid #444;
-//   padding-top: 0.8rem;
-//   font-size: 0.8rem;
-//   color: #777;
-// }

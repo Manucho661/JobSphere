@@ -48,7 +48,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="w-full bg-gray-100 py-5">
+      <div className="w-full bg-gray-100 py-0">
         <div className="max-w-5xl mx-auto text-center px-2">
           {/* Heading */}
           <h4 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-6">
@@ -120,7 +120,7 @@ const HomePage = () => {
                 {jobs?.data?.map((job) => (
                   <div
                     key={job.id}
-                    className="bg-gray-50 rounded-lg shadow-sm p-4 mb-4"
+                    className="bg-white rounded-lg shadow-sm p-4 mb-4"
                   >
                     <div className="job-card flex gap-3">
                       <div className="logo-section flex-shrink-0">
@@ -171,39 +171,37 @@ const HomePage = () => {
                 ))}
               </div>
               <div className="flex justify-between items-center mt-6">
-  {/* Previous Button */}
-  <button
-    disabled={!jobs?.prev_page_url}
-    onClick={() => setPage((old) => Math.max(old - 1, 1))}
-    className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
+                {/* Previous Button */}
+                <button
+                  disabled={!jobs?.prev_page_url}
+                  onClick={() => setPage((old) => Math.max(old - 1, 1))}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                bg-[#002B5B] text-white hover:bg-[#FFC107] hover:text-[#002B5B]
                disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
-  >
-    <ArrowLeft className="w-4 h-4" />
-    Previous
-  </button>
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Previous
+                </button>
 
-  {/* Page Info */}
-  <span className="text-[#002B5B] font-medium">
-    Page {jobs?.current_page} of {jobs?.last_page}
-  </span>
+                {/* Page Info */}
+                <span className="text-[#002B5B] font-medium">
+                  Page {jobs?.current_page} of {jobs?.last_page}
+                </span>
 
-  {/* Next Button */}
-  <button
-    disabled={!jobs?.next_page_url}
-    onClick={() =>
-      setPage((old) => (jobs?.next_page_url ? old + 1 : old))
-    }
-    className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
+                {/* Next Button */}
+                <button
+                  disabled={!jobs?.next_page_url}
+                  onClick={() =>
+                    setPage((old) => (jobs?.next_page_url ? old + 1 : old))
+                  }
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
                bg-[#002B5B] text-white hover:bg-[#FFC107] hover:text-[#002B5B]
                disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
-  >
-    Next
-    <ArrowRight className="w-4 h-4" />
-  </button>
-</div>
-
-
+                >
+                  Next
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
             {/* Right sidebar */}

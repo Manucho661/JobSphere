@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../components/employers/EmployerSidebar";
 import Header from "../components/employers/EmployerHeader";
 import Footer from "../components/employers/Footer";
-import "../styles/EmployerLayout.scss";
+import "../components/employers/EmployerLayout.scss";
 import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {
@@ -10,10 +10,10 @@ const EmployerLayout = () => {
     <div className="employer-app-wrapper">
       <Header />
       <Sidebar />
-      <div className="main min-h-screen">
+      <div className="employerMain mt-4">
         <Outlet />
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };

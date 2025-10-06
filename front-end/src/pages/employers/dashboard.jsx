@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CreateJobModal from "../../components/employers/CreateJobModal";
-import Sidebar from "../../components/employers/EmployerSidebar";
 import JobTrendsChart from "../../components/employers/postedJobsGraph";
 import { FaBriefcase } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
@@ -17,38 +16,18 @@ const EmployerDashboard = () => {
     // <div className='main'>
     <div className="max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="col-12 d-flex justify-content-between">
-          <div >
-            <h6>Employer / Dashboard</h6>
+        <div className="col-span-12 mb-2 flex justify-between items-center">
+          {/* Left section: Home */}
+          <div>
+            <h6>Home</h6>
           </div>
-          <div className="d-flex mb-3">
-            <Link
-              to="/employer/post-job"
-              className="btn btn-sm"
-              style={{
-                backgroundColor: "#002B5B", // Bootstrap success green
-                marginLeft: "2px",
-                marginRight: "2px",
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                padding: "6px 12px",
-                borderRadius: "4px",
-                fontWeight: "500",
-                textDecoration: "none",
-              }}
-              title="Post Job"
-            >
-              <i className="fas fa-briefcase"></i>
-              Post Job
-            </Link>
+
+          {/* Right section: Buttons */}
+          <div className="flex space-x-2">
             <button
               className="btn btn-sm"
               style={{
-                backgroundColor: "#6c757d", // Bootstrap secondary grey
-                marginLeft: "2px",
-                marginRight: "2px",
+                backgroundColor: "#6c757d",
                 color: "#fff",
                 display: "flex",
                 alignItems: "center",
@@ -57,17 +36,16 @@ const EmployerDashboard = () => {
                 borderRadius: "4px",
                 fontWeight: "500",
               }}
-              title="Help"
+              title="Load Account"
             >
               <i className="fas fa-question-circle"></i>
               Load Account
             </button>
+
             <button
               className="btn btn-sm"
               style={{
-                backgroundColor: "#6c757d", // Bootstrap secondary grey
-                marginLeft: "2px",
-                marginRight: "2px",
+                backgroundColor: "#6c757d",
                 color: "#fff",
                 display: "flex",
                 alignItems: "center",

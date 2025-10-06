@@ -1,41 +1,52 @@
-  import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
         <>
-            <footer>
-                <div className="footer-container" style={{background:'white'}}>
-                    <div>
-                        <h3>About</h3>
-                        <p>We build modern web apps and share development insights.</p>
+            <footer className="footer bg-white m-0 px-4 text-black pt-5 pb-4 mt-5 border-0">
+                <div className="footer-grid max-w-6xl mx-auto flex flex-wrap justify-between gap-8">
+
+                    {/* About Section */}
+                    <div className="footer-section flex-1 min-w-[200px]">
+                        <h2 className="text-[#002B5B] mb-4 text-2xl font-semibold">JobSphere</h2>
+
+                        <p>
+                            Jobsphere connects companies with the best tech talent. Post jobs, discover opportunities, and apply with ease — all in one platform
+                        </p>
                     </div>
-                    <div>
-                        <h3>Links</h3>
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact</a></li>
+
+                    {/* Links Section */}
+                    <div className="footer-section flex-1 min-w-[200px]">
+
+                        <h2 className="text-[#002B5B] mb-4 text-2xl font-semibold">Quick Links</h2>
+                        <ul className="space-y-2">
+                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Home</a></li>
+                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Jobs</a></li>
+                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Login</a></li>
+                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Register</a></li>
                         </ul>
                     </div>
-                    <div>
-                        <h3>Contact</h3>
-                        <ul>
-                            <li>Email: info@example.com</li>
-                            <li>Phone: +123 456 789</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Follow</h3>
-                        <ul>
-                            <li><a href="#">🌐 Facebook</a></li>
-                            <li><a href="#">🐦 Twitter</a></li>
-                            <li><a href="#">📸 Instagram</a></li>
-                        </ul>
+
+                    {/* Contact Section */}
+                    <div className="footer-section flex-1 min-w-[200px]">
+                        <h2 className="text-blue mb-4 text-2xl font-semibold">Contact Us</h2>
+
+                        <p className="flex items-center gap-2">
+                            <i className="fas fa-phone-alt"></i> +254 712 345 678
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <i className="fas fa-envelope"></i> support@JobSphere.co.ke
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <i className="fas fa-map-marker-alt"></i> Nairobi, Kenya
+                        </p>
                     </div>
                 </div>
-                <div className="footer-bottom">
-                    © 2025 My Website | All Rights Reserved
+                {/* Bottom Section */}
+                <div className="footer-bottom mt-8 text-center border-t border-white/20 pt-4 text-gray-400">
+                    <p className="">
+                        &copy; {new Date().getFullYear()} JobSphere. All rights reserved.
+                    </p>
                 </div>
             </footer>
         </>
