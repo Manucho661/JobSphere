@@ -4,6 +4,20 @@ import { Link } from 'react-router-dom';
 const PostJob = () => {
     console.log("PostJob component rendered");
 
+    // Step 1: Manage form state
+    const [formData, setFormData] = useState({
+        description: "",
+        requirements: "",
+    });
+
+    // Step 2: Update state on input change
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
     return (
         <>
             <div>
@@ -183,6 +197,8 @@ const PostJob = () => {
                                 </label>
                                 <textarea
                                     name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
                                     placeholder="Describe the job role and responsibilities..."
                                     rows="4"
                                     className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
@@ -197,6 +213,8 @@ const PostJob = () => {
                                 </label>
                                 <textarea
                                     name="requirements"
+                                    value={formData.requirements}
+                                    onChange={handleChange}
                                     placeholder="List required skills, education, and experience..."
                                     rows="4"
                                     className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
