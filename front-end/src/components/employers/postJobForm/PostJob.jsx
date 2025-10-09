@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+import apiClient from "../../../api/apiClient";
+
 
 const PostJob = () => {
     console.log("PostJob component rendered");
 
     // Step 1: Manage form state
     const [formData, setFormData] = useState({
+        title: "",
         description: "",
         requirements: "",
+        salary: ""
     });
 
     // Step 2: Update state on input change
@@ -17,7 +21,18 @@ const PostJob = () => {
             [e.target.name]: e.target.value,
         });
     };
-
+    // 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await apiClient.post("/postJobs", formData); // POST → Laravel
+            alert(res.data.message || "User saved!");
+            setFormData({ title: "", description: "", requirements: "", salary: "" });
+        } catch (err) {
+            console.error(err.response?.data || err.message);
+            alert("Error submitting form");
+        }
+    }
     return (
         <>
             <div>
@@ -110,7 +125,7 @@ const PostJob = () => {
                     <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
                         Post a New Job
                     </h2>
-                    <form action="">
+                    <form onSubmit={handleSubmit} action="">
                         <div>
                             <label className="block text-gray-700 font-medium mb-2">
                                 Job Title
@@ -118,6 +133,8 @@ const PostJob = () => {
                             <input
                                 type="text"
                                 name="title"
+                                value={formData.title}
+                                onChange={handleChange}
                                 placeholder="e.g. Software Engineer"
                                 className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
                             />
@@ -174,6 +191,8 @@ const PostJob = () => {
                                     <input
                                         type="text"
                                         name="salary"
+                                        value={formData.salary}
+                                        onChange={handleChange}
                                         placeholder="e.g. Ksh 80,000 - Ksh 120,000"
                                         className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
                                     />
