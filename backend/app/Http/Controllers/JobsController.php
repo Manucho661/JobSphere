@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Mail\JobPostedMail;
 use Illuminate\Http\Request;
+use App\Models\JobNotification;
+use Illuminate\Support\Facades\Mail;
 
 class JobsController extends Controller
 {
@@ -23,11 +26,17 @@ class JobsController extends Controller
         ]);
 
         // Create new record
-        $user = Job::create($validated);
+        $job = Job::create($validated);
+
+        // Send notification email
+        $subscribers = JobNotification::pluck('email');
+        foreach ($subscribers as $email) {
+            Mail::to($email)->send(new JobPostedMail($job));
+        }
 
         return response()->json([
             'message' => 'User created successfully!',
-            'data' => $user,
+            'data' => $job,
         ]);
     }
 }

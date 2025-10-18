@@ -11,6 +11,11 @@ const fetchJobs = async (page = 1) => {
   return response.data;
 };
 
+
+
+
+
+
 const HomePage = () => {
   const [page, setPage] = useState(1);
 
@@ -27,6 +32,8 @@ const HomePage = () => {
   const [likesMap, setLikesMap] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false); // controls the 'active' class
+  // set email for subscribe
+  const [email, setEmail] = useState("");
 
   const openModal = () => {
     setIsOpen(true);
@@ -46,6 +53,17 @@ const HomePage = () => {
     }));
   };
 
+  // subscribe
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await apiClient.post(`/subscribe`, { email });
+      return response.data;
+    }
+    catch (err) {
+
+    }
+  }
   return (
     <>
       <div className="w-full bg-gray-100 py-0">
@@ -212,14 +230,18 @@ const HomePage = () => {
                 <p className="text-sm text-gray-500">
                   Join thousands getting job updates weekly
                 </p>
-                <input
-                  type="email"
-                  placeholder="Enter your email here!"
-                  className="w-full border rounded px-3 py-2 text-sm mb-2 focus:ring-2 focus:ring-blue-500"
-                />
-                <button className="w-full bg-[#00192D] text-white rounded py-2 text-sm">
-                  Subscribe
-                </button>
+                <form onSubmit={handleSubscribe} action="">
+                  <input
+                    type="email"
+                    placeholder="Enter your email here!"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full border rounded px-3 py-2 text-sm mb-2 focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button className="w-full bg-[#00192D] text-white rounded py-2 text-sm">
+                    Subscribe
+                  </button>
+                </form>
               </div>
 
               {/* Featured Service */}
