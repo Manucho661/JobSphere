@@ -7,7 +7,6 @@ const EmployerSidebar = () => {
       <h5 class="text-center text-uppercase">Dashboard</h5>
       <Link to="/employer/dashboard">🏠 Dashboard</Link>
       <Link to="/employer/post-job">➕ Post Job</Link> {/* This links to the PostJob page */}
-      <a href="#">📄  Manage Jobs</a>
       <a href="#">🏢 Applications</a>
       <a href="#">📅 Interviews</a>
       <a href="#">📄  Manage Jobs</a>

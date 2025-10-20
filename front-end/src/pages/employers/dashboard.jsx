@@ -112,54 +112,84 @@ const EmployerDashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        <div className="max-w-full">
-          <div className="bg-white px-4 border-0 shadow rounded-lg">
-            <p className="font-bold flex items-center p-1 m-0 text-gray-500">
-              Recent job posts
-            </p>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 bg-white p-2">
+        {/* Job Row */}
+        {/* Job title & description */}
+        <div className="w-full">
+          <strong>Software Engineer</strong>
+        </div>
 
-            {/* Job Row */}
-            <div className="flex flex-wrap items-center text-gray-800 py-4 rounded mb-2 bg-gray-100 shadow-sm postedJobRow">
-              {/* Job title & description */}
-              <div className="w-full md:w-1/3 truncate">
-                <strong>Software Engineer</strong>
-                <div className="text-sm text-gray-500 truncate max-w-[250px]">
-                  Exciting opportunity to join our growing dev team working with React, Node.js, and cloud...
-                </div>
-              </div>
+        {/* Applicants */}
+        <div
+          className="flex items-center justify-center text-white rounded px-2 py-1 text-sm ml-2"
+          style={{ background: '#336699' }}
+        >
+          24 Applicants
+        </div>
 
-              {/* Applicants */}
-              <div className="text-white rounded px-2 py-1 text-sm ml-2" style={{ background: '#336699' }}>
-                24 Applicants
-              </div>
 
-              {/* Dates */}
-              <div className="w-full md:w-1/3 flex flex-col md:items-end text-sm mt-2 md:mt-0">
-                <div>
-                  <span className="font-semibold">Posted:</span>{" "}
-                  <span className="text-green-600">12 Aug 2025</span>
-                </div>
-                <div>
-                  <span className="font-semibold">Expires:</span>{" "}
-                  <span className="text-red-600">20 Aug 2025</span>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex gap-2 justify-end w-full md:w-1/4 mt-2 md:mt-0">
-                <button className="p-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-50">
-                  <i className="bi bi-pencil-square"></i>
-                </button>
-                <button className="p-2 border border-red-500 text-red-500 rounded hover:bg-red-50">
-                  <i className="bi bi-trash"></i>
-                </button>
-              </div>
-            </div>
-
-            {/* Duplicate the same block for other job rows */}
+        {/* Dates */}
+        <div className="w-full flex flex-col md:items-end text-sm mt-2 md:mt-0">
+          <div>
+            <span className="font-semibold">Posted:</span>{" "}
+            <span className="text-green-600">12 Aug 2025</span>
+          </div>
+          <div>
+            <span className="font-semibold">Expires:</span>{" "}
+            <span className="text-red-600">20 Aug 2025</span>
           </div>
         </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-2 justify-end w-full mt-2 md:mt-0">
+          <button className="p-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-50 cursor-pointer">
+            <i className="bi bi-eye"></i>
+          </button>
+          <button className="p-2 border border-red-500 text-red-500 rounded hover:bg-red-50 cursor-pointer">
+            <i className="bi bi-trash"></i>
+          </button>
+        </div>
+
+        {/* Duplicate the same block for other job rows */}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 bg-white p-2">
+        {/* Job Row */}
+        {/* Job title & description */}
+        <div className="w-full">
+          <strong>Software Engineer</strong>
+        </div>
+
+        {/* Applicants */}
+        <div
+          className="flex items-center justify-center text-white rounded px-2 py-1 text-sm ml-2"
+          style={{ background: '#336699' }}
+        >
+          24 Applicants
+        </div>
+
+        {/* Dates */}
+        <div className="w-full flex flex-col md:items-end text-sm mt-2 md:mt-0">
+          <div>
+            <span className="font-semibold">Posted:</span>{" "}
+            <span className="text-green-600">12 Aug 2025</span>
+          </div>
+          <div>
+            <span className="font-semibold">Expires:</span>{" "}
+            <span className="text-red-600">20 Aug 2025</span>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-2 justify-end w-full mt-2 md:mt-0">
+          <button className="p-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-50 cursor-pointer">
+            <i className="bi bi-eye"></i>
+          </button>
+          <button className="p-2 border border-red-500 text-red-500 rounded hover:bg-red-50 cursor-pointer">
+            <i className="bi bi-trash"></i>
+          </button>
+        </div>
+
+        {/* Duplicate the same block for other job rows */}
       </div>
 
       {/* start Row */}
