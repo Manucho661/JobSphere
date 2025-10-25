@@ -10,7 +10,7 @@ const EmployerLayout = () => {
     <div className="employer-app-wrapper">
       <Header />
       <Sidebar />
-      <div className="employerMain mt-4">
+      <div className="employerMain">
         <Outlet />
       </div>
       <Footer />
