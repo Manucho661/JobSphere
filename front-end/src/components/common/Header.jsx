@@ -19,6 +19,7 @@ const Header = () => {
 
       {/* Right Section: Nav Links */}
       <div className="flex gap-6">
+        
         <Link
           to="/login"
           className="text-[#00192D] no-underline font-semibold hover:text-blue-600 transition"

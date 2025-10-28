@@ -1,12 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/common/Header";
-import Footer from "./components/common/Footer";
 import HomePage from './pages/common/HomePage';
 import Login from './pages/login';
 import Employer from './pages/employers/dashboard';
 import MainLayout from './layouts/MainLayout';
 import EmployerLayout from './layouts/EmployerLayout';
 import PostJob from "./components/employers/postJobForm/PostJob"; // Renamed to follow PascalCase
+import JobDetails from "./pages/common/JobDetails";
 
 function App() {
   return (
@@ -15,6 +14,7 @@ function App() {
         {/* ✅ Main layout with nested route */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="jobDetails/:id" element={<JobDetails />} />
         </Route>
 
         <Route path="/employer" element={<EmployerLayout />}>

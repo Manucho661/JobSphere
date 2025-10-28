@@ -1,19 +1,15 @@
-import Header from "../../components/common/Header";
+
 import apiClient from "../../api/apiClient";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import "./Home.css";
 
 const fetchJobs = async (page = 1) => {
   const response = await apiClient.get(`/jobs?page=${page}`);
   return response.data;
 };
-
-
-
-
 
 
 const HomePage = () => {
@@ -66,31 +62,6 @@ const HomePage = () => {
   }
   return (
     <>
-      <div className="w-full bg-gray-100 py-0">
-        <div className="max-w-5xl mx-auto text-center px-2">
-          {/* Heading */}
-          <h4 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-6">
-            Your Tech Future Starts Here — Find the Job You Deserve.
-          </h4>
-
-          {/* Search Form */}
-          <form className="flex justify-center items-center space-x-3" role="search">
-            <input
-              type="search"
-              placeholder="Search Jobs"
-              aria-label="Search"
-              className="w-1/2 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            />
-            <button
-              type="submit"
-              className="px-6 py-2 rounded-lg font-semibold bg-yellow-400 text-[#00192D] hover:bg-yellow-500 transition"
-            >
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-
       <div className="py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -100,7 +71,7 @@ const HomePage = () => {
               <ul className="flex flex-wrap gap-3 border-b mb-4" role="tablist">
                 <li>
                   <button
-                    className="px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600"
+                    className="px-4 py-2 text-sm font-medium border-b-2 border-yellow-500 hover:text-yellow-500"
                     role="tab"
                   >
                     Find a Job
@@ -108,7 +79,7 @@ const HomePage = () => {
                 </li>
                 <li>
                   <button
-                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600"
+                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-yellow-500"
                     role="tab"
                   >
                     Featured Jobs
@@ -116,20 +87,13 @@ const HomePage = () => {
                 </li>
                 <li>
                   <button
-                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600"
+                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-yellow-500"
                     role="tab"
                   >
-                    Your Applications
+                    Saved Jobs
                   </button>
                 </li>
-                <li>
-                  <button
-                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600"
-                    role="tab"
-                  >
-                    Previous Jobs
-                  </button>
-                </li>
+
               </ul>
 
               {/* Job list */}
@@ -138,7 +102,7 @@ const HomePage = () => {
                 {jobs?.data?.map((job) => (
                   <div
                     key={job.id}
-                    className="bg-white rounded-lg shadow-sm p-4 mb-4"
+                    className="bg-white rounded-lg shadow-sm p-2 mb-4"
                   >
                     <div className="job-card flex gap-3">
                       <div className="logo-section flex-shrink-0">
@@ -156,11 +120,13 @@ const HomePage = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex justify-between items-start">
-                          <div
-                            className="job-title font-semibold text-gray-900 cursor-pointer"
-                            onClick={openModal}
-                          >
-                            {job.title} at {job.employer.companyName}
+                          <div className="job-title font-semibold text-gray-900 cursor-pointer">
+                            <Link
+                              to={`jobDetails/${job.id}`}
+                              className="hover:underline text-gray-900"
+                            >
+                              {job.jobTitle} at {job.employer.companyName}
+                            </Link>
                           </div>
                           <button
                             className="text-sm text-gray-500 border rounded px-2 py-1 hover:bg-gray-100"
@@ -171,11 +137,11 @@ const HomePage = () => {
                         </div>
                         <div className="text-gray-500 text-sm mb-2">
                           Posted:{" "}
-                          {new Date(job.createdAt).toLocaleDateString("en-US", {
+                          {new Date(job.created_at).toLocaleDateString("en-US", {
                             day: "numeric",
                             month: "long",
                           })}{" "}
-                          • Salary: {job.salary}
+                          • Salary range: {job.salary}
                         </div>
                         <p
                           className="text-gray-600 text-sm"
@@ -225,24 +191,7 @@ const HomePage = () => {
             {/* Right sidebar */}
             <div className="lg:col-span-3 space-y-4">
               {/* Subscribe */}
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h5 className="font-bold">📬 Subscribe to Job Alert</h5>
-                <p className="text-sm text-gray-500">
-                  Join thousands getting job updates weekly
-                </p>
-                <form onSubmit={handleSubscribe} action="">
-                  <input
-                    type="email"
-                    placeholder="Enter your email here!"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full border rounded px-3 py-2 text-sm mb-2 focus:ring-2 focus:ring-blue-500"
-                  />
-                  <button className="w-full bg-[#00192D] text-white rounded py-2 text-sm cursor-pointer">
-                    Subscribe
-                  </button>
-                </form>
-              </div>
+
 
               {/* Featured Service */}
               <div className="bg-white p-4 rounded-lg shadow">
@@ -333,14 +282,14 @@ const HomePage = () => {
             <>
               {/* Overlay */}
               <div
-                className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${showModal ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                className={`jobDetailsModal mt-5 fixed inset-0 bg-black/50 transition-opacity ${showModal ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                   }`}
                 onClick={closeModal}
               />
 
               {/* Modal */}
               <div
-                className={`job-modal fixed top-1/2 left-1/2 w-full max-w-2xl bg-white rounded-lg shadow-lg transform transition-all p-6 overflow-y-auto max-h-[90vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
+                className={`job-modal fixed top-1/2 left-1/2 w-full max-w-2xl bg-white shadow-lg transform transition-all p-6 overflow-y-auto max-h-[100vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
                   }`}
               >
                 {/* Close / Back button */}

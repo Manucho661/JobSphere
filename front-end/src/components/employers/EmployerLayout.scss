@@ -16,7 +16,7 @@
   padding: 10px 30px;
   width: 100%;
   top: 0;
-  z-index: 1000;
+  z-index: 50;
   color: #002B5B;
   display: flex;
   align-items: center;
@@ -168,3 +168,7 @@ grid-area: footer;
         .step-active { background-color: #FFC107; color: #002B5B; }
         .step-completed { background-color: #002B5B; color: white; }
         .step-inactive { background-color: #e5e7eb; color: #9ca3af; }
+
+  button{
+    cursor: pointer;
+  }

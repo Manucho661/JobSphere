@@ -6,6 +6,7 @@ use App\Http\Controllers\JobNotificationController;
 
 Route::get('/jobs', [JobsController::class, 'index']);
 Route::post('/postJobs', [JobsController::class, 'store']);
+Route::get('/jobs/{id}', [JobsController::class, 'show']);
 Route::post('/subscribe', [JobNotificationController::class, 'subscribe']);
 
 Route::get('/users', function () {
