@@ -19,6 +19,13 @@ const Header = () => {
 
       {/* Right Section: Nav Links */}
       <div className="flex gap-6">
+
+        <Link
+          to="/register"
+          className="text-[#00192D] no-underline font-semibold hover:text-blue-600 transition"
+        >
+          <i className="fas fa-sign-out-alt mr-1"></i> Login/Register
+        </Link>
         
         <Link
           to="/login"

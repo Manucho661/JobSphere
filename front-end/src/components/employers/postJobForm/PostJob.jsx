@@ -8,7 +8,6 @@ const PostJob = () => {
 
     const [showPreview, setShowPreview] = useState(false);
 
-
     // Step 1: Manage form state
     const [formData, setFormData] = useState({
         jobTitle: "",
