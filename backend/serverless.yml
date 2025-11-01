@@ -1,0 +1,30 @@
+service: jobsphere-backend
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: provided.al2
+  environment:
+    APP_ENV: production
+    APP_STORAGE: /tmp
+    APP_KEY: ${env:APP_KEY}
+    LOG_CHANNEL: stderr
+
+plugins:
+  - ./vendor/bref/bref
+
+functions:
+  web:
+    handler: public/index.php
+    timeout: 28
+    layers:
+      - ${bref:layer.php-82-fpm}
+    events:
+      - httpApi: '*'
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!tests/**'
+    - '!storage/**'
+    - '!vendor/bref/bref/tests/**'

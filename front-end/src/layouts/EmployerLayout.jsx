@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Sidebar from "../components/employers/EmployerSidebar";
-import Header from "../components/employers/EmployerHeader";
+import Sidebar from "../components/employers/Sidebar";
+import Header from "../components/employers/Header";
 import Footer from "../components/employers/Footer";
-import "../components/employers/EmployerLayout.scss";
+import "./EmployerLayout.scss";
 import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {

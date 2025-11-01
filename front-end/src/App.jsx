@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from './pages/common/HomePage';
+import HomePage from './pages/home/HomePage';
 import Employer from './pages/employers/dashboard';
 import MainLayout from './layouts/MainLayout';
 import EmployerLayout from './layouts/EmployerLayout';
-import PostJob from "./components/employers/postJobForm/PostJob"; // Renamed to follow PascalCase
-import JobDetails from "./pages/common/JobDetails";
+import PostJob from "./pages/employers/PostJob"; // Renamed to follow PascalCase
+import JobDetails from "./pages/home/JobDetails";
 import AuthLayout from "./layouts/authLayout";
 import Register from './pages/Register';
 import Login from "./pages/login";

@@ -10,7 +10,7 @@ const Footer = () => {
           <h2 className="text-[#FFC107] mb-4 text-2xl font-semibold">JobSphere</h2>
 
           <p>
-            Jobsphere connects companies with the best tech talent. Post jobs, discover opportunities, and apply with ease — all in one platform
+          Jobsphere connects companies with the best tech talent. Post jobs, discover opportunities, and apply with ease — all in one platform  
           </p>
         </div>
 

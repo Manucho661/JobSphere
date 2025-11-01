@@ -5,9 +5,10 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 const fetchJobs = async (page = 1) => {
-  const response = await apiClient.get(`/jobs?page=${page}`);
+  const response = await apiClient.get(`${API_URL}/jobs?page=${page}`);
   return response.data;
 };
 
@@ -62,35 +63,37 @@ const HomePage = () => {
   }
   return (
     <>
-      <div className="py-6 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="py-3">
+        <div className="mt-2 rounded-xl p-8 mb-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {/* Left content */}
-            <div className="lg:col-span-9">
+            <div className="md:col-span-2">
               {/* Tabs */}
-              <ul className="flex flex-wrap gap-3 border-b mb-4" role="tablist">
+              <ul className="flex flex-wrap gap-3 border-b border-gray-300 mb-4" role="tablist">
                 <li>
                   <button
-                    className="px-4 py-2 text-sm font-medium border-b-2 border-yellow-500 hover:text-yellow-500"
+                    className="px-4 py-2 text-sm font-medium border-b-2 border-gray-500 hover:text-yellow-600"
                     role="tab"
                   >
-                    Find a Job
+                    <b>Find a Job</b>
                   </button>
                 </li>
                 <li>
                   <button
-                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-yellow-500"
+                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-yellow-600"
                     role="tab"
                   >
-                    Featured Jobs
+                    <b>Featured Jobs</b>
+
                   </button>
                 </li>
                 <li>
                   <button
-                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-yellow-500"
+                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-yellow-600"
                     role="tab"
                   >
-                    Saved Jobs
+                    <b>Saved Jobs</b>
+
                   </button>
                 </li>
 
@@ -98,13 +101,13 @@ const HomePage = () => {
 
               {/* Job list */}
               <div className="tab-content">
-                <h2 className="text-gray-600 text-sm mb-4">Latest Jobs</h2>
+                <h2 className="text-gray-600 text-sm mb-4"><b> <i>Latest Jobs</i></b></h2>
                 {jobs?.data?.map((job) => (
                   <div
                     key={job.id}
-                    className="bg-white rounded-lg shadow-sm p-2 mb-4"
+                    className="bg-white rounded-lg p-2 mb-4"
                   >
-                    <div className="job-card flex gap-3">
+                    <div className="job-card flex gap-3 p-2">
                       <div className="logo-section flex-shrink-0">
                         <img
                           src={
@@ -120,16 +123,19 @@ const HomePage = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex justify-between items-start">
-                          <div className="job-title font-semibold text-gray-900 cursor-pointer">
-                            <Link
-                              to={`jobDetails/${job.id}`}
-                              className="hover:underline text-gray-900"
-                            >
-                              {job.jobTitle} at {job.employer.companyName}
-                            </Link>
+                          <div className="job-title  text-gray-900 cursor-pointer">
+                            <b>
+                              <Link
+                                to={`jobDetails/${job.id}`}
+                                className=" text-gray-9 hover:text-yellow-600"
+                              >
+                                {job.jobTitle} at {job.employer.companyName}
+                              </Link>
+                            </b>
+
                           </div>
                           <button
-                            className="text-sm text-gray-500 border rounded px-2 py-1 hover:bg-gray-100"
+                            className="text-sm text-gray-500 border border-gray-300 rounded px-2 py-1 hover:bg-gray-100"
                             onClick={() => handleLike(job.id)}
                           >
                             👍 {likesMap[job.id] ?? job.likes}
@@ -141,13 +147,14 @@ const HomePage = () => {
                             day: "numeric",
                             month: "long",
                           })}{" "}
-                          • Salary range: {job.salary}
+                          • Salary range: KSH  {job.minSalary} - KSH {job.maxSalary}
+                          {" "} • Onsite
                         </div>
                         <p
-                          className="text-gray-600 text-sm"
+                          className="text-gray-700 leading-relaxed"
                           onClick={openModal}
                         >
-                          {job.employer.companyDescription}
+                          {job.description}
                         </p>
                       </div>
                     </div>
@@ -160,11 +167,11 @@ const HomePage = () => {
                   disabled={!jobs?.prev_page_url}
                   onClick={() => setPage((old) => Math.max(old - 1, 1))}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
-               bg-[#002B5B] text-white hover:bg-[#FFC107] hover:text-[#002B5B]
-               disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+               bg-yellow-600  text-white hover:bg-yellow-900 hover:text-dark
+               disabled:cursor-not-allowed "
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  Previous
+                  <b>Previous</b>
                 </button>
 
                 {/* Page Info */}
@@ -179,22 +186,22 @@ const HomePage = () => {
                     setPage((old) => (jobs?.next_page_url ? old + 1 : old))
                   }
                   className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
-               bg-[#002B5B] text-white hover:bg-[#FFC107] hover:text-[#002B5B]
-               disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+               bg-yellow-600 text-white hover:bg-yellow-900
+                disabled:cursor-not-allowed"
                 >
-                  Next
+                  <b>Next</b>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
             {/* Right sidebar */}
-            <div className="lg:col-span-3 space-y-4">
+            <div className="md:col-span-1 space-y-4">
               {/* Subscribe */}
 
 
               {/* Featured Service */}
-              <div className="bg-white p-4 rounded-lg shadow">
+              <div className="bg-white p-4 rounded-lg">
                 <h6 className="font-bold mb-2 text-[#002B5B]">
                   💼 Featured Service: TalentLink Recruiters
                 </h6>
@@ -203,25 +210,25 @@ const HomePage = () => {
                   with top professionals in finance, tech, marketing, and more.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="bg-[#002B5B] text-white text-xs px-2 py-1 rounded">
-                    Verified Candidates
+                  <span className="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 cursor-pointer">
+                    <b>Verified Candidates</b>
                   </span>
-                  <span className="bg-gray-100 border text-gray-700 text-xs px-2 py-1 rounded">
+                  <span className="bg-gray-100 border border-gray-300 text-gray-700 text-xs px-2 py-1 rounded flex items-center">
                     Industry Experts
                   </span>
                 </div>
                 <a
                   href="#"
-                  className="block text-center border border-yellow-500 text-yellow-600 text-sm py-2 rounded hover:bg-yellow-50"
+                  className="block text-center border border-gray-300 text-dark-600 text-sm py-2 rounded hover:bg-gray-50"
                 >
                   Find Talent with TalentLink
                 </a>
               </div>
 
               {/* Jobs by Category */}
-              <div className="bg-white p-4 rounded-lg shadow">
+              <div className="bg-white p-4 rounded-lg">
                 <h6 className="font-bold mb-2">🗂 Jobs by Category</h6>
-                <div className="flex flex-col gap-2 text-sm">
+                <div className="flex flex-wrap gap-2 text-sm">
                   {[
                     "Accounting",
                     "Finance",
@@ -235,7 +242,7 @@ const HomePage = () => {
                     <a
                       key={cat}
                       href="#"
-                      className="text-gray-700 hover:text-blue-600"
+                      className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200"
                     >
                       {cat}
                     </a>
@@ -244,7 +251,7 @@ const HomePage = () => {
               </div>
 
               {/* Jobs by Location */}
-              <div className="bg-white p-4 rounded-lg shadow">
+              <div className="bg-white p-4 rounded-lg">
                 <h6 className="font-bold mb-2">📍 Jobs by Location</h6>
                 <div className="flex flex-wrap gap-2 text-sm">
                   {[
@@ -266,9 +273,23 @@ const HomePage = () => {
                     </a>
                   ))}
                 </div>
-                <button className="mt-3 bg-yellow-500 text-white text-sm px-3 py-2 rounded hover:bg-yellow-600">
-                  View All Locations
+                <button className="mt-3 bg-yellow-600 text-white text-sm px-3 py-2 rounded-lg hover:bg-yellow-900">
+                  <b>View All Locations</b>
                 </button>
+              </div>
+              <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <h4 class="font-semibold text-primary mb-3 flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                  </svg>
+                  <b>Note</b>
+                </h4>
+                <p className="space-y-2 text-sm text-gray-700"> <i>JobSphere relies on <b>Donations</b> to run its activities and keep you updated about new opportunities, you can channel your contribution of any amount by clicking the  donate button below :-</i> </p>
+                <div className='Donation flex'>
+                  <div className='flex items-center'> Your yearly donations <span className='mx-4'><b>KSH 0</b></span></div>
+                  {""} {""}
+                  <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
+                </div>
               </div>
             </div>
           </div>
@@ -289,7 +310,7 @@ const HomePage = () => {
 
               {/* Modal */}
               <div
-                className={`job-modal fixed top-1/2 left-1/2 w-full max-w-2xl bg-white shadow-lg transform transition-all p-6 overflow-y-auto max-h-[100vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
+                className={`job-modal fixed top-1/2 left-1/2 w-full max-w-2xl bg-white transform transition-all p-6 overflow-y-auto max-h-[100vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
                   }`}
               >
                 {/* Close / Back button */}

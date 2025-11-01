@@ -11,7 +11,7 @@ const Footer = () => {
                         <h2 className="text-[#002B5B] mb-4 text-2xl font-semibold">JobSphere</h2>
 
                         <p>
-                            Jobsphere connects companies with the best tech talent. Post jobs, discover opportunities, and apply with ease — all in one platform
+                            Jobsphere connects employers with the best talent. Post jobs, discover talents, and recruit with ease — all in one platform
                         </p>
                     </div>
 
@@ -22,8 +22,8 @@ const Footer = () => {
                         <ul className="space-y-2">
                             <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Home</a></li>
                             <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Jobs</a></li>
-                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Login</a></li>
-                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Register</a></li>
+                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Post a Job</a></li>
+                            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Log out</a></li>
                         </ul>
                     </div>
 

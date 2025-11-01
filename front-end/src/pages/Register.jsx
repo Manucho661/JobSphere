@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 
 const Register = () => {
+      const API_URL = import.meta.env.VITE_API_URL;
+
+
     const navigate = useNavigate(); // ✅ initialize navigate here
     const [formData, setFormData] = useState({
         name: "",
@@ -24,7 +27,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await apiClient.post("/register", formData); // POST → Laravel
+            const res = await apiClient.post(`${API_URL}/register`, formData); // POST → Laravel
             alert(res.data.message || "User saved!");
             setFormData(/* reset fields */);
             navigate("/login");

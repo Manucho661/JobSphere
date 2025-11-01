@@ -60,8 +60,7 @@ return [
     |
     */
 
-    'files' => storage_path('framework/sessions'),
-
+    'files' => env('LAMBDA', false) ? '/tmp' : storage_path('framework/sessions'),
     /*
     |--------------------------------------------------------------------------
     | Session Database Connection

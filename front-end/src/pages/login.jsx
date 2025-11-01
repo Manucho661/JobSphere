@@ -7,6 +7,8 @@ import apiClient from "../api/apiClient";
 
 
 const Login = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate(); // ✅ initialize navigate here
 
   const [formData, setFormData] = useState({
@@ -25,7 +27,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await apiClient.post("/login", formData);
+      const res = await apiClient.post(`${API_URL}/login`, formData);
       const user = res.data.user; // assuming Laravel returns user info
 
       // Save token or user data

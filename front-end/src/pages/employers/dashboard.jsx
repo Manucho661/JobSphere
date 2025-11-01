@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import CreateJobModal from "../../components/employers/CreateJobModal";
-import JobTrendsChart from "../../components/employers/postedJobsGraph";
 import { FaBriefcase } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
@@ -31,8 +29,8 @@ const EmployerDashboard = () => {
               </svg>
               <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
-            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-              TC
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-yellow-500 font-semibold">
+              <b>JS</b>
             </div>
           </div>
         </div>

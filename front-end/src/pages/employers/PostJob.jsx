@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import apiClient from "../../../api/apiClient";
+import apiClient from "../../api/apiClient";
 
 
 const PostJob = () => {
     console.log("PostJob component rendered");
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const [showPreview, setShowPreview] = useState(false);
 
@@ -43,7 +44,7 @@ const PostJob = () => {
     // 
     const handleSubmit = async (e) => {
         try {
-            const res = await apiClient.post("/postJobs", formData); // POST → Laravel
+            const res = await apiClient.post(`${API_URL}/postJobs`, formData); // POST → Laravel
             alert(res.data.message || "User saved!");
             setFormData(/* reset fields */);
         } catch (err) {
@@ -57,18 +58,22 @@ const PostJob = () => {
                 <header class="">
                     <div class="flex items-center justify-between px-8 py-4">
                         <div>
-                            <h2 class="text-2xl font-bold text-primary">Post a New Job</h2>
-                            <p class="text-gray-500 text-sm">Fill in the details below to create your job listing</p>
+                            <h2 className="text-2xl font-bold text-primary">Post a New Job</h2>
+                            <div className="flex gap-6">
+                                <p className="text-gray-500 text-sm">Fill in the details below to create your job listing</p>
+                                <p className="text-gray-500 text-sm">N/B All job listings are free of charge, however, If you want your Job listing to appear among the featured Jobs, <span className="underline cursor-pointer"><b>Pay KSH 1000.</b></span></p>
+
+                            </div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <button class="text-gray-600 hover:text-gray-800 text-sm font-medium">Save as Draft</button>
+                            <button class="text-gray-600 hover:text-gray-800 text-sm font-medium mx-2">Save as Draft</button>
                             <button class="relative">
                                 <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                                 </svg>
                             </button>
-                            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
-                                TC
+                            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-yellow-500 font-semibold">
+                                <b>JS</b>
                             </div>
                         </div>
                     </div>
@@ -302,12 +307,10 @@ const PostJob = () => {
                                 Save as Draft
                             </button>
                             <div class="flex space-x-4">
-                                <button onClick={handlePreview} class="px-6 py-3 text-primary border-2 border-primary rounded-lg font-medium hover:bg-gray-50">
-                                    Preview
+                                <button onClick={handlePreview} class="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900">
+                                    Review
                                 </button>
-                                <button class="px-8 py-3 bg-accent text-primary rounded-lg font-bold hover-accent shadow-lg">
-                                    Continue to Review →
-                                </button>
+
                             </div>
                         </div>
 
@@ -326,6 +329,11 @@ const PostJob = () => {
                                 <li>• Highlight your company culture and benefits</li>
                                 <li>• Use inclusive language to encourage diverse applicants</li>
                             </ul>
+                        </div>
+
+                        {/* warning */}
+                        <div className="mt-4">
+                            <p><i className="text-red-500">Note : Posting Scam Jobs is an offense that can be charged in the kenyan court of law. Additionally, it will lead  to the deletion of your account. Thank you for your understanding.</i> </p>
                         </div>
                     </div>
                 </div>
