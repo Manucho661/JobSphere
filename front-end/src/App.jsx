@@ -5,7 +5,7 @@ import MainLayout from './layouts/MainLayout';
 import EmployerLayout from './layouts/EmployerLayout';
 import PostJob from "./pages/employers/PostJob"; // Renamed to follow PascalCase
 import JobDetails from "./pages/home/JobDetails";
-import AuthLayout from "./layouts/authLayout";
+import AuthLayout from "./layouts/AuthLayout";
 import Register from './pages/Register';
 import Login from "./pages/login";
 function App() {
