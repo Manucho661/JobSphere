@@ -286,7 +286,7 @@ const HomePage = () => {
                 </h4>
                 <p className="space-y-2 text-sm text-gray-700"> <i>JobSphere relies on <b>Donations</b> to run its activities and keep you updated about new opportunities, you can channel your contribution of any amount by clicking the  donate button below :-</i> </p>
                 <div className='Donation flex'>
-                  <div className='flex items-center'> Your yearly donations <span className='mx-4'><b>KSH 0</b></span></div>
+                  <div className='flex items-center'> Your yearly donations <span className='mx-4'><b style={{whiteSpace:'nowrap'}}>KSH 0</b></span></div>
                   {""} {""}
                   <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
                 </div>
