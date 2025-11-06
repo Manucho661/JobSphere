@@ -1,57 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api/apiClient"; // <-- Optional if you're using Axios
+import AuthContext from "./auth/AuthContext"; // Correct import path
 import './login.css';
 import { Link } from "react-router-dom";
-import apiClient from "../api/apiClient";
-
 
 const Login = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
-
-  const navigate = useNavigate(); // ✅ initialize navigate here
+  const { login } = useContext(AuthContext); // Get login function from context
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
+    password: "",
   });
 
-  function handleChange(e) {
+  const [error, setError] = useState("");
+
+  // Handle form data changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await apiClient.post(`${API_URL}/login`, formData);
-      const user = res.data.user; // assuming Laravel returns user info
+      // Call the login function from AuthContext
+      await login(formData.email, formData.password);
 
-      // Save token or user data
-      const token = res.data.token; // <- get token from response
-
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      // Redirect based on role
-      if (user.role === "employer") {
+      // Redirect based on role (using user role from context)
+      const user = JSON.parse(localStorage.getItem("user")); // Ensure user object is updated
+      if (user && user.role === "employer") {
         navigate("/employer/dashboard");
       } else {
-        navigate("/");
+        navigate("/"); // Redirect to homepage or default route
       }
 
-      console.log(token);
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
-      alert("Invalid email or password.");
+      setError("Invalid email or password."); // Set error message for display
     }
+  };
 
-  }
   return (
-
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Email */}
@@ -66,6 +60,7 @@ const Login = () => {
             type="text"
             id="email"
             name="email"
+            value={formData.email} // Bind the value of the input to formData
             onChange={handleChange}
             placeholder="Enter your email"
             required
@@ -86,6 +81,7 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
+              value={formData.password} // Bind the value of the input to formData
               onChange={handleChange}
               placeholder="Enter your password"
               required
@@ -93,7 +89,7 @@ const Login = () => {
             />
             <span
               className="absolute right-3 top-2 cursor-pointer text-gray-400"
-              onClick={() => togglePassword()}
+              onClick={() => togglePassword()} // Make sure togglePassword is defined
             >
               👁
             </span>
@@ -114,13 +110,24 @@ const Login = () => {
         >
           Sign In
         </button>
+
+        {/* Display error message */}
+        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </form>
 
       {/* Signup */}
       <div className="mt-6 text-center text-white">
         <p>
           Don’t have an account?{" "}
-          <Link to="/register" className="text-yellow-400 hover:underline"> Sign up</Link>
+          Sign up
+          <br></br>
+          <Link to="/register" className="text-yellow-400 hover:underline">
+            1. As an Employer or
+          </Link>
+          <br />
+          <Link to="/job-seeker-sign-up" className="text-yellow-400 hover:underline">
+            2. As a Job seeker
+          </Link>
         </p>
       </div>
     </>

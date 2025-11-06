@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/apiClient"; // <-- Optional if you're using Axios
+import AuthContext from "../pages/auth/AuthContext";
+import { AuthProvider } from "../pages/auth/AuthContext";
 import { Outlet } from "react-router-dom";
 
 const AuthLayout = () => {

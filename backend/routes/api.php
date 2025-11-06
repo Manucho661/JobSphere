@@ -1,22 +1,21 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\JobNotificationController;
 
-Route::get('/jobs', [JobsController::class, 'index']);
-Route::post('/register',[AuthController::class, 'register']);
-Route::post('/register',[AuthController::class, 'register']);
-Route::post('/login',[AuthController::class, 'login']);
+// Public routes
+Route::get('/jobs', [JobsController::class, 'index']);  // Fetch list of jobs
+Route::post('/register', [AuthController::class, 'register']);  // Register new user
+Route::post('/login', [AuthController::class, 'login']);  // Login user
 
-Route::post('/postJobs', [JobsController::class, 'store']);
-Route::get('/jobs/{id}', [JobsController::class, 'show']);
-Route::post('/subscribe', [JobNotificationController::class, 'subscribe']);
+Route::post('/postJobs', [JobsController::class, 'store']);  // Post a job (requires authentication)
+Route::get('/jobs/{id}', [JobsController::class, 'show']);  // View specific job details
+Route::post('/subscribe', [JobNotificationController::class, 'subscribe']);  // Subscribe to job notifications
 
-Route::get('/users', function () {
-    return response()->json([
-        ['id' => 1, 'name' => 'Emmanuel'],
-        ['id' => 2, 'name' => 'Sarah']
-    ]);
+// Protected route, requires authentication
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();  // Return authenticated user data
 });
