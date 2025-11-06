@@ -28,15 +28,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Call the login function from AuthContext
-      await login(formData.email, formData.password);
+      const response = await login(formData.email, formData.password);
+      const user = response.user; // get user directly from backend response
 
-      // Redirect based on role (using user role from context)
-      const user = JSON.parse(localStorage.getItem("user")); // Ensure user object is updated
-      if (user && user.role === "employer") {
+      if (user.role === "employer") {
         navigate("/employer/dashboard");
       } else {
-        navigate("/"); // Redirect to homepage or default route
+        navigate("/");
       }
 
     } catch (error) {
