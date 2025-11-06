@@ -28,8 +28,8 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await login(formData.email, formData.password);
-      const user = response.user; // get user directly from backend response
+      const data = await login(formData.email, formData.password);
+      const user = data.user;
 
       if (user.role === "employer") {
         navigate("/employer/dashboard");

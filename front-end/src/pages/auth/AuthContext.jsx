@@ -32,18 +32,21 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const response = await axios.post(`${API_URL}/login`, { email, password });
-
-            const { token, user } = response.data; // Assuming your response returns { token, user }
+            const { token, user } = response.data; // { token, user }
 
             if (token && user) {
-                setToken(token);  // Set the token in state
-                localStorage.setItem('auth_token', token);  // Store the token in localStorage
-                setUser(user);  // Set the user data in state
+                setToken(token);
+                localStorage.setItem('auth_token', token);
+                setUser(user);
+                localStorage.setItem('user', JSON.stringify(user)); // optional but useful
             } else {
                 throw new Error('Invalid response from server');
             }
+
+            // ✅ Return data so the caller can use it
+            return response.data;
         } catch (error) {
-            console.error("Login failed:", error); // Log any errors
+            console.error("Login failed:", error);
             throw new Error(error.response ? error.response.data.message : 'Login failed');
         }
     };
