@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import apiClient from "../../api/apiClient"; // Ensure apiClient is set up to handle axios requests
 
-const API_URL = 'YOUR_API_URL'; // Replace with your API URL
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AuthContext = createContext();
 
