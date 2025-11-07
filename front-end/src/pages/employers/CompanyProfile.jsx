@@ -1,8 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const CompanyProfile = () => {
+    const API_URL = import.meta.env.VITE_API_URL;
+    const [employer, setEmployer] = useState([]);
     const [isEditMode, setIsEditMode] = useState(false);
     const [showPreview, setShowPreview] = useState(false);
+
+    useEffect(() => {
+        try {
+            axios.get(`${API_URL}/user`);
+        }
+        catch (err) {
+
+        }
+    }
+    )
+
     const [profileData, setProfileData] = useState({
         companyName: 'TechCorp Inc.',
         tagline: 'Building the future of technology',

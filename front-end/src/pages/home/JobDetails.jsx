@@ -3,9 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import PulsePreloader from "../../components/PulsePreloader";
 
 const JobDetails = () => {
-const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const { id } = useParams();
     const [job, setJob] = useState(null);
@@ -28,7 +29,7 @@ const API_URL = import.meta.env.VITE_API_URL;
         fetchJob();
     }, [id]);
 
-    if (loading) return <p>Loading job details...</p>;
+    if (loading) return <PulsePreloader />;
     if (error) return <p className="text-red-500">{error}</p>;
     if (!job) return <p>No job found.</p>;
 
@@ -160,7 +161,7 @@ const API_URL = import.meta.env.VITE_API_URL;
                     <aside class="space-y-6">
                         <div class="rounded-xl p-0">
                             <button class="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900">
-                              <b>Check how your CV aligns with this Job</b>  
+                                <b>Check how your CV aligns with this Job</b>
                             </button>
                         </div>
                         <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6">

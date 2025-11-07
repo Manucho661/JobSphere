@@ -1,5 +1,6 @@
 import Header from "../components/home/Header";
 import Footer from '../components/home/Footer';
+import TypingText from "../components/home/TypingText";
 import { Link } from 'react-router-dom';
 
 import "./mainlayout.scss"
@@ -68,13 +69,24 @@ const MainLayout = () => {
             <div className="mt-2 grid md:grid-cols-4 gap-6">
               <div className="md:col-span-3">
                 <h3 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-2">
-                 <b>Your Future Starts Here{" "},</b> 
+                  <b>Your Future Starts Here,</b>
                 </h3>
                 <h3 className="text-xl md:text-2xl font-semibold text-[#002B5B]">
-                <b>Find the Job You Deserve {" "}</b>  
-                  <span className="text-yellow-900"> <i>{" "} • <Link to="/login" className="underline">Sign in</Link> to customize your experience</i> </span>
+                  <b>Find the Job You Deserve </b>
+                  <span className="text-yellow-900">
+                    {" "}
+                    • <Link to="/login" className="underline">Sign in</Link>{" "}
+                    <TypingText
+                      phrases={[
+                        "to customize your experience",
+                        "to track your applications",
+                        "to get personalized recommendations"
+                      ]}
+                    />
+                  </span>
                 </h3>
               </div>
+
               <div className="md:col-span-1 rounded-lg">
                 <i className=""> <b>Upload your CV to check how it aligns with Jobs</b></i>
                 <button class="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900">

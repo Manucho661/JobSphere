@@ -14,6 +14,7 @@ const JobSeekerSignUp = () => {
     role: "jobseeker", // 👈 default hidden role
   });
 
+  
   function handleChange(e) {
     setFormData({
       ...formData,
@@ -26,7 +27,8 @@ const JobSeekerSignUp = () => {
 
     try {
       const res = await apiClient.post(`${API_URL}/register`, formData); // POST → Laravel
-      alert(res.data.message || "User registered successfully!");
+      console.log(formData);
+      // alert(res.data.message || "User registered successfully!");
       setFormData({
         name: "",
         email: "",

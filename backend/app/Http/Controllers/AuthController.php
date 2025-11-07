@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,13 @@ class AuthController extends Controller
             'role' => $request->role
         ]);
 
+
+        // 3️⃣ Create the employer details if the role is employer
+        if ($request->role == 'employer') {
+            Employer::create([
+                'user_id' => $user->id,  // Use 'user_id' instead of 'userId'
+            ]);
+        }
         // 3️⃣ Return JSON response
         return response()->json([
             'message' => 'User registered successfully!',
@@ -35,20 +43,19 @@ class AuthController extends Controller
         ], 201);
     }
     public function login(Request $request)
-        {
-            $credentials = $request->only('email', 'password');
+    {
+        $credentials = $request->only('email', 'password');
 
-            if (!Auth::attempt($credentials)) {
-                return response()->json(['message' => 'Invalid credentials'], 401);
-            }
-
-            $user = Auth::user();
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return response()->json([
-                'user' => $user,
-                'token' => $token
-            ]);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
+        $user = Auth::user();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ]);
+    }
 }
