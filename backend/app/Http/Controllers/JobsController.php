@@ -21,11 +21,20 @@ class JobsController extends Controller
     // GET /api/jobs
     public function index()
     {
-        return response()->json(Job::with('employer')->latest()->paginate(7));
+        return response()->json(
+            Job::with('employer.user') // include employer and the employer's user
+                ->latest()
+                ->paginate(7)
+        );
     }
 
     public function store(Request $request)
     {
+        // return response()->json([
+        //     'auth_id' => Auth::id(),
+        //     'user' => Auth::user(),
+        // ]);
+
         $validated = $request->validate([
             'jobTitle' => 'required|string',
             'employmentType' => 'required|string',

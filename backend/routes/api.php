@@ -11,7 +11,8 @@ Route::get('/jobs', [JobsController::class, 'index']);  // Fetch list of jobs
 Route::post('/register', [AuthController::class, 'register']);  // Register new user
 Route::post('/login', [AuthController::class, 'login']);  // Login user
 
-Route::post('/postJobs', [JobsController::class, 'store']);  // Post a job (requires authentication)
+Route::middleware('auth:sanctum')->post('/postJobs', [JobsController::class, 'store']);
+
 Route::get('/jobs/{id}', [JobsController::class, 'show']);  // View specific job details
 Route::post('/subscribe', [JobNotificationController::class, 'subscribe']);  // Subscribe to job notifications
 

@@ -67,8 +67,8 @@ const HomePage = () => {
 
     }
   }
-   // 🔹 Conditional rendering
- if (loading) return <PulsePreloader loading={loading} />;
+  // 🔹 Conditional rendering
+  if (loading) return <PulsePreloader loading={loading} />;
   if (error) return <p className="text-red-500">{error}</p>;
   return (
     <>
@@ -120,16 +120,17 @@ const HomePage = () => {
                       <div className="logo-section flex-shrink-0">
                         <img
                           src={
-                            job.employer.logoUrl
+                            job.employer?.logoUrl
                               ? job.employer.logoUrl
                               : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                job.employer.companyName
+                                job.employer?.user?.name || "Unknown"
                               )}&background=random&size=50`
                           }
-                          alt={`${job.employer.companyName} Logo`}
+                          alt={`${job.employer?.user?.name || "Employer"} Logo`}
                           className="w-12 h-12 object-cover rounded-md"
                         />
                       </div>
+
                       <div className="flex-1">
                         <div className="flex justify-between items-start">
                           <div className="job-title  text-gray-900 cursor-pointer">
