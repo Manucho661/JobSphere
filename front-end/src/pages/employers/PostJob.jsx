@@ -43,15 +43,29 @@ const PostJob = () => {
     };
     // 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            const res = await apiClient.post(`${API_URL}/postJobs`, formData); // POST → Laravel
-            alert(res.data.message || "User saved!");
-            setFormData(/* reset fields */);
+            const token = localStorage.getItem("auth_token"); // ✅ Correct key name
+
+            const res = await apiClient.post(
+                `${API_URL}/postJobs`,
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            alert(res.data.message || "Job posted successfully!");
+            setFormData({}); // reset your form fields here
         } catch (err) {
             console.error(err.response?.data || err.message);
             alert("Error submitting form");
         }
-    }
+    };
+
     return (
         <>
             <div>
@@ -421,9 +435,9 @@ const PostJob = () => {
                                         Back to Edit
                                     </button>
                                     <button
-                                        onClick={() => {
+                                        onClick={(e) => {
                                             handleClosePreview();
-                                            handleSubmit();
+                                            handleSubmit(e);
                                         }}
                                         className="px-8 py-3 rounded-lg font-bold shadow-lg"
                                         style={{ backgroundColor: '#FFC107', color: '#002B5B' }}
