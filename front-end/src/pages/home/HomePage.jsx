@@ -139,7 +139,7 @@ const HomePage = () => {
                                 to={`jobDetails/${job.id}`}
                                 className=" text-gray-9 hover:text-yellow-600"
                               >
-                                {job.jobTitle} at {job.employer.companyName}
+                                {job.jobTitle} at {job.employer.name}
                               </Link>
                             </b>
 
