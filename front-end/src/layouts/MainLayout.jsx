@@ -2,6 +2,7 @@ import Header from "../components/home/Header";
 import Footer from '../components/home/Footer';
 import TypingText from "../components/home/TypingText";
 import { Link } from 'react-router-dom';
+import ResponsiveNav from "../components/responsiveNav";
 
 import "./mainlayout.scss"
 import { Outlet } from 'react-router-dom';
@@ -12,8 +13,10 @@ import { Search, MapPin, Briefcase, ChevronDown, DollarSign, Clock, Building2, G
 
 const MainLayout = () => {
 
+
+
   const [filters, setFilters] = useState({
-    search: '',
+    seaconstrch: '',
     location: '',
     jobType: [],
     experienceLevel: [],
@@ -63,7 +66,6 @@ const MainLayout = () => {
     <>
       <div className="app-wrapper">
         <Header />
-
         <main className="main min-h-screen py-2">
           <div className="px-8 mb-4">
             <div className="mt-2 grid md:grid-cols-4 gap-6">
