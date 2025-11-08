@@ -2,7 +2,6 @@ import Header from "../components/home/Header";
 import Footer from '../components/home/Footer';
 import TypingText from "../components/home/TypingText";
 import { Link } from 'react-router-dom';
-import ResponsiveNav from "../components/responsiveNav";
 
 import "./mainlayout.scss"
 import { Outlet } from 'react-router-dom';
