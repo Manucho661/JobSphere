@@ -12,23 +12,34 @@ const Header = () => {
   return (
     <div className="header">
       {/* Left Section: Logo + Title */}
-      <div className="mt-2 grid md:grid-cols-5 w-full gap-6">
-        <div className="md:col-span-1 flex items-center gap-2">
-          <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-yellow-500 font-semibold">
-            <b>JS</b>
+      <div className="w-full px-4 md:px-8 py-2">
+        <div className="grid grid-cols-2 md:grid-cols-5 items-center gap-4 md:gap-6">
+
+          {/* Logo Section */}
+          <div className="flex items-center gap-2 overflow-hidden">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-full flex items-center justify-center text-yellow-500 font-semibold shrink-0">
+              <b>JS</b>
+            </div>
+            <span className="text-lg md:text-xl font-bold text-[#00192D] truncate">
+              JobSphere
+            </span>
           </div>
-          <span className="text-xl font-bold text-[#00192D]">JobSphere</span>
-        </div>
-        <div className='md:col-span-2 flex items-center'>
-          <h1 style={{ margin: 0, fontSize: '20px' }}>
-            <i className="fas fa-users" style={{ color: "#00192D", textDecoration: "none" }}></i> <b><i>Where Talent Meet Opportunities</i></b>
-          </h1>
-        </div>
-        {/* Right Section: Nav Links */}
-        <div className="md:col-span-2 gap-6 p-2 rounded-lg">
-          <ResponsiveNav items={navItems} />
+
+          {/* Welcome Message (Hidden on small screens) */}
+          <div className="hidden md:flex md:col-span-2 items-center justify-center welcomeMessage">
+            <h1 className="text-base md:text-xl font-semibold text-[#00192D] text-center">
+              <i className="fas fa-users mr-2"></i>
+              <i>Where Talent Meet Opportunities</i>
+            </h1>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex justify-end md:col-span-2">
+            <ResponsiveNav items={navItems} />
+          </div>
         </div>
       </div>
+
     </div>
 
   );

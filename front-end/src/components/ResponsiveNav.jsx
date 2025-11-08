@@ -142,7 +142,7 @@ function ResponsiveNav({
           {/* Navigation Container */}
           <div 
             ref={navRef} 
-            className="flex-1 flex items-center font-bold justify-end gap-1 ml-8"
+            className="flex-1 flex items-center font-bold justify-end gap-1"
           >
             {/* Visible Navigation Items */}
             {items.map((item, index) => renderNavItem(item, index, false))}
