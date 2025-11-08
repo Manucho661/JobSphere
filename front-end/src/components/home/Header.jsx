@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ResponsiveNav from '../responsiveNav';
+import ResponsiveNav from '../ResponsiveNav';
 
 
 const Header = () => {
