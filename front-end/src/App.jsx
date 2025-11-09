@@ -11,10 +11,14 @@ import MainLayout from './layouts/MainLayout';
 import JobDetails from "./pages/home/JobDetails";
 import AuthLayout from "./layouts/AuthLayout";
 // Auth
-import Register from './pages/Register';
-import JobSeekerSignUp from "./pages/JobSeekerSignUp";
-import Login from "./pages/login";
+import Register from './pages/auth/Register';
+import JobSeekerSignUp from "./pages/auth/JobSeekerSignUp";
+import Login from "./pages/auth/login";
 import ProtectedRoute from "./pages/auth/ProtectRoute";
+// navigate
+import { Navigate } from "react-router-dom";
+
+
 
 function App() {
   return (
@@ -37,6 +41,7 @@ function App() {
           {/* Employer layout with nested routes, protected for logged-in employers */}
           <Route element={<ProtectedRoute roles={['employer']} />}>
             <Route path="employer" element={<EmployerLayout />}>
+              <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<Employer />} />
               <Route path="post-job" element={<PostJob />} />
               <Route path="company-profile" element={<CompanyProfile />} />
@@ -45,7 +50,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
-    </AuthProvider> 
+    </AuthProvider>
   );
 }
 

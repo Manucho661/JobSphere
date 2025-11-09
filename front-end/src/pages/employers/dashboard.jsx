@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./employers.css";
+  const user = JSON.parse(localStorage.getItem('user'));
 
 const EmployerDashboard = () => {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +14,7 @@ const EmployerDashboard = () => {
           {/* Left section: Home */}
           <div>
             <h2 class="text-2xl font-bold text-primary">Dashboard</h2>
-            <p class="text-gray-500 text-sm">Welcome back, TechCorp Inc.</p>
+            <b className="text-gray-500 text-sm">Welcome back, {user?.name || 'Employer'}!</b>
           </div>
 
           {/* Right section: Buttons */}

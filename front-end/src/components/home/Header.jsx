@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import ResponsiveNav from '../ResponsiveNav';
 
-
 const Header = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const isLoggedIn = !!storedUser;
+  const userRole = storedUser?.role; // 'employer' or 'jobseeker'
+  const userName = storedUser?.name;
+
+  // ✅ Dynamically build nav items
   const navItems = [
-    { id: 1, label: 'Home', to: '/' },
-    { id: 2, label: 'Sign In', to: '/login' },
-    { id: 3, label: 'Employer', to: '/employer' },
+    { id: 1, label: "Home", to: "/" },
+
+    // Show Sign In or user name
+    {
+      id: 2,
+      label: isLoggedIn ? userName : "Sign In",
+      to: isLoggedIn ? "#" : "/login",
+    },
+
+    // Employer link logic
+    ...(isLoggedIn
+      ? userRole === "employer"
+        ? [{ id: 3, label: "Dashboard", to: "/employer/dashboard" }]
+        : [{ id: 3, label: "Profile", to: "#" }] // jobseekers: no employer link
+      : [{ id: 3, label: "Employer", to: "/employer" }]),
   ];
+
   return (
     <div className="header">
       {/* Left Section: Logo + Title */}
