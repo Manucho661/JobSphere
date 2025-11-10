@@ -55,9 +55,15 @@ export const AuthProvider = ({ children }) => {
 
     // Logout function
     const logout = () => {
-        setToken('');
-        setUser(null);
-        localStorage.removeItem('auth_token');
+        return new Promise((resolve) => {
+            setUser(null);
+            setToken('');
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user');
+
+            // wait for React state to update in the next event loop
+            setTimeout(resolve, 0);
+        });
     };
 
     return (

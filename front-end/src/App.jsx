@@ -45,7 +45,6 @@ function App() {
               <Route path="dashboard" element={<Employer />} />
               <Route path="post-job" element={<PostJob />} />
               <Route path="company-profile" element={<CompanyProfile />} />
-              <Route path="home" element={<HomePage />} />
             </Route>
           </Route>
         </Routes>

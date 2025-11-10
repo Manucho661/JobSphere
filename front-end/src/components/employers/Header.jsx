@@ -1,14 +1,25 @@
 // import "./styles/headerStyles.css";
 import { Link } from 'react-router-dom';
-
+// src/components/LogoutButton.jsx
+import React, { useContext } from 'react';
+import AuthContext from '../../pages/auth/AuthContext';
+import { useNavigate } from 'react-router-dom'; // optional for redirect
 
 const Header = () => {
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate(); // only if you want to redirect
+
+  const handleLogout = async () => {
+    await logout();     // wait until logout state is cleared
+    navigate('/');      // then go home
+  };
+
   return (
     <div className="header">
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
         <div className="logo-section flex items-center">
           <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-yellow-500 font-semibold">
-           <b>JS</b> 
+            <b>JS</b>
           </div>
           <h2 className="brand-name ml-2" style={{ margin: 4, fontSize: '20px' }}><b>JobSphere</b></h2>
         </div>
@@ -24,17 +35,8 @@ const Header = () => {
         <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> Donate</button>
       </div>
       <div className="nav-links" style={{ display: "flex", gap: "20px" }}>
-
-        <b>
-          <Link to="/" style={{ color: "#00192D", textDecoration: "none" }}>
-            <i className="fas fa-sign-out-alt"></i> Home
-          </Link>
-        </b>
-        <b>
-          <Link to="/employer" style={{ color: "#00192D", textDecoration: "none" }}>
-            <i className="fas fa-sign-out-alt"></i> Log Out
-          </Link>
-        </b>
+        <button className='p-2 font-bold hover:bg-yellow-50 hover:text-yellow-600'><Link to="/">Home</Link></button>
+        <button onClick={handleLogout} className='p-2 font-bold hover:bg-yellow-50 hover:text-yellow-600'>Log out</button>
       </div>
     </div>
   );

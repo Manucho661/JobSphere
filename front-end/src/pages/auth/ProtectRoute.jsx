@@ -8,6 +8,8 @@ const ProtectedRoute = ({ roles }) => {
 
   // If the user is not logged in or doesn't have the correct role, redirect them
   if (!user || (roles && !roles.includes(user.role))) {
+    console.log("ProtectedRoute -> user:", user);
+
     return <Navigate to="/login" />;
   }
 
