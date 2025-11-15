@@ -153,7 +153,6 @@ const HomePage = () => {
                         </div>
                         <p
                           className="text-gray-700 leading-relaxed"
-                          onClick={openModal}
                         >
                           {job.description}
                         </p>
