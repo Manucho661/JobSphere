@@ -38,16 +38,6 @@ const HomePage = () => {
   }, [page]);
 
 
-  const openModal = () => {
-    setIsOpen(true);
-    setTimeout(() => setShowModal(true), 10); // triggers the transition
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setTimeout(() => setIsOpen(false), 300); // wait for animation to finish
-  };
-
   const handleLike = async (jobId) => {
     const res = await axios.post(`/api/jobs/like/${jobId}`);
     setLikesMap((prev) => ({
@@ -306,100 +296,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-
-      {/* Modal and overlay */}
-      {isOpen && (
-        <>
-          {isOpen && (
-            <>
-              {/* Overlay */}
-              <div
-                className={`jobDetailsModal mt-5 fixed inset-0 bg-black/50 transition-opacity ${showModal ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-                  }`}
-                onClick={closeModal}
-              />
-
-              {/* Modal */}
-              <div
-                className={`job-modal fixed top-1/2 left-1/2 w-full max-w-2xl bg-white transform transition-all p-6 overflow-y-auto max-h-[100vh] ${showModal ? "-translate-x-1/2 -translate-y-1/2 scale-100 opacity-100" : "-translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 pointer-events-none"
-                  }`}
-              >
-                {/* Close / Back button */}
-                <button
-                  className="flex items-center gap-2 text-[#00192D] font-bold text-base hover:text-[#0057b8]"
-                  onClick={closeModal}
-                >
-                  <span className="text-lg">←</span> Back
-                </button>
-
-                {/* Header */}
-                <div className="flex gap-2 mt-4">
-                  <h3 className="font-bold text-lg">Front-End Developer</h3>
-                  <span>at</span>
-                  <h3 className="font-bold text-lg">Elytica</h3>
-                </div>
-
-                {/* Company description */}
-                <div className="mt-2 text-gray-700">
-                  Pixelyte Tech is a fast-growing software company that helps startups and
-                  enterprises deliver beautiful, scalable digital experiences. With a
-                  collaborative team and remote-friendly culture, we prioritize innovation
-                  and employee growth.
-                </div>
-
-                {/* Job details */}
-                <div className="mt-4 space-y-1 text-gray-800">
-                  <div><span className="font-semibold">Job Type:</span> Full-Time</div>
-                  <div><span className="font-semibold">Qualification:</span> Diploma in Computer Science</div>
-                  <div><span className="font-semibold">Experience:</span> 2+ Years</div>
-                  <div><span className="font-semibold">Location:</span> Nairobi, Kenya</div>
-                  <div><span className="font-semibold">Field:</span> Software Development</div>
-                </div>
-
-                {/* Duties & Responsibilities */}
-                <div className="mt-6 bg-gray-100 p-4 rounded-lg">
-                  <div className="font-semibold mb-2">Duties & Responsibilities</div>
-                  <ul className="list-disc pl-5 space-y-1 text-gray-700">
-                    <li>Develop responsive web interfaces using HTML, CSS, and JavaScript.</li>
-                    <li>Collaborate with UI/UX designers to implement modern user experiences.</li>
-                    <li>Consume REST APIs and integrate backend services seamlessly.</li>
-                    <li>Maintain code quality through code reviews and testing.</li>
-                    <li>Stay updated with emerging front-end trends and technologies.</li>
-                  </ul>
-                </div>
-
-                {/* Required Qualifications */}
-                <div className="mt-6 bg-gray-100 p-4 rounded-lg">
-                  <div className="font-semibold mb-2">Required Qualifications</div>
-                  <ul className="list-disc pl-5 space-y-1 text-gray-700">
-                    <li>Diploma or higher in Computer Science or related field.</li>
-                    <li>Strong understanding of HTML5, CSS3, and JavaScript (ES6+).</li>
-                    <li>Familiarity with frameworks like React, Vue, or Angular.</li>
-                    <li>Good grasp of version control (Git) and build tools (Webpack, Vite).</li>
-                    <li>Excellent communication and teamwork skills.</li>
-                  </ul>
-                </div>
-
-                {/* How to Apply */}
-                <div className="mt-6">
-                  <div className="font-semibold mb-2">How to Apply</div>
-                  <p className="text-gray-700 leading-relaxed">
-                    Interested candidates should send their CV and portfolio to{" "}
-                    <a
-                      href="mailto:careers@pixelytetech.com"
-                      className="text-blue-600 hover:underline"
-                    >
-                      careers@pixelytetech.com
-                    </a>{" "}
-                    with the subject line{" "}
-                    <strong>"Application for Front-End Developer – Nairobi"</strong>. Applications will be reviewed on a rolling basis. Early applicants will be given priority.
-                  </p>
-                </div>
-              </div>
-            </>
-          )}
-        </>
-      )}
+      
     </>
   );
 };
