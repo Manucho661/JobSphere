@@ -19,17 +19,18 @@ import { Menu, X } from 'lucide-react';
  * 
  * <ResponsiveNav items={navItems} />
  */
-function ResponsiveNav({ 
-  items = [], 
+function ResponsiveNav({
+  items = [],
   onItemClick,
-  useLinks = true // Toggle between Link and <a> tags
+  useLinks = true, // Toggle between Link and <a> tags
+  handleLogout
 }) {
   const [visibleItems, setVisibleItems] = useState([]);
   const [hiddenItems, setHiddenItems] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef(null);
   const itemsRef = useRef([]);
-  
+
   // Get current location for active state
   const location = useLocation ? useLocation() : null;
 
@@ -44,7 +45,7 @@ function ResponsiveNav({
 
     items.forEach((item, index) => {
       const itemWidth = itemsRef.current[index]?.offsetWidth || 120;
-      
+
       if (usedWidth + itemWidth + hamburgerWidth < containerWidth) {
         visible.push(item);
         usedWidth += itemWidth;
@@ -73,7 +74,7 @@ function ResponsiveNav({
 
   const handleItemClick = (item, e) => {
     setMenuOpen(false);
-    
+
     if (onItemClick) {
       onItemClick(item);
     }
@@ -94,16 +95,34 @@ function ResponsiveNav({
     const baseClasses = isDropdown
       ? "block px-4 py-2 text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
       : "px-4 py-2 rounded-md text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 transition-all whitespace-nowrap";
-    
-    const activeClasses = isActive(item) 
-      ? "bg-yellow-100 text-yellow-700 font-semibold" 
+
+    const activeClasses = isActive(item)
+      ? "bg-yellow-100 text-yellow-700 font-semibold"
       : "";
-    
-    const visibilityClass = !isDropdown && !visibleItems.find(v => v.id === item.id) 
-      ? "hidden" 
+
+    const visibilityClass = !isDropdown && !visibleItems.find(v => v.id === item.id)
+      ? "hidden"
       : "block";
 
     const className = `${baseClasses} ${activeClasses} ${visibilityClass}`;
+
+
+    // Special case
+    if (item.label === "Logout") {
+      return (
+        <button
+          key={item.id}
+          ref={!isDropdown ? el => itemsRef.current[index] = el : null}
+          className={className}
+          onClick={() => {
+            handleLogout();       // call your logout function
+            setMenuOpen(false);   // close the menu if needed
+          }}
+        >
+          {item.label}
+        </button>
+      );
+    }
 
     // Use React Router Link
     if (useLinks) {
@@ -140,8 +159,8 @@ function ResponsiveNav({
         <div className="flex items-center justify-between">
 
           {/* Navigation Container */}
-          <div 
-            ref={navRef} 
+          <div
+            ref={navRef}
             className="flex-1 flex items-center font-bold justify-end gap-1"
           >
             {/* Visible Navigation Items */}
@@ -161,11 +180,11 @@ function ResponsiveNav({
 
                 {menuOpen && (
                   <>
-                    <div 
-                      className="fixed inset-0 z-40" 
+                    <div
+                      className="fixed inset-0 z-40"
                       onClick={() => setMenuOpen(false)}
                     />
-                    
+
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
                       {hiddenItems.map((item) => renderNavItem(item, null, true))}
                     </div>

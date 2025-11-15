@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import React, { useContext } from 'react';
 import AuthContext from '../../pages/auth/AuthContext';
 import { useNavigate } from 'react-router-dom'; // optional for redirect
-
+import ResponsiveNav from '../ResponsiveNav';
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate(); // only if you want to redirect
@@ -12,7 +12,23 @@ const Header = () => {
   const handleLogout = async () => {
     await logout();     // wait until logout state is cleared
     navigate('/');      // then go home
+    console.log("Logout clicked");
+
   };
+
+  // navigation
+  const navItems = [
+    { id: 1, label: "Home", to: "/" },
+
+    // Show Sign In or user name
+    {
+      id: 2,
+      label: "Logout",
+    },
+
+    // Employer link logic
+
+  ];
 
   return (
     <div className="header">
@@ -35,8 +51,11 @@ const Header = () => {
         <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> Donate</button>
       </div>
       <div className="nav-links" style={{ display: "flex", gap: "20px" }}>
-        <button className='p-2 font-bold hover:bg-yellow-50 hover:text-yellow-600'><Link to="/">Home</Link></button>
-        <button onClick={handleLogout} className='p-2 font-bold hover:bg-yellow-50 hover:text-yellow-600'>Log out</button>
+        <ResponsiveNav
+          items={navItems}
+          handleLogout={handleLogout}
+        />
+
       </div>
     </div>
   );
