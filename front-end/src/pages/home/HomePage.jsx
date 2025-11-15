@@ -145,11 +145,12 @@ const HomePage = () => {
 
                           </div>
                           <button
-                            className="text-sm text-gray-500 border border-gray-300 rounded px-2 py-1 hover:bg-gray-100"
+                            className="text-sm text-gray-500 border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 whitespace-nowrap"
                             onClick={() => handleLike(job.id)}
                           >
                             👍 {likesMap[job.id] ?? job.likes}
                           </button>
+
                         </div>
                         <div className="text-gray-500 text-sm mb-2">
                           Posted:{" "}
