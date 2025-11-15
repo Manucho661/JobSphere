@@ -29,10 +29,39 @@ const Header = () => {
     // Employer link logic
 
   ];
+  // handle the sidebar visibility on smaller screens
+  const showSidebar = (e) => {
+    e.stopPropagation();           // Prevent click from bubbling up
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+    console.log('yoyo');
+  }
+
+  // Close sidebar when clicking outside it
+  const hamburger = document.querySelector(".hamburger")
+  document.addEventListener("click", (e) => {
+    if (sidebar.classList.contains("active") &&
+      !sidebar.contains(e.target) &&       // clicked outside sidebar
+      !hamburger.contains(e.target)) {     // clicked outside hamburger
+      sidebar.classList.remove("active");
+    }
+  });
+
+  // ✅ Close sidebar when any sidebar link is clicked
+  const sidebarLinks = document.querySelectorAll(".sidebar a");
+
+  sidebarLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+    });
+  });
 
   return (
     <div className="header">
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <div>
+          <button id="menu-btn" onClick={showSidebar} className="hamburger mx-4">&#9776;</button>
+        </div>
         <div className="logo-section flex items-center">
           <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-yellow-500 font-semibold">
             <b>JS</b>
@@ -40,7 +69,7 @@ const Header = () => {
           <h2 className="brand-name ml-2" style={{ margin: 4, fontSize: '20px' }}><b>JobSphere</b></h2>
         </div>
 
-        <h1 style={{ margin: 0, fontSize: '20px' }}>
+        <h1 className='employerPunchMessage' style={{ margin: 0, fontSize: '20px' }}>
           <i className="fas fa-users" style={{ color: "#00192D", textDecoration: "none" }}></i> <b><i>Where Opportunities Meet Talent</i></b>
         </h1>
       </div>

@@ -117,7 +117,7 @@ const HomePage = () => {
                     className="bg-white rounded-lg p-2 mb-4"
                   >
                     <div className="job-card flex gap-3 p-2">
-                      <div className="logo-section flex-shrink-0">
+                      <div className="job-logo-section flex-shrink-0">
                         <img
                           src={
                             job.employer?.logoUrl

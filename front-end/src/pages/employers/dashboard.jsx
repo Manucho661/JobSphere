@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./employers.css";
-  const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user'));
 
 const EmployerDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
+  
   return (
     // <div className="app-wrapper p-6">
     // <div className='main'>
@@ -13,7 +14,9 @@ const EmployerDashboard = () => {
         <div className="col-span-12 mb-2 flex justify-between items-center">
           {/* Left section: Home */}
           <div>
-            <h2 class="text-2xl font-bold text-primary">Dashboard</h2>
+            <div className="flex">
+              <h2 class="text-2xl font-bold text-primary">Dashboard</h2>
+            </div>
             <b className="text-gray-500 text-sm">Welcome back, {user?.name || 'Employer'}!</b>
           </div>
 

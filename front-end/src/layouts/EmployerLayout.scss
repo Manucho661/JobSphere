@@ -6,8 +6,6 @@
     "header header"
     "sidebar main"
     "sidebar footer";
-  // width: 100vw;
-  // height: 100vh; /* 👈 ensures sidebar has a stable full height reference */
 }
 
 .header {
@@ -24,6 +22,25 @@
   grid-area: header;
 }
 
+// buttons
+.hamburger {
+  display: none;
+}
+
+/* SIDEBAR */
+.sidebar {
+  grid-area: sidebar;
+  background-color: #002B5B;
+  color: white;
+  padding-top: 1rem;
+  top: 10vh;
+  overflow-y: auto;
+  height: calc(100vh - 10vh);
+  /* 👈 subtract header height if needed */
+  position: sticky;
+  /* ✅ sidebar scrolls if tall */
+}
+
 @media (max-width: 768px) {
   .header {
     // flex-direction: column;
@@ -34,19 +51,46 @@
   .nav-links {
     flex-wrap: wrap;
   }
+
+  .sidebar {
+    position: fixed;     /* float above content */
+    top: 10vh;
+    left: 0;
+    width: 250px;        /* IMPORTANT */
+    height: calc(100vh - 10vh);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .employer-app-wrapper {
+    grid-template-columns: 0px 1fr;
+    /* Sidebar disappears */
+  }
+
+  .hamburger {
+    display: block;
+  }
+.Donation{
+  display: none;
 }
 
-/* SIDEBAR */
-.sidebar {
-  grid-area: sidebar;
-  background-color: #002B5B;
-  color: white;
-  padding-top: 1rem;
-  top:10vh;
+
+  .employerPunchMessage {
+    display: none;
+  }
+  .job-logo-section{
+    display: none;
+  }
+}
+
+.employerMain {
+  grid-area: main;
   overflow-y: auto;
-  height: calc(100vh - 10vh); /* 👈 subtract header height if needed */
-  position: sticky;
-  /* ✅ sidebar scrolls if tall */
 }
 
 .sidebar a {
@@ -67,20 +111,12 @@
   font-size: 0.95rem;
 }
 
-.employerMain {
-  grid-area: main;
-  // padding: 20px;
-  overflow-y: auto;
-  /* ✅ only main scrolls */
-  // height: 100%;
-  /* ✅ fill its grid cell */
+
+.footer {
+  grid-area: footer;
 }
-.footer{
-grid-area: footer;
-}
-.footer h2{
-  
-}
+
+.footer h2 {}
 
 /* Posted Job Row */
 .postedJobRow {
@@ -118,57 +154,132 @@ grid-area: footer;
 .PostedDate {
   color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
 }
+
 .stat-card {
-            transition: transform 0.2s;
-        }
-        .stat-card:hover {
-            transform: translateY(-4px);
-        }
-        .job-row:hover {
-            background-color: #f8fafc;
-        }
- .bg-primary { background-color: #002B5B; }
-        .bg-primary-light { background-color: #003d7a; }
-        .bg-primary-dark { background-color: #001f42; }
-        .text-primary { color: #002B5B; }
-        .bg-accent { background-color: #FFC107; }
-        .text-accent { color: #FFC107; }
-        .border-accent { border-color: #FFC107; }
-        .hover-accent:hover { background-color: #FFB300; }
-        .bg-accent-light { background-color: #FFF9E6; }
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.job-row:hover {
+  background-color: #f8fafc;
+}
+
+.bg-primary {
+  background-color: #002B5B;
+}
+
+.bg-primary-light {
+  background-color: #003d7a;
+}
+
+.bg-primary-dark {
+  background-color: #001f42;
+}
+
+.text-primary {
+  color: #002B5B;
+}
+
+.bg-accent {
+  background-color: #FFC107;
+}
+
+.text-accent {
+  color: #FFC107;
+}
+
+.border-accent {
+  border-color: #FFC107;
+}
+
+.hover-accent:hover {
+  background-color: #FFB300;
+}
+
+.bg-accent-light {
+  background-color: #FFF9E6;
+}
 
 
-        .bg-primary { background-color: #002B5B; }
-        .bg-primary-light { background-color: #003d7a; }
-        .bg-primary-dark { background-color: #001f42; }
-        .text-primary { color: #002B5B; }
-        .bg-accent { background-color: #FFC107; }
-        .text-accent { color: #FFC107; }
-        .border-accent { border-color: #FFC107; }
-        .hover-accent:hover { background-color: #FFB300; }
-        .bg-accent-light { background-color: #FFF9E6; }
-        .focus-accent:focus { border-color: #FFC107; outline: none; box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1); }
-        
-        .step-indicator {
-            position: relative;
-        }
-        .step-indicator::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            width: 100%;
-            height: 2px;
-            background-color: #e5e7eb;
-            z-index: -1;
-        }
-        .step-indicator:last-child::after {
-            display: none;
-        }
-        .step-active { background-color: #FFC107; color: #002B5B; }
-        .step-completed { background-color: #002B5B; color: white; }
-        .step-inactive { background-color: #e5e7eb; color: #9ca3af; }
+.bg-primary {
+  background-color: #002B5B;
+}
 
-  button{
-    cursor: pointer;
-  }
+.bg-primary-light {
+  background-color: #003d7a;
+}
+
+.bg-primary-dark {
+  background-color: #001f42;
+}
+
+.text-primary {
+  color: #002B5B;
+}
+
+.bg-accent {
+  background-color: #FFC107;
+}
+
+.text-accent {
+  color: #FFC107;
+}
+
+.border-accent {
+  border-color: #FFC107;
+}
+
+.hover-accent:hover {
+  background-color: #FFB300;
+}
+
+.bg-accent-light {
+  background-color: #FFF9E6;
+}
+
+.focus-accent:focus {
+  border-color: #FFC107;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+}
+
+.step-indicator {
+  position: relative;
+}
+
+.step-indicator::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: #e5e7eb;
+  z-index: -1;
+}
+
+.step-indicator:last-child::after {
+  display: none;
+}
+
+.step-active {
+  background-color: #FFC107;
+  color: #002B5B;
+}
+
+.step-completed {
+  background-color: #002B5B;
+  color: white;
+}
+
+.step-inactive {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+}
+
+button {
+  cursor: pointer;
+}

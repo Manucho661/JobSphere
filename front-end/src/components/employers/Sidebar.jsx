@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const EmployerSidebar = () => {
   return (
-    <nav class="sidebar">
+    <nav id='sidebar' className="sidebar">
       <h5 class="text-center text-uppercase">Dashboard</h5>
       <Link to="/employer/dashboard">🏠 Dashboard</Link>
       <Link to="/employer/post-job">➕ Post Job</Link> 
