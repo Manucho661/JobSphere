@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./employers.css";
+
 const user = JSON.parse(localStorage.getItem('user'));
+const jobCount = user?.employer?.jobs?.length ?? 0;
 
 const EmployerDashboard = () => {
-  const [showModal, setShowModal] = useState(false);
 
-  
   return (
     // <div className="app-wrapper p-6">
     // <div className='main'>
@@ -39,7 +39,7 @@ const EmployerDashboard = () => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm font-medium">Active Jobs</p>
-              <p class="text-3xl font-bold text-primary mt-2">12</p>
+              <p class="text-3xl font-bold text-primary mt-2">{jobCount}</p>
               <p class="text-green-600 text-sm mt-2">+2 this week</p>
             </div>
             <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
@@ -103,82 +103,57 @@ const EmployerDashboard = () => {
           <button class="text-accent text-sm font-medium hover:text-yellow-600">Manage All</button>
         </div>
         <div class="p-6">
-          <div class="space-y-4">
-            <div class="job-row flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer">
-              <div class="flex-1">
-                <div class="flex items-center space-x-3">
-                  <h4 class="font-semibold text-primary">Senior Frontend Developer</h4>
-                  <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Active</span>
-                </div>
-                <p class="text-sm text-gray-500 mt-1">Remote • Full-time • Posted 2 days ago</p>
-                <div class="flex items-center mt-2 space-x-4">
-                  <span class="text-sm text-gray-600">👁️ 842 views</span>
-                  <span class="text-sm text-gray-600">🔗 67 clicks</span>
-                  <span class="text-sm text-gray-600">📅 Expires in 28 days</span>
-                </div>
-              </div>
-              <div class="flex items-center space-x-3">
-                <button class="px-4 py-2 text-primary border-2 border-primary rounded-lg text-sm font-medium hover:bg-gray-50">
-                  Edit
-                </button>
-                <button class="text-gray-400 hover:text-gray-600">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
+          <div className="space-y-4">
+            {user?.employer?.jobs?.length > 0 ? (
+              user.employer.jobs.map((job) => (
+                <div
+                  key={job.id}
+                  className="job-row flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3">
+                      <h4 className="font-semibold text-primary">{job.jobTitle}</h4>
+                      <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                        Active
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Remote • Full-time • Posted 2 days ago
+                    </p>
+                    <div className="flex items-center mt-2 space-x-4">
+                      <span className="text-sm text-gray-600">👁️ 842 views</span>
+                      <span className="text-sm text-gray-600">🔗 67 clicks</span>
+                      <span className="text-sm text-gray-600">📅 Expires in 28 days</span>
+                    </div>
+                  </div>
 
-            <div class="job-row flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer">
-              <div class="flex-1">
-                <div class="flex items-center space-x-3">
-                  <h4 class="font-semibold text-primary">Product Manager</h4>
-                  <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Active</span>
+                  <div className="flex items-center space-x-3">
+                    <button className="px-4 py-2 text-primary border-2 border-primary rounded-lg text-sm font-medium hover:bg-gray-50">
+                      Edit
+                    </button>
+                    <button className="text-gray-400 hover:text-gray-600">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-                <p class="text-sm text-gray-500 mt-1">San Francisco, CA • Full-time • Posted 5 days ago</p>
-                <div class="flex items-center mt-2 space-x-4">
-                  <span class="text-sm text-gray-600">👁️ 621 views</span>
-                  <span class="text-sm text-gray-600">🔗 54 clicks</span>
-                  <span class="text-sm text-gray-600">📅 Expires in 25 days</span>
-                </div>
-              </div>
-              <div class="flex items-center space-x-3">
-                <button class="px-4 py-2 text-primary border-2 border-primary rounded-lg text-sm font-medium hover:bg-gray-50">
-                  Edit
-                </button>
-                <button class="text-gray-400 hover:text-gray-600">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="job-row flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer">
-              <div class="flex-1">
-                <div class="flex items-center space-x-3">
-                  <h4 class="font-semibold text-primary">DevOps Engineer</h4>
-                  <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Active</span>
-                </div>
-                <p class="text-sm text-gray-500 mt-1">New York, NY • Full-time • Posted 1 week ago</p>
-                <div class="flex items-center mt-2 space-x-4">
-                  <span class="text-sm text-gray-600">👁️ 1,124 views</span>
-                  <span class="text-sm text-gray-600">🔗 98 clicks</span>
-                  <span class="text-sm text-gray-600">📅 Expires in 23 days</span>
-                </div>
-              </div>
-              <div class="flex items-center space-x-3">
-                <button class="px-4 py-2 text-primary border-2 border-primary rounded-lg text-sm font-medium hover:bg-gray-50">
-                  Edit
-                </button>
-                <button class="text-gray-400 hover:text-gray-600">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
+              ))
+            ) : (
+              <p className="text-gray-500 text-center py-6">
+                No jobs found. Click the <span className="text-primary font-medium">Post Job</span> button to create your first job.
+              </p>
+            )}
             <div class="job-row flex items-center justify-between p-4 border-2 border-accent bg-accent-light rounded-lg cursor-pointer">
               <div class="flex-1">
                 <div class="flex items-center space-x-3">
@@ -205,90 +180,89 @@ const EmployerDashboard = () => {
             </div>
           </div>
         </div>
-      </div>
-      {/* <!-- Performance Insights --> */}
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div class="bg-white rounded-lg shadow p-6">
-          <h3 class="text-lg font-semibold text-primary mb-4">Top Performing Jobs</h3>
-          <div class="space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-gray-100">
-              <div>
-                <h4 class="font-medium text-primary">DevOps Engineer</h4>
-                <p class="text-sm text-gray-500">1,124 views • 8.7% click rate</p>
+        {/* <!-- Performance Insights --> */}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-primary mb-4">Top Performing Jobs</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div>
+                  <h4 class="font-medium text-primary">DevOps Engineer</h4>
+                  <p class="text-sm text-gray-500">1,124 views • 8.7% click rate</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-green-600 text-sm font-semibold">↑ 24%</span>
+                </div>
               </div>
-              <div class="text-right">
-                <span class="text-green-600 text-sm font-semibold">↑ 24%</span>
+              <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div>
+                  <h4 class="font-medium text-primary">UX/UI Designer</h4>
+                  <p class="text-sm text-gray-500">957 views • 7.9% click rate</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-green-600 text-sm font-semibold">↑ 18%</span>
+                </div>
               </div>
-            </div>
-            <div class="flex items-center justify-between pb-3 border-b border-gray-100">
-              <div>
-                <h4 class="font-medium text-primary">UX/UI Designer</h4>
-                <p class="text-sm text-gray-500">957 views • 7.9% click rate</p>
-              </div>
-              <div class="text-right">
-                <span class="text-green-600 text-sm font-semibold">↑ 18%</span>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="font-medium text-primary">Senior Frontend Developer</h4>
-                <p class="text-sm text-gray-500">842 views • 8.0% click rate</p>
-              </div>
-              <div class="text-right">
-                <span class="text-green-600 text-sm font-semibold">↑ 15%</span>
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="font-medium text-primary">Senior Frontend Developer</h4>
+                  <p class="text-sm text-gray-500">842 views • 8.0% click rate</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-green-600 text-sm font-semibold">↑ 15%</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-          <h3 class="text-lg font-semibold text-primary mb-4">Insights & Tips</h3>
-          <div class="space-y-4">
-            <div class="p-4 bg-blue-50 rounded-lg">
-              <div class="flex items-start space-x-3">
-                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                  <span class="text-white text-sm">💡</span>
-                </div>
-                <div>
-                  <h4 class="font-medium text-primary text-sm">Boost Your Visibility</h4>
-                  <p class="text-sm text-gray-600 mt-1">Jobs with detailed descriptions get 40% more views.</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-4 bg-green-50 rounded-lg">
-              <div class="flex items-start space-x-3">
-                <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span class="text-white text-sm">📈</span>
-                </div>
-                <div>
-                  <h4 class="font-medium text-primary text-sm">Great Engagement</h4>
-                  <p class="text-sm text-gray-600 mt-1">Your average click rate is 15% above platform average!</p>
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-primary mb-4">Insights & Tips</h3>
+            <div class="space-y-4">
+              <div class="p-4 bg-blue-50 rounded-lg">
+                <div class="flex items-start space-x-3">
+                  <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-sm">💡</span>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-primary text-sm">Boost Your Visibility</h4>
+                    <p class="text-sm text-gray-600 mt-1">Jobs with detailed descriptions get 40% more views.</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="p-4 bg-accent-light rounded-lg border border-accent">
-              <div class="flex items-start space-x-3">
-                <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
-                  <span class="text-primary text-sm">⏰</span>
+              <div class="p-4 bg-green-50 rounded-lg">
+                <div class="flex items-start space-x-3">
+                  <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-sm">📈</span>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-primary text-sm">Great Engagement</h4>
+                    <p class="text-sm text-gray-600 mt-1">Your average click rate is 15% above platform average!</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 class="font-medium text-primary text-sm">Action Required</h4>
-                  <p class="text-sm text-gray-600 mt-1">1 job expiring soon. Renew to keep it visible.</p>
+              </div>
+              <div class="p-4 bg-accent-light rounded-lg border border-accent">
+                <div class="flex items-start space-x-3">
+                  <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-primary text-sm">⏰</span>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-primary text-sm">Action Required</h4>
+                    <p class="text-sm text-gray-600 mt-1">1 job expiring soon. Renew to keep it visible.</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {/* start Row */}
+        <div class="bg-primary rounded-lg shadow p-8 text-white text-center mt-2">
+          <h3 class="text-2xl font-semibold mb-3">Ready to reach more candidates?</h3>
+          <p class="mb-6 text-gray-300">Post a new job listing and connect with thousands of qualified professionals.</p>
+          <button class="bg-accent text-primary px-8 py-3 rounded-lg font-bold hover-accent transition shadow-lg">
+            Post a New Job
+          </button>
+        </div>
       </div>
-      {/* start Row */}
-      <div class="bg-primary rounded-lg shadow p-8 text-white text-center mt-2">
-        <h3 class="text-2xl font-semibold mb-3">Ready to reach more candidates?</h3>
-        <p class="mb-6 text-gray-300">Post a new job listing and connect with thousands of qualified professionals.</p>
-        <button class="bg-accent text-primary px-8 py-3 rounded-lg font-bold hover-accent transition shadow-lg">
-          Post a New Job
-        </button>
-      </div>
-    </div>
     // </div>
     // </div>
   );

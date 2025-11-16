@@ -51,6 +51,8 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $user->load('employer.jobs');
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
