@@ -42,8 +42,24 @@ body {
   justify-content: space-between;
 }
 
+
+/* Main */
+.main {
+  grid-area: main;
+  min-height: calc(100vh - var(--header-height));
+  margin-top: 0px;
+}
+.filter-section{
+   white-space: wrap;
+}
+
 .flex-items{
   white-space: wrap !important;
+}
+.commonFilters {
+  display: flex;
+  flex-wrap: wrap; /* allow children to go to next line */
+  gap: 0.75rem; /* you already have gap-3 in Tailwind */
 }
 
 @media (max-width: 768px) {
@@ -55,14 +71,15 @@ body {
   .nav-links {
     flex-wrap: wrap;
   }
-  
+  .filter-section{
+   overflow: auto;
+}
+  .commonFilters{
+      flex-wrap: nowrap; /* allow children to go to next line */
+
+  overflow: auto;
 }
 
-/* Main */
-.main {
-  grid-area: main;
-  min-height: calc(100vh - var(--header-height));
-  margin-top: 0px;
 }
 
 /* Footer */
@@ -74,7 +91,6 @@ body {
 .footer-section ul li {
   margin-bottom: 10px;
 }
-
 .footer-section h2 {
   color: #FFC107;
   margin-bottom: 15px;
