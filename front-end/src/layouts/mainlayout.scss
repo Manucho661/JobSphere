@@ -42,6 +42,10 @@ body {
   justify-content: space-between;
 }
 
+.flex-items{
+  white-space: wrap;
+}
+
 @media (max-width: 768px) {
   .header {
     // flex-direction: column;
@@ -50,6 +54,11 @@ body {
   }
   .nav-links {
     flex-wrap: wrap;
+  }
+  .filter-items{
+    white-space: nowrap !important;
+    // display: flex;
+    overflow: scroll;
   }
 }
 
