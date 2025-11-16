@@ -43,7 +43,7 @@ body {
 }
 
 .flex-items{
-  white-space: wrap;
+  white-space: wrap !important;
 }
 
 @media (max-width: 768px) {
@@ -55,11 +55,7 @@ body {
   .nav-links {
     flex-wrap: wrap;
   }
-  .filter-items{
-    white-space: nowrap !important;
-    // display: flex;
-    overflow: scroll;
-  }
+  
 }
 
 /* Main */
