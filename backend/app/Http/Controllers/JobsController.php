@@ -129,4 +129,14 @@ class JobsController extends Controller
 
         return response()->json($job);
     }
+
+
+    public function getEmployerJobs($employerId)
+    {
+        $jobs = job::where('employer_id', $employerId);
+        if (!$jobs) {
+            return response()->json(['message' => 'No jobs found'], 404);
+        }
+        return response()->json($jobs);
+    }
 }

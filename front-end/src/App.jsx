@@ -6,6 +6,7 @@ import Employer from './pages/employers/dashboard';
 import PostJob from "./pages/employers/PostJob";
 import CompanyProfile from './pages/employers/CompanyProfile';
 import EmployerLayout from './layouts/EmployerLayout';
+import ManageJobs from "./pages/employers/ManageJobs";
 // Home
 import MainLayout from './layouts/MainLayout';
 import JobDetails from "./pages/home/JobDetails";
@@ -44,6 +45,7 @@ function App() {
               <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<Employer />} />
               <Route path="post-job" element={<PostJob />} />
+              <Route path="manage-jobs" element={<ManageJobs />} />
               <Route path="company-profile" element={<CompanyProfile />} />
             </Route>
           </Route>

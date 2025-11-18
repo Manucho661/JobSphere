@@ -99,7 +99,7 @@ const EmployerDashboard = () => {
 
       <div class="bg-white rounded-lg shadow mb-6">
         <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-          <h3 class="text-lg font-semibold text-primary">Your Job Postings</h3>
+          <h3 class="text-lg font-semibold text-primary">Your Recent Job Postings</h3>
           <button class="text-accent text-sm font-medium hover:text-yellow-600">Manage All</button>
         </div>
         <div class="p-6">

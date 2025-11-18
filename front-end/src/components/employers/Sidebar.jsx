@@ -8,7 +8,7 @@ const EmployerSidebar = () => {
       <Link to="/employer/dashboard">🏠 Dashboard</Link>
       <Link to="/employer/post-job">➕ Post Job</Link> 
       <a href="#">🏢 Applications</a>
-      <a href="#">📄  Manage Jobs</a>
+      <Link to="/employer/manage-jobs">📄Manage Jobs</Link>
       <Link to="/employer/company-profile">🏢 Company Profile</Link> 
       <a href="#">⚙️ Settings</a>
       <a href="#">🚪 Log Out</a>
