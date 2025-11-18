@@ -321,7 +321,7 @@ const PostJob = () => {
                                 Save as Draft
                             </button>
                             <div class="flex space-x-4">
-                                <button onClick={handlePreview} class="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900">
+                                <button onClick={handlePreview} className="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900">
                                     Review
                                 </button>
 
