@@ -47,7 +47,7 @@ const PostJob = () => {
         try {
             const token = localStorage.getItem("auth_token"); // ✅ Correct key name
 
-            const res = await apiClient.post(
+            const res = await apiClient.put(
                 `${API_URL}/postJobs`,
                 formData,
                 {

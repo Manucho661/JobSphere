@@ -3,7 +3,7 @@ import Footer from '../components/home/Footer';
 import TypingText from "../components/home/TypingText";
 import { Link } from 'react-router-dom';
 
-import "./mainlayout.scss"
+import "./mainlayout.css"
 import { Outlet } from 'react-router-dom';
 
 import React, { useState } from 'react';

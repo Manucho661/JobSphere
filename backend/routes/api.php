@@ -12,6 +12,7 @@ Route::post('/register', [AuthController::class, 'register']);  // Register new 
 Route::post('/login', [AuthController::class, 'login']);  // Login user
 
 Route::middleware('auth:sanctum')->post('/postJobs', [JobsController::class, 'store']);
+Route::middleware('auth:sanctum')->put('/updateJobs/{id}', [JobsController::class, 'update']);
 
 Route::get('/jobs/{id}', [JobsController::class, 'show']);  // View specific job details
 Route::post('/subscribe', [JobNotificationController::class, 'subscribe']);  // Subscribe to job notifications

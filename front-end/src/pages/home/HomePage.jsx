@@ -10,6 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 
 const HomePage = () => {
+  
   // State
   const [jobs, setJobs] = useState([]);
   const [likesMap, setLikesMap] = useState({});

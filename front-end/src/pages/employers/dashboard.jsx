@@ -5,6 +5,7 @@ const user = JSON.parse(localStorage.getItem('user'));
 const jobCount = user?.employer?.jobs?.length ?? 0;
 
 const EmployerDashboard = () => {
+  console.log(user);
 
   return (
     // <div className="app-wrapper p-6">

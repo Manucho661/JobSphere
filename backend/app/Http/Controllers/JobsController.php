@@ -139,4 +139,72 @@ class JobsController extends Controller
         }
         return response()->json($jobs);
     }
+
+    public function update(Request $request, $id)
+    {
+        // Validate incoming request
+        $validated = $request->validate([
+            'jobTitle' => 'required|string|max:255',
+            'employmentType' => 'nullable|string',
+            'category' => 'nullable|string',
+            'experienceLevel' => 'nullable|string',
+            'workPlace' => 'nullable|string',
+            'location' => 'nullable|string',
+            'salaryMin' => 'nullable|numeric',
+            'salaryMax' => 'nullable|numeric',
+            'hideSalary' => 'boolean',
+            'description' => 'nullable|string',
+
+            // related table data
+            'responsibilities' => 'nullable|string',
+            'requiredQualifications' => 'nullable|string',
+            'benefits' => 'nullable|string',
+        ]);
+
+        // Find the job
+        $job = Job::findOrFail($id);
+
+        // Update main job fields
+        $job->update([
+            'jobTitle' => $validated['jobTitle'],
+            'employmentType' => $validated['employmentType'],
+            'category' => $validated['category'],
+            'experienceLevel' => $validated['experienceLevel'],
+            'workPlace' => $validated['workPlace'],
+            'location' => $validated['location'],
+            'salaryMin' => $validated['salaryMin'],
+            'salaryMax' => $validated['salaryMax'],
+            'hideSalary' => $validated['hideSalary'] ?? false,
+            'description' => $validated['description'],
+        ]);
+
+        // Update responsibilities
+        // if (isset($validated['responsibilities'])) {
+        //     $job->responsibilities()->updateOrCreate(
+        //         ['job_id' => $job->id],
+        //         ['text' => $validated['responsibilities']]
+        //     );
+        // }
+
+        // Update qualifications
+        // if (isset($validated['requiredQualifications'])) {
+        //     $job->qualifications()->updateOrCreate(
+        //         ['job_id' => $job->id],
+        //         ['text' => $validated['requiredQualifications']]
+        //     );
+        // }
+
+        // Update benefits
+        // if (isset($validated['benefits'])) {
+        //     $job->benefits()->updateOrCreate(
+        //         ['job_id' => $job->id],
+        //         ['text' => $validated['benefits']]
+        //     );
+        // }
+
+        return response()->json([
+            'message' => 'Job updated successfully.',
+            'job' => $job->load('responsibilities', 'qualifications', 'benefits')
+        ]);
+    }
 }

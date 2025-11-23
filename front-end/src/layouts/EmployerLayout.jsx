@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../components/employers/Sidebar";
 import Header from "../components/employers/Header";
 import Footer from "../components/employers/Footer";
-import "./EmployerLayout.scss";
+import "./EmployerLayout.css";
 import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
 const EmployerLayout = () => {
