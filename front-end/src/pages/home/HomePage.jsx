@@ -4,13 +4,16 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PulsePreloader from "../../components/PulsePreloader"; // ✅ default import
+import { useOutletContext } from "react-router-dom";
+
 
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 
 const HomePage = () => {
-  
+  const { filters, shouldFetch, setShouldFetch } = useOutletContext();
+
   // State
   const [jobs, setJobs] = useState([]);
   const [likesMap, setLikesMap] = useState({});
@@ -22,10 +25,13 @@ const HomePage = () => {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    const fetchJobs = async () => {
+    // Initial fetch on page load
+    const fetchInitialJobs = async () => {
       try {
         setLoading(true);
-        const response = await apiClient.get(`${API_URL}/jobs?page=${page}`);
+        const response = await apiClient.get(`${API_URL}/jobs`, {
+          params: { page } // no filters yet
+        });
         setJobs(response.data);
       } catch (err) {
         console.error(err);
@@ -35,8 +41,33 @@ const HomePage = () => {
       }
     };
 
-    fetchJobs();
-  }, [page]);
+    fetchInitialJobs();
+  }, []); // run once on mount
+
+
+
+  useEffect(() => {
+    if (!shouldFetch) return;
+    console.log(filters);
+    const fetchFilteredJobs = async () => {
+      try {
+        setLoading(true);
+        const response = await apiClient.get(`${API_URL}/jobs`, {
+          params: { page, ...filters } // now latest filters
+        });
+        setJobs(response.data);
+      } catch (err) {
+        setError("Failed to fetch job listings.");
+      } finally {
+        setLoading(false);
+        setShouldFetch(false);
+      }
+    };
+
+    fetchFilteredJobs();
+  }, [shouldFetch, filters, page, setShouldFetch]);
+
+
 
 
   const handleLike = async (jobId) => {
@@ -296,7 +327,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      
+
     </>
   );
 };
