@@ -19,13 +19,68 @@ use App\Models\JobPreferredQualification;
 class JobsController extends Controller
 {
     // GET /api/jobs
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(
-            Job::with('employer.user') // include employer and the employer's user
-                ->latest()
-                ->paginate(7)
-        );
+        $query = Job::with('employer.user')->latest();
+
+        // 1️⃣ Search by job title or description
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // 2️⃣ Job Type (array)
+        if ($request->filled('employmentType')) {
+            $query->whereIn('employmentType', $request->employmentType);
+        }
+
+        // 3️⃣ Work Mode / Remote
+        if ($request->filled('remoteWork')) {
+            $query->whereIn('workPlace', $request->remoteWork);
+        }
+
+        // 4️⃣ Experience Level
+        if ($request->filled('experienceLevel')) {
+            $query->whereIn('experienceLevel', $request->experienceLevel);
+        }
+
+        // 6️⃣ Salary Range (format: "50k-75k" or "150k+")
+        if ($request->filled('salaryRange')) {
+            $range = $request->salaryRange;
+            if ($range === '150k+') {
+                $query->where('maxSalary', '>=', 150000);
+            } else {
+                [$min, $max] = explode('-', $range);
+                // remove non-numeric characters
+                $min = (int) filter_var($min, FILTER_SANITIZE_NUMBER_INT);
+                $max = (int) filter_var($max, FILTER_SANITIZE_NUMBER_INT);
+                $query->whereBetween('minSalary', [$min, $max]);
+            }
+        }
+
+        // 7️⃣ Posted Within (format: "24h", "3d", "7d", etc.)
+        if ($request->filled('postedWithin')) {
+            $timeMap = [
+                '24h' => now()->subDay(),
+                '3d'  => now()->subDays(3),
+                '7d'  => now()->subDays(7),
+                '14d' => now()->subDays(14),
+                '30d' => now()->subDays(30),
+            ];
+
+            $date = $timeMap[$request->postedWithin] ?? null;
+            if ($date) {
+                $query->where('created_at', '>=', $date);
+            }
+        }
+
+        // 8️⃣ Pagination
+        $jobs = $query->paginate(7);
+
+        return response()->json($jobs);
     }
 
     public function store(Request $request)
