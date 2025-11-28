@@ -54,15 +54,16 @@ const ManageJobs = () => {
             const response = await apiClient.get(`${API_URL}/jobs/${selectedId}`);
             const jobData = response.data;
             setSelectedJob(jobData);
+            console.log("data from database", jobData);
             setFormData({
-                jobTitle: jobData.jobTitle || "",
-                employmentType: jobData.employmentType || "",
+                jobTitle: jobData.job_title || "",
+                employmentType: jobData.employement_type ||"",
                 category: jobData.category || "",
-                experienceLevel: jobData.experienceLevel || "",
-                workPlace: jobData.workPlace || "",
+                experienceLevel: jobData.experience_level || "",
+                workPlace: jobData.work_place || "",
                 location: jobData.location || "",
-                salaryMin: jobData.salaryMin || "",
-                salaryMax: jobData.salaryMax || "",
+                salaryMin: jobData.salary_min || "",
+                salaryMax: jobData.salary_max || "",
                 hideSalary: jobData.hideSalary || false,
                 description: jobData.description || "",
                 responsibilities: jobData.responsibilities || "",
@@ -92,7 +93,7 @@ const ManageJobs = () => {
             .filter(line => line.trim() !== "")
             .map(line => ({ responsibility: line }));
 
-        setSelectedJob(prev => ({
+        setFormData(prev => ({
             ...prev,
             responsibilities: responsibilitiesArray
         }));
@@ -105,15 +106,15 @@ const ManageJobs = () => {
             .filter(line => line.trim() !== "")
             .map(line => ({ qualification: line }));
 
-        setSelectedJob(prev => ({
+        setFormData(prev => ({
             ...prev,
-            qualifications: qualificationsArray
+            requiredQualifications: qualificationsArray
         }));
         return;
     }
 
     // normal fields
-    setSelectedJob(prev => ({
+    setFormData(prev => ({
         ...prev,
         [name]: value
     }));
@@ -155,6 +156,7 @@ const ManageJobs = () => {
 
             console.log(res.data);
             alert(res.data.message || "Job updated successfully!");
+            console.log(formData, 'ypyp');
             setFormData({}); // reset your form fields here
         } catch (err) {
             console.error(err.response?.data || err.message);
@@ -166,6 +168,7 @@ const ManageJobs = () => {
     const handleCloseEdit = () => {
         setShowEdit(false);
     }
+
     return (
         <>
             <div className="max-w-7xl mx-auto px-4">
@@ -434,7 +437,7 @@ const ManageJobs = () => {
 
             {/* EditModal */}
             {
-                showEdit && selectedJob && (
+                showEdit && formData && (
                     <div className="fixed inset-0 bg-black/50 bg-opacity-50 z-1000 flex items-center justify-center p-4 mt-12">
                         <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
                             <div className="sticky top-0 bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between">
@@ -455,7 +458,7 @@ const ManageJobs = () => {
                                         <input
                                             type="email"
                                             name="jobTitle"
-                                            value={selectedJob.jobTitle}
+                                            value={formData.jobTitle}
                                             onChange={handleChange}
                                             className="w-full px-4 py-3 border rounded-lg"
                                         />
@@ -464,7 +467,7 @@ const ManageJobs = () => {
                                                 <label className="block text-sm font-medium text-gray-700 mb-2">Job Category *</label>
                                                 <select
                                                     name="category"
-                                                    value={selectedJob.category}
+                                                    value={formData.category}
                                                     onChange={handleChange}
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                                                 >
@@ -481,15 +484,15 @@ const ManageJobs = () => {
                                                 <label className="block text-sm font-medium text-gray-700 mb-2">Employment Type *</label>
                                                 <select
                                                     name="employmentType"
-                                                    value={selectedJob.employmentType}
+                                                    value={formData.employmentType}
                                                     onChange={handleChange}
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                                                 >
                                                     <option value="">Select type</option>
-                                                    <option value="fulltime">Full-time</option>
-                                                    <option value="parttime">Part-time</option>
-                                                    <option value="contract">Contract</option>
-                                                    <option value="freelance">Freelance</option>
+                                                    <option value="Full-time">Full-time</option>
+                                                    <option value="Part-time">Part-time</option>
+                                                    <option value="Contract">Contract</option>
+                                                    <option value="Freelance">Freelance</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -498,7 +501,7 @@ const ManageJobs = () => {
                                                 <label className="block text-sm font-medium text-gray-700 mb-2">Experience Level *</label>
                                                 <select
                                                     name="experienceLevel"
-                                                    value={selectedJob.experienceLevel}
+                                                    value={formData.experienceLevel}
                                                     onChange={handleChange}
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                                                 >
@@ -514,7 +517,7 @@ const ManageJobs = () => {
                                                 <label className="block text-sm font-medium text-gray-700 mb-2">Workplace Type *</label>
                                                 <select
                                                     name="workPlace"
-                                                    value={selectedJob.workPlace}
+                                                    value={formData.workPlace}
                                                     onChange={handleChange}
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                                                 >
@@ -530,7 +533,7 @@ const ManageJobs = () => {
                                             <input
                                                 type="text"
                                                 name="location"
-                                                value={selectedJob.location}
+                                                value={formData.location}
                                                 onChange={handleChange}
                                                 placeholder="e.g. San Francisco, CA or Remote"
                                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -542,7 +545,7 @@ const ManageJobs = () => {
                                                 <input
                                                     type="number"
                                                     name="minSalary"
-                                                    value={selectedJob.minSalary}
+                                                    value={formData.salaryMin}
                                                     onChange={handleChange}
                                                     placeholder="Min (e.g. 80000)"
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -550,7 +553,7 @@ const ManageJobs = () => {
                                                 <input
                                                     type="number"
                                                     name="maxSalary"
-                                                    value={selectedJob.maxSalary}
+                                                    value={formData.salaryMax}
                                                     onChange={handleChange}
                                                     placeholder="Max (e.g. 120000)"
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -560,7 +563,7 @@ const ManageJobs = () => {
                                                 <input
                                                     type="checkbox"
                                                     name="hideSalary"
-                                                    checked={selectedJob.hideSalary}
+                                                    checked={formData.hideSalary}
                                                     onChange={handleChange}
                                                     className="w-4 h-4 border-gray-300 rounded"
                                                 />
@@ -576,7 +579,7 @@ const ManageJobs = () => {
                                                     <label className="block text-sm font-medium text-gray-700 mb-2">Job Summary *</label>
                                                     <textarea
                                                         name="description"
-                                                        value={selectedJob.description}
+                                                        value={formData.description}
                                                         onChange={handleChange}
                                                         rows="4"
                                                         placeholder="Brief overview of the role and what the candidate will be doing..."
@@ -589,7 +592,7 @@ const ManageJobs = () => {
                                                     <textarea
                                                         name="responsibilities"
                                                         value={
-                                                            (selectedJob.responsibilities || [])
+                                                            (formData.responsibilities || [])
                                                                 .map(r => r.responsibility)
                                                                 .join("\n")
                                                         }
@@ -605,7 +608,7 @@ const ManageJobs = () => {
                                                     <textarea
                                                         name="requiredQualifications"
                                                         value={
-                                                            (selectedJob.qualifications || [])
+                                                            (formData.requiredQualifications || [])
                                                                 .map(q => q.qualification)
                                                                 .join("\n")
                                                         }
@@ -620,7 +623,7 @@ const ManageJobs = () => {
                                                     <label className="block text-sm font-medium text-gray-700 mb-2">Benefits & Perks</label>
                                                     <textarea
                                                         name="benefits"
-                                                        value={selectedJob.benefits}
+                                                        value={formData.benefits}
                                                         onChange={handleChange}
                                                         rows="4"
                                                         placeholder="• Health insurance&#10;• 401(k) matching&#10;• Flexible PTO"
@@ -639,7 +642,7 @@ const ManageJobs = () => {
                                                     <input
                                                         type="email"
                                                         name="applicationEmail"
-                                                        value={selectedJob.applicationEmail}
+                                                        value={formData.applicationEmail}
                                                         onChange={handleChange}
                                                         placeholder="careers@company.com"
                                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -650,7 +653,7 @@ const ManageJobs = () => {
                                                     <input
                                                         type="url"
                                                         name="applicationUrl"
-                                                        value={selectedJob.applicationUrl}
+                                                        value={formData.applicationUrl}
                                                         onChange={handleChange}
                                                         placeholder="https://company.com/careers/apply"
                                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"

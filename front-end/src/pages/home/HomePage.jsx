@@ -14,13 +14,21 @@ const API_URL = import.meta.env.VITE_API_URL;
 const HomePage = () => {
   const { filters, shouldFetch, setShouldFetch } = useOutletContext();
 
-  // State
+  // states
   const [jobs, setJobs] = useState([]);
   const [likesMap, setLikesMap] = useState({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+
+  // Modals states
+  const [isUploadCvOpen, setUploadCvOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [notification, setNotification] = useState(null);
+
+
+
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -68,6 +76,38 @@ const HomePage = () => {
   }, [shouldFetch, filters, page, setShouldFetch]);
 
 
+  // upload CV
+  const openCvModal = () => setUploadCvOpen(true);
+  const closeModal = () => {
+    setUploadCvOpen(false);
+    setSelectedFile(null);
+    setUploading(false);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+    }
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      setUploading(true);
+      // Simulate upload
+      setTimeout(() => {
+        setNotification({
+          type: 'success',
+          message: `File uploaded successfully!`,
+          fileName: selectedFile.name,
+          fileSize: (selectedFile.size / 1024).toFixed(2)
+        });
+        closeModal();
+        // Auto-hide notification after 5 seconds
+        setTimeout(() => setNotification(null), 5000);
+      }, 1500);
+    }
+  };
 
 
   const handleLike = async (jobId) => {
@@ -161,7 +201,7 @@ const HomePage = () => {
                                 to={`jobDetails/${job.id}`}
                                 className=" text-gray-9 hover:text-yellow-600"
                               >
-                                {job.jobTitle} at {job.employer.user.name}
+                                {job.job_title} at {job.employer.user.name}
                               </Link>
                             </b>
 
@@ -180,7 +220,7 @@ const HomePage = () => {
                             day: "numeric",
                             month: "long",
                           })}{" "}
-                          • Salary range: KSH  {job.minSalary} - KSH {job.maxSalary}
+                          • Salary range: KSH  {job.salary_min} - KSH {job.salary_max}
                           {" "} • Onsite
                         </div>
                         <p
@@ -229,8 +269,15 @@ const HomePage = () => {
 
             {/* Right sidebar */}
             <div className="md:col-span-1 space-y-4">
-              {/* Subscribe */}
-
+              {/* upload CV */}
+              <div className="rounded-lg">
+                <i><b>Upload your CV to check how it aligns with Jobs</b></i>
+                <button
+                  onClick={openCvModal}
+                  className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 mt-2">
+                  <b>Upload your CV</b>
+                </button>
+              </div>
 
               {/* Featured Service */}
               <div className="bg-white p-4 rounded-lg">
@@ -323,11 +370,176 @@ const HomePage = () => {
                   <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
 
+      {/*Modals*/}
+      {isUploadCvOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center p-4 z-50"
+          onClick={closeModal}
+        >
+          {/* Modal Content */}
+          <div
+            className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl leading-none"
+            >
+              ×
+            </button>
+
+            {/* Modal Header */}
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold" style={{ color: '#002B5B' }}>
+                Upload File
+              </h2>
+              <p className="text-gray-600 mt-1">
+                Select a file to upload
+              </p>
+            </div>
+
+            {/* Modal Body */}
+            <div>
+              <div className="space-y-4">
+                {/* File Upload Area */}
+                <div
+                  className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors hover:border-gray-400"
+                  style={{ borderColor: selectedFile ? '#FFC107' : '#d1d5db' }}
+                  onClick={() => document.getElementById('fileInput').click()}
+                >
+                  <input
+                    id="fileInput"
+                    type="file"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    accept="*/*"
+                  />
+
+                  {!selectedFile ? (
+                    <>
+                      <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <p className="mt-2 text-sm text-gray-600">
+                        Click to browse or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Any file type accepted
+                      </p>
+                    </>
+                  ) : (
+                    <div className="flex items-center justify-center gap-2">
+                      <svg className="h-8 w-8" style={{ color: '#FFC107' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      <div className="text-left">
+                        <p className="text-sm font-medium" style={{ color: '#002B5B' }}>
+                          {selectedFile.name}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {(selectedFile.size / 1024).toFixed(2)} KB
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {selectedFile && (
+                  <button
+                    onClick={() => {
+                      setSelectedFile(null);
+                      document.getElementById('fileInput').value = '';
+                    }}
+                    className="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    Remove file
+                  </button>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex gap-3 mt-6">
+                <button
+                  onClick={closeModal}
+                  className="flex-1 px-4 py-2 border-2 rounded-lg font-semibold transition-colors"
+                  style={{
+                    borderColor: '#002B5B',
+                    color: '#002B5B',
+                  }}
+                  disabled={uploading}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpload}
+                  disabled={!selectedFile || uploading}
+                  className="flex-1 px-4 py-2 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{
+                    backgroundColor: selectedFile && !uploading ? '#FFC107' : '#d1d5db',
+                    color: selectedFile && !uploading ? '#002B5B' : '#6b7280'
+                  }}
+                >
+                  {uploading ? 'Uploading...' : 'Upload'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Custom Notification */}
+      {notification && (
+        <div className="fixed top-4 right-4 z-2000 animate-slide-in">
+          <div
+            className="bg-white rounded-lg shadow-2xl p-4 max-w-sm border-l-4 flex items-start gap-3"
+            style={{ borderColor: notification.type === 'success' ? '#FFC107' : '#ef4444' }}
+          >
+            {/* Icon */}
+            <div
+              className="rounded-full p-1 flex-shrink-0"
+              style={{ backgroundColor: notification.type === 'success' ? '#d1fae5' : '#fee2e2' }}
+            >
+              {notification.type === 'success' ? (
+                <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1">
+              <p className="font-semibold" style={{ color: '#002B5B' }}>
+                {notification.message}
+              </p>
+              {notification.fileName && (
+                <p className="text-sm text-gray-600 mt-1">
+                  {notification.fileName} ({notification.fileSize} KB)
+                </p>
+              )}
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setNotification(null)}
+              className="text-gray-400 hover:text-gray-600 flex-shrink-0"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -47,7 +47,7 @@ const JobDetails = () => {
                         <section className="bg-white rounded-2xl p-4 transition-all duration-300 border border-gray-100">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-2xl font-bold text-[#002b5b] flex items-center gap-2">
-                                    {job.jobTitle} at {job.employer?.companyName}
+                                    {job.job_title} at {job.employer?.companyName}
                                 </h3>
 
                                 <div className="text-sm text-yellow-900 italic text-right">
@@ -77,16 +77,16 @@ const JobDetails = () => {
                                     <strong>Location:</strong> {job.location}
                                 </p>
                                 <p>
-                                    <strong>Employment Type:</strong> {job.employmentType}
+                                    <strong>Employment Type:</strong> {job.employment_type}
                                 </p>
                                 <p>
                                     <strong>Category:</strong> {job.category}
                                 </p>
                                 <p>
-                                    <strong>Experience Level:</strong> {job.experienceLevel}
+                                    <strong>Experience Level:</strong> {job.experience_level}
                                 </p>
                                 <p>
-                                    <strong>Salary:</strong> Ksh {job.minSalary} - Ksh {job.maxSalary}
+                                    <strong>Salary:</strong> Ksh {job.salary_min} - Ksh {job.salary_max}
                                 </p>
                             </div>
                         </section>

@@ -117,15 +117,15 @@ class JobsController extends Controller
         try {
             // ✅ Create job and auto-link employer_id
             $job = $employer->jobs()->create([
-                'jobTitle' => $validated['jobTitle'],
-                'employmentType' => $validated['employmentType'],
+                'job_title' => $validated['jobTitle'],
+                'employment_type' => $validated['employmentType'],
                 'category' => $validated['category'],
-                'experienceLevel' => $validated['experienceLevel'],
+                'experience_level' => $validated['experienceLevel'],
                 'workPlace' => $validated['workPlace'],
                 'location' => $validated['location'],
                 'description' => $validated['description'],
-                'minSalary' => $validated['salaryMin'],
-                'maxSalary' => $validated['salaryMax'],
+                'salary_min' => $validated['salaryMin'],
+                'salary_max' => $validated['salaryMax'],
             ]);
 
             // Responsibilities
@@ -207,7 +207,7 @@ class JobsController extends Controller
             'location' => 'nullable|string',
             'salaryMin' => 'nullable|numeric',
             'salaryMax' => 'nullable|numeric',
-            'hideSalary' => 'boolean',
+            // 'hideSalary' => 'boolean',
             'description' => 'nullable|string',
 
             // related table data
@@ -221,15 +221,15 @@ class JobsController extends Controller
 
         // Update main job fields
         $job->update([
-            'jobTitle' => $validated['jobTitle'],
-            'employmentType' => $validated['employmentType'],
+            'job_title' => $validated['jobTitle'],
+            'employment_type' => $validated['employmentType'],
             'category' => $validated['category'],
-            'experienceLevel' => $validated['experienceLevel'],
-            'workPlace' => $validated['workPlace'],
+            'experience_level' => $validated['experienceLevel'],
+            'work_place' => $validated['workPlace'],
             'location' => $validated['location'],
-            'salaryMin' => $validated['salaryMin'],
-            'salaryMax' => $validated['salaryMax'],
-            'hideSalary' => $validated['hideSalary'] ?? false,
+            'salary_min' => $validated['salaryMin'],
+            'salary_max' => $validated['salaryMax'],
+            // 'hideSalary' => $validated['hideSalary'] ?? false,
             'description' => $validated['description'],
         ]);
 
@@ -259,6 +259,7 @@ class JobsController extends Controller
 
         return response()->json([
             'message' => 'Job updated successfully.',
+            'updated_data' => $validated,   // ← return the data that was used to update
             'job' => $job->load('responsibilities', 'qualifications', 'benefits')
         ]);
     }

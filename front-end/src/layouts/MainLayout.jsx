@@ -123,12 +123,7 @@ const MainLayout = () => {
             </div>
 
             {/* Upload CV */}
-            <div className="md:col-span-1 rounded-lg">
-              <i><b>Upload your CV to check how it aligns with Jobs</b></i>
-              <button className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 mt-2">
-                <b>Upload your CV</b>
-              </button>
-            </div>
+           
 
           </div>
         </div>
