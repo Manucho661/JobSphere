@@ -106,7 +106,6 @@ const JobDetails = () => {
                             <h2 className="font-semibold text-lg mb-2 text-primary">Responsibilities</h2>
                             <div class="space-y-4">
                                 <div>
-
                                     {job.responsibilities?.length > 0 && (
                                         <div>
 

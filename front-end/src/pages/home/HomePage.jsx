@@ -146,16 +146,7 @@ const HomePage = () => {
                     className="px-4 py-2 text-sm font-medium border-b-2 border-gray-500 hover:text-yellow-600"
                     role="tab"
                   >
-                    <b>Find a Job</b>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-yellow-600"
-                    role="tab"
-                  >
-                    <b>Featured Jobs</b>
-
+                    <b>Latest Jobs</b>
                   </button>
                 </li>
                 <li>
@@ -270,7 +261,7 @@ const HomePage = () => {
             {/* Right sidebar */}
             <div className="md:col-span-1 space-y-4">
               {/* upload CV */}
-              <div className="rounded-lg">
+              <div className="rounded-lg"  >
                 <i><b>Upload your CV to check how it aligns with Jobs</b></i>
                 <button
                   onClick={openCvModal}
@@ -280,34 +271,36 @@ const HomePage = () => {
               </div>
 
               {/* Featured Service */}
-              <div className="bg-white p-4 rounded-lg">
+              <div className="bg-white p-4 rounded-lg" >
                 <h6 className="font-bold mb-2 text-[#002B5B]">
                   💼 Featured Service: TalentLink Recruiters
                 </h6>
-                <p className="text-sm text-gray-700 mb-2">
-                  Looking to grow your team? <strong>TalentLink</strong> connects you
-                  with top professionals in finance, tech, marketing, and more.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 cursor-pointer">
-                    <b>Verified Candidates</b>
-                  </span>
-                  <span className="bg-gray-100 border border-gray-300 text-gray-700 text-xs px-2 py-1 rounded flex items-center">
-                    Industry Experts
-                  </span>
+                <div className="rounded-lg p-4" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
+                  <p className="text-sm text-gray-700 mb-2">
+                    Looking to grow your team? <strong>TalentLink</strong> connects you
+                    with top professionals in finance, tech, marketing, and more.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span className="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 cursor-pointer">
+                      <b>Verified Candidates</b>
+                    </span>
+                    <span className="bg-gray-100 border border-gray-300 text-gray-700 text-xs px-2 py-1 rounded flex items-center">
+                      Industry Experts
+                    </span>
+                  </div>
+                  <a
+                    href="#"
+                    className="block text-center border border-gray-300 text-dark-600 text-sm py-2 rounded hover:bg-gray-50"
+                  >
+                    Find Talent with TalentLink
+                  </a>
                 </div>
-                <a
-                  href="#"
-                  className="block text-center border border-gray-300 text-dark-600 text-sm py-2 rounded hover:bg-gray-50"
-                >
-                  Find Talent with TalentLink
-                </a>
               </div>
 
               {/* Jobs by Category */}
               <div className="bg-white p-4 rounded-lg">
                 <h6 className="font-bold mb-2">🗂 Jobs by Category</h6>
-                <div className="flex flex-wrap gap-2 text-sm">
+                <div className="flex flex-wrap gap-2 text-sm p-4 rounded-lg" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                   {[
                     "Accounting",
                     "Finance",
@@ -332,7 +325,7 @@ const HomePage = () => {
               {/* Jobs by Location */}
               <div className="bg-white p-4 rounded-lg">
                 <h6 className="font-bold mb-2">📍 Jobs by Location</h6>
-                <div className="flex flex-wrap gap-2 text-sm">
+                <div className="flex flex-wrap gap-2 text-sm rounded-lg p-4" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                   {[
                     "Nairobi",
                     "Mombasa",
