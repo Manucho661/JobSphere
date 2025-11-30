@@ -3,7 +3,7 @@ import Footer from "../components/home/Footer";
 import TypingText from "../components/home/TypingText";
 import { Link, Outlet } from "react-router-dom";
 
-import "./mainlayout.css";
+import "./Mainlayout.css";
 import React, { useState, useEffect, useRef } from "react";
 
 import {
@@ -111,7 +111,7 @@ const MainLayout = () => {
 
               <h3 className="text-xl md:text-2xl font-semibold text-[#002B5B]">
                 <b>Find the Job You Deserve</b>
-                <span className="text-yellow-900">
+                <span className="typing-text text-yellow-900">
                   {" "} • <Link to="/login" className="underline">Sign in</Link>{" "}
                   <TypingText
                     phrases={[
@@ -246,41 +246,35 @@ const MainLayout = () => {
                 <div className="flex flex-wrap gap-3">
 
                   {/* SEARCH INPUT (FIXED ICON OVERLAP) */}
-                  <div className="flex gap-5 p-4">
+                  <div className="flex items-center gap-3 flex-1
+                    border border-gray-300 rounded-full px-4 py-0
+                    hover:border-yellow-400 hover:bg-gray-50
+                    focus-within:ring-2 focus-within:ring-yellow-500 transition-all">
 
-                    {/* Job Search */}
-                    <div className="relative w-full md:w-auto">
-                      <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                      <input
-                        type="text"
-                        value={filters.search}
-                        onChange={(e) =>
-                          setFilters({ ...filters, search: e.target.value })
-                        }
-                        placeholder="Job title or keywords"
-                        className="w-full md:w-64 pl-11 pr-4 py-3 border border-gray-300 rounded-xl
-      focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-300
-      hover:border-yellow-300 hover:bg-gray-50"
+                    {/* Icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 text-gray-400"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 21l-4.35-4.35m1.1-5.4a7 7 0 11-14 0 7 7 0 0114 0z"
                       />
-                    </div>
+                    </svg>
 
-                    {/* Location Search */}
-                    <div className="relative w-full md:w-auto">
-                      <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                      <input
-                        type="text"
-                        value={filters.location}
-                        onChange={(e) =>
-                          setFilters({ ...filters, location: e.target.value })
-                        }
-                        placeholder="Location"
-                        className="w-full md:w-64 pl-11 pr-4 py-3 border border-gray-300 rounded-xl
-      focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-300
-      hover:border-yellow-300 hover:bg-gray-50"
-                      />
-                    </div>
-
+                    {/* Input Field */}
+                    <input
+                      type="text"
+                      placeholder="Search here..."
+                      className="search-input flex-1 bg-transparent outline-none w-full border-0 ring-0 focus:ring-0"
+                    />
                   </div>
+
 
 
 
@@ -299,7 +293,6 @@ const MainLayout = () => {
                           }
                           className="w-48 px-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
                         >
-
                           <option value="">Select Type</option>
                           <option value="onsite">Full-time</option>
                           <option value="hybrid">Part-time</option>

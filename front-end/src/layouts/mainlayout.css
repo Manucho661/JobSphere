@@ -81,7 +81,9 @@ body {
 
   overflow: auto;
 }
-
+.typing-text{
+  display:none;
+}
 }
 
 /* Footer */
@@ -116,4 +118,9 @@ body {
 }
 .jobDetailsModal{
   margin-top: 10vh !important;
+}
+
+
+.search-input{
+  border:transparent !important;
 }
