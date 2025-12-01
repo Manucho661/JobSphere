@@ -10,7 +10,6 @@ import {
   Search,
   Briefcase,
   ChevronDown,
-  DollarSign,
   Clock,
   Building2,
   GraduationCap,
@@ -20,11 +19,10 @@ import {
 const MainLayout = () => {
   const [filters, setFilters] = useState({
     search: "",
-    location: "",
     employmentType: "",
     experienceLevel: "",
     salaryRange: "",
-    remoteWork: [],
+    remoteWork: "",
     postedWithin: "",
   });
   // state
@@ -67,7 +65,6 @@ const MainLayout = () => {
   const clearFilters = () => {
     setFilters({
       search: "",
-      location: "",
       employmentType: "",
       experienceLevel: "",
       salaryRange: "",
@@ -87,6 +84,7 @@ const MainLayout = () => {
   };
 
   const applyFilters = () => {
+    console.log(filters);
     setPage(1);
     setShouldFetch(true);  // Homepage will react
   };
@@ -270,6 +268,13 @@ const MainLayout = () => {
                     {/* Input Field */}
                     <input
                       type="text"
+                      value={filters.search}
+                      onChange={(e) =>
+                        setFilters({
+                          ...filters,
+                          search: e.target.value,
+                        })
+                      }
                       placeholder="Search here..."
                       className="search-input flex-1 bg-transparent outline-none w-full border-0 ring-0 focus:ring-0"
                     />
@@ -293,7 +298,7 @@ const MainLayout = () => {
                           }
                           className="w-48 px-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
                         >
-                          <option value="">Select Type</option>
+                          <option value="">Employment Type</option>
                           <option value="onsite">Full-time</option>
                           <option value="hybrid">Part-time</option>
                           <option value="remote">Contract</option>
@@ -307,13 +312,13 @@ const MainLayout = () => {
                           onChange={(e) =>
                             setFilters({
                               ...filters,
-                              postedWithin: e.target.value,
+                              remoteWork: e.target.value,
                             })
                           }
                           className="w-48 px-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
                         >
 
-                          <option value="">Select Type</option>
+                          <option value="">Work-place Type</option>
                           <option value="onsite">Onsite</option>
                           <option value="hybrid">Hybrid</option>
                           <option value="remote">Remote</option>
@@ -329,7 +334,7 @@ const MainLayout = () => {
                             setFilters({ ...filters, experienceLevel: e.target.value })
                           }
                           className="w-48 pl-9 pr-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50">
-                          <option value="">Select type</option>
+                          <option value="">Experience Level</option>
                           <option value="Entry Level">Entry Level</option>
                           <option value="Mid Level">Mid Level</option>
                           <option value="Senior Level">Senior Level</option>
@@ -339,8 +344,7 @@ const MainLayout = () => {
 
                     <div className="flex gap-5">
                       {/* SALARY RANGE */}
-                      <div className="relative">
-                        <DollarSign className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <div className="">
                         <select
                           value={filters.salaryRange}
                           onChange={(e) =>

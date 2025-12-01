@@ -131,7 +131,26 @@ const HomePage = () => {
   }
   // 🔹 Conditional rendering
   if (loading) return <PulsePreloader loading={loading} />;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (error) return (
+    <div className="px-8">
+      <div className="grid w-full p-4 my-6 rounded-2xl bg-red-50 border border-red-200 shadow-sm">
+        <h2 className="text-red-700 font-semibold text-lg mb-1">
+          We’re experiencing technical issues
+        </h2>
+        <p className="text-red-600 text-sm">
+          Please stay patient — our technical team is already working to restore the service as soon as possible.
+        </p>
+
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 text-sm bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
+        >
+          Retry
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="py-3">

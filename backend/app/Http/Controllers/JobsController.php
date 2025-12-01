@@ -48,18 +48,18 @@ class JobsController extends Controller
         }
 
         // 6️⃣ Salary Range (format: "50k-75k" or "150k+")
-        if ($request->filled('salaryRange')) {
-            $range = $request->salaryRange;
-            if ($range === '150k+') {
-                $query->where('maxSalary', '>=', 150000);
-            } else {
-                [$min, $max] = explode('-', $range);
-                // remove non-numeric characters
-                $min = (int) filter_var($min, FILTER_SANITIZE_NUMBER_INT);
-                $max = (int) filter_var($max, FILTER_SANITIZE_NUMBER_INT);
-                $query->whereBetween('minSalary', [$min, $max]);
-            }
-        }
+        // if ($request->filled('salaryRange')) {
+        //     $range = $request->salaryRange;
+        //     if ($range === '150k+') {
+        //         $query->where('maxSalary', '>=', 150000);
+        //     } else {
+        //         [$min, $max] = explode('-', $range);
+        //         // remove non-numeric characters
+        //         $min = (int) filter_var($min, FILTER_SANITIZE_NUMBER_INT);
+        //         $max = (int) filter_var($max, FILTER_SANITIZE_NUMBER_INT);
+        //         $query->whereBetween('minSalary', [$min, $max]);
+        //     }
+        // }
 
         // 7️⃣ Posted Within (format: "24h", "3d", "7d", etc.)
         if ($request->filled('postedWithin')) {
