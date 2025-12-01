@@ -21,67 +21,61 @@ class JobsController extends Controller
     // GET /api/jobs
     public function index(Request $request)
     {
-        $query = Job::with('employer.user')->latest();
+        try {
+            $query = Job::with('employer.user')->latest();
 
-        // 1️⃣ Search by job title or description
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
-            });
-        }
-
-        // 2️⃣ Job Type (array)
-        if ($request->filled('employmentType')) {
-            $query->whereIn('employmentType', $request->employmentType);
-        }
-
-        // 3️⃣ Work Mode / Remote
-        if ($request->filled('remoteWork')) {
-            $query->whereIn('workPlace', $request->remoteWork);
-        }
-
-        // 4️⃣ Experience Level
-        if ($request->filled('experienceLevel')) {
-            $query->whereIn('experienceLevel', $request->experienceLevel);
-        }
-
-        // 6️⃣ Salary Range (format: "50k-75k" or "150k+")
-        // if ($request->filled('salaryRange')) {
-        //     $range = $request->salaryRange;
-        //     if ($range === '150k+') {
-        //         $query->where('maxSalary', '>=', 150000);
-        //     } else {
-        //         [$min, $max] = explode('-', $range);
-        //         // remove non-numeric characters
-        //         $min = (int) filter_var($min, FILTER_SANITIZE_NUMBER_INT);
-        //         $max = (int) filter_var($max, FILTER_SANITIZE_NUMBER_INT);
-        //         $query->whereBetween('minSalary', [$min, $max]);
-        //     }
-        // }
-
-        // 7️⃣ Posted Within (format: "24h", "3d", "7d", etc.)
-        if ($request->filled('postedWithin')) {
-            $timeMap = [
-                '24h' => now()->subDay(),
-                '3d'  => now()->subDays(3),
-                '7d'  => now()->subDays(7),
-                '14d' => now()->subDays(14),
-                '30d' => now()->subDays(30),
-            ];
-
-            $date = $timeMap[$request->postedWithin] ?? null;
-            if ($date) {
-                $query->where('created_at', '>=', $date);
+            // 1️⃣ Search by job title or description
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('job_title', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%");
+                });
             }
+
+            // 2️⃣ Employment Type (single value)
+            if ($request->filled('employmentType')) {
+                $query->where('employment_type', $request->employmentType);
+            }
+
+            // 3️⃣ Work Mode / Remote (single value)
+            if ($request->filled('remoteWork')) {
+                $query->where('work_place', $request->remoteWork);
+            }
+
+            // 4️⃣ Experience Level (single value)
+            if ($request->filled('experienceLevel')) {
+                $query->where('experience_level', $request->experienceLevel);
+            }
+
+            // 5️⃣ Posted Within
+            if ($request->filled('postedWithin')) {
+                $timeMap = [
+                    '24h' => now()->subDay(),
+                    '3d'  => now()->subDays(3),
+                    '7d'  => now()->subDays(7),
+                    '14d' => now()->subDays(14),
+                    '30d' => now()->subDays(30),
+                ];
+
+                $date = $timeMap[$request->postedWithin] ?? null;
+                if ($date) {
+                    $query->where('created_at', '>=', $date);
+                }
+            }
+
+            // 6️⃣ Pagination
+            $jobs = $query->paginate(7);
+
+            return response()->json($jobs);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Server Error — something went wrong.',
+                'error' => $e->getMessage(), // optional
+            ], 500);
         }
-
-        // 8️⃣ Pagination
-        $jobs = $query->paginate(7);
-
-        return response()->json($jobs);
     }
+
 
     public function store(Request $request)
     {

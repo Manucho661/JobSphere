@@ -37,13 +37,29 @@ const HomePage = () => {
     const fetchInitialJobs = async () => {
       try {
         setLoading(true);
+
         const response = await apiClient.get(`${API_URL}/jobs`, {
-          params: { page } // no filters yet
+          params: { page }
         });
+
         setJobs(response.data);
+
       } catch (err) {
         console.error(err);
         setError("Failed to fetch job listings.");
+
+        // NETWORK ERROR (no response received)
+        if (!err.response) {
+          console.log("NETWORK ERROR:", err.message);
+          return;
+        }
+
+        // BACKEND ERROR (Laravel returned a status code)
+        console.log("BACKEND ERROR");
+        console.log("Status:", err.response.status);
+        console.log("Message:", err.response.data.message);
+        console.log("Internal:", err.response.data.error);
+
       } finally {
         setLoading(false);
       }
@@ -66,6 +82,19 @@ const HomePage = () => {
         setJobs(response.data);
       } catch (err) {
         setError("Failed to fetch job listings.");
+
+        // NETWORK ERROR (no response received)
+        if (!err.response) {
+          console.log("NETWORK ERROR:", err.message);
+          return;
+        }
+
+        // BACKEND ERROR (Laravel returned a status code)
+        console.log("BACKEND ERROR");
+        console.log("Status:", err.response.status);
+        console.log("Message:", err.response.data.message);
+        console.log("Internal:", err.response.data.error);
+
       } finally {
         setLoading(false);
         setShouldFetch(false);
@@ -182,66 +211,89 @@ const HomePage = () => {
 
               {/* Job list */}
               <div className="tab-content">
-                <h2 className="text-gray-600 text-sm mb-4"><b> <i>Latest Jobs</i></b></h2>
-                {jobs?.data?.map((job) => (
-                  <div
-                    key={job.id}
-                    className="bg-white rounded-lg p-2 mb-4"
-                  >
-                    <div className="job-card flex gap-3 p-2">
-                      <div className="job-logo-section flex-shrink-0">
-                        <img
-                          src={
-                            job.employer?.logoUrl
-                              ? job.employer.logoUrl
-                              : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                job.employer?.user?.name || "Unknown"
-                              )}&background=random&size=50`
-                          }
-                          alt={`${job.employer?.user?.name || "Employer"} Logo`}
-                          className="w-12 h-12 object-cover rounded-md"
+                <h2 className="text-gray-600 text-sm mb-4">
+                  <b><i>Latest Jobs</i></b>
+                </h2>
+
+                {jobs?.data?.length === 0 ? (
+                  <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
+                    <div className="mb-4">
+                      <svg
+                        className="mx-auto h-16 w-16 text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                         />
-                      </div>
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      No Jobs Available
+                    </h3>
+                    <p className="text-gray-500 mb-4">
+                      There are currently no such job postings. Check back later for new opportunities!
+                    </p>
+                    <button className="bg-yellow-600 hover:bg-yellow-900 text-white font-medium px-6 py-2 rounded-lg transition-colors">
+                      Get Notified
+                    </button>
+                  </div>
 
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start">
-                          <div className="job-title  text-gray-900 cursor-pointer">
-                            <b>
-                              <Link
-                                to={`jobDetails/${job.id}`}
-                                className=" text-gray-9 hover:text-yellow-600"
-                              >
-                                {job.job_title} at {job.employer.user.name}
-                              </Link>
-                            </b>
+                ) : (
+                  jobs?.data?.map((job) => (
+                    <div key={job.id} className="bg-white rounded-lg p-2 mb-4">
+                      <div className="job-card flex gap-3 p-2">
+                        <div className="job-logo-section flex-shrink-0">
+                          <img
+                            src={
+                              job.employer?.logoUrl
+                                ? job.employer.logoUrl
+                                : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                  job.employer?.user?.name || "Unknown"
+                                )}&background=random&size=50`
+                            }
+                            alt={`${job.employer?.user?.name || "Employer"} Logo`}
+                            className="w-12 h-12 object-cover rounded-md"
+                          />
+                        </div>
 
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start">
+                            <div className="job-title text-gray-900 cursor-pointer">
+                              <b>
+                                <Link
+                                  to={`jobDetails/${job.id}`}
+                                  className="text-gray-9 hover:text-yellow-600"
+                                >
+                                  {job.job_title} at {job.employer.user.name}
+                                </Link>
+                              </b>
+                            </div>
+                            <button
+                              className="text-sm text-gray-500 border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 whitespace-nowrap"
+                              onClick={() => handleLike(job.id)}
+                            >
+                              👍 {likesMap[job.id] ?? job.likes}
+                            </button>
                           </div>
-                          <button
-                            className="text-sm text-gray-500 border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 whitespace-nowrap"
-                            onClick={() => handleLike(job.id)}
-                          >
-                            👍 {likesMap[job.id] ?? job.likes}
-                          </button>
-
+                          <div className="text-gray-500 text-sm mb-2">
+                            Posted:{" "}
+                            {new Date(job.created_at).toLocaleDateString("en-US", {
+                              day: "numeric",
+                              month: "long",
+                            })}{" "}
+                            • Salary range: KSH {job.salary_min} - KSH {job.salary_max} • Onsite
+                          </div>
+                          <p className="text-gray-700 leading-relaxed">{job.description}</p>
                         </div>
-                        <div className="text-gray-500 text-sm mb-2">
-                          Posted:{" "}
-                          {new Date(job.created_at).toLocaleDateString("en-US", {
-                            day: "numeric",
-                            month: "long",
-                          })}{" "}
-                          • Salary range: KSH  {job.salary_min} - KSH {job.salary_max}
-                          {" "} • Onsite
-                        </div>
-                        <p
-                          className="text-gray-700 leading-relaxed"
-                        >
-                          {job.description}
-                        </p>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
               <div className="flex justify-between items-center mt-6">
                 {/* Previous Button */}

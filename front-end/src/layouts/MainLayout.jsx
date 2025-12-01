@@ -299,9 +299,9 @@ const MainLayout = () => {
                           className="w-48 px-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
                         >
                           <option value="">Employment Type</option>
-                          <option value="onsite">Full-time</option>
-                          <option value="hybrid">Part-time</option>
-                          <option value="remote">Contract</option>
+                          <option value="Full-time">Full-time</option>
+                          <option value="Part-time">Part-time</option>
+                          <option value="Contract">Contract</option>
                         </select>
                       </div>
 
