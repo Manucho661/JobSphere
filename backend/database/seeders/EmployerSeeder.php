@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Employer;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -13,7 +14,13 @@ class EmployerSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        Employer::factory()->count(10)->create();
+        // Get all users with role = employer
+        $employerUsers = User::where('role', 'employer')->get();
+
+        foreach ($employerUsers as $user) {
+            Employer::factory()->create([
+                'user_id' => $user->id
+            ]);
+        }
     }
 }
