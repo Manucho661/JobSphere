@@ -288,7 +288,7 @@ const HomePage = () => {
                             })}{" "}
                             • Salary range: KSH {job.salary_min} - KSH {job.salary_max} • Onsite
                           </div>
-                          <p className="text-gray-700 leading-relaxed">{job.description}</p>
+                          <p className="text-gray-700 leading-relaxed">{job.employer.companyDescription}</p>
                         </div>
                       </div>
                     </div>

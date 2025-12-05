@@ -4,30 +4,24 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobResponsibility>
- */
 class JobResponsibilityFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         $responsibilities = [
-            'Write clean and scalable code',
-            'Maintain existing codebase',
-            'Collaborate with product team',
-            'Debug and resolve issues',
-            'Optimize application performance',
-            'Participate in code reviews'
+            'Develop and maintain web applications',
+            'Collaborate with teams to define project requirements',
+            'Write clean and maintainable code',
+            'Participate in code reviews',
+            'Troubleshoot and debug issues',
+            'Improve system performance and scalability',
+            'Maintain documentation',
         ];
+
         return [
-            'responsibility' => implode(', ', $this->faker->randomElements($responsibilities, rand(3, 6))),
+            'responsibility' => $this->faker->randomElement($responsibilities),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
     }
 }

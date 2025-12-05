@@ -4,29 +4,25 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobQualification>
- */
 class JobQualificationFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
-        $qualification = [
-            'Bachelor’s degree in Computer Science',
-            '3+ years experience in software development',
-            'Strong knowledge of JavaScript',
-            'Experience with Laravel or Node.js',
-            'Familiarity with MySQL or MongoDB'
+        $qualifications = [
+            'Bachelor’s degree in Computer Science or related field',
+            '3+ years of experience in a similar role',
+            'Strong knowledge of Laravel & PHP',
+            'Proficiency in JavaScript and React',
+            'Experience with cloud platforms (AWS, Azure, GCP)',
+            'Strong problem-solving skills',
+            'Experience with MySQL or PostgreSQL',
+            'Knowledge of cybersecurity best practices',
         ];
+
         return [
-            'qualification' => implode(', ', $this->faker->randomElements($qualification, rand(3, 5))),
+            'qualification' => $this->faker->randomElement($qualifications),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
     }
 }

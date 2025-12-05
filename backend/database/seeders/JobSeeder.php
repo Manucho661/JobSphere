@@ -3,44 +3,39 @@
 namespace Database\Seeders;
 
 use App\Models\Job;
-use App\Models\Employer;
-use App\Models\JobBenefit;
-use Illuminate\Database\Seeder;
 use App\Models\JobQualification;
 use App\Models\JobResponsibility;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\JobBenefit;
+use App\Models\Employer;
+use Illuminate\Database\Seeder;
 
 class JobSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $employers = Employer::all();
 
         foreach ($employers as $employer) {
 
-            // each employer gets between 2-5 jobs
-            $jobCount = rand(2, 5);
+            // Each employer gets between 2–5 jobs
+            $jobs = Job::factory(rand(1, 3))->create([
+                'employer_id' => $employer->id
+            ]);
 
-            for ($i = 0; $i < $jobCount; $i++) {
+            foreach ($jobs as $job) {
 
-                // create job
-                $job = Job::factory()->create([
-                    'employer_id' => $employer->id
-                ]);
-
-                // create related items
-                JobQualification::factory()->create([
+                // Seed Qualifications: 3–6
+                JobQualification::factory(rand(3, 6))->create([
                     'job_id' => $job->id
                 ]);
 
-                JobResponsibility::factory()->create([
+                // Seed Responsibilities: 4–8
+                JobResponsibility::factory(rand(4, 8))->create([
                     'job_id' => $job->id
                 ]);
 
-                JobBenefit::factory()->create([
+                // Seed Benefits: 2–4
+                JobBenefit::factory(rand(2, 4))->create([
                     'job_id' => $job->id
                 ]);
             }

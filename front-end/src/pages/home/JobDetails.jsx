@@ -1,6 +1,4 @@
 import apiClient from "../../api/apiClient";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PulsePreloader from "../../components/PulsePreloader";

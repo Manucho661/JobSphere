@@ -4,30 +4,23 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobBenefit>
- */
 class JobBenefitFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         $benefits = [
-            'Health Insurance',
-            'Paid Time Off',
-            'Remote Work Options',
-            'Laptop provided',
-            'Annual Bonus',
-            'Flexible Hours'
+            'Health insurance',
+            'Paid leave and holidays',
+            'Remote work options',
+            'Professional growth opportunities',
+            'Performance bonuses',
+            'Retirement benefits',
         ];
+
         return [
-            'benefit' => implode(', ', $this->faker->randomElements($benefits, rand(2, 4))),
+            'benefit' => $this->faker->randomElement($benefits),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
     }
 }
