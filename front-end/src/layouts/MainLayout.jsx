@@ -138,25 +138,47 @@ const MainLayout = () => {
           <div className="mt-2 grid md:grid-cols-4 gap-6">
 
             {/* Text Area */}
-            <div className="md:col-span-3">
-              <h3 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-2">
-                <b>Your Future Starts Here,</b>
-              </h3>
+            <div className="md:col-span-4  bg-white rounded-xl">
+  {/* Main Heading with accent */}
+  <div className="mb-2">
+    <h2 className="text-3xl md:text-4xl font-bold text-[#002B5B] mb-3 leading-tight">
+      Build Your Tech Career
+    </h2>
+    <div className="w-20 h-1 bg-gradient-to-r from-[#002B5B] to-blue-400 rounded-full"></div>
+  </div>
 
-              <h3 className="text-xl md:text-2xl font-semibold text-[#002B5B]">
-                <b>Find the Job You Deserve</b>
-                <span className="typing-text text-yellow-900">
-                  {" "} • <Link to="/login" className="underline">Sign in</Link>{" "}
-                  <TypingText
-                    phrases={[
-                      "to customize your experience",
-                      "to track your applications",
-                      "to get personalized recommendations",
-                    ]}
-                  />
-                </span>
-              </h3>
-            </div>
+  {/* Subtitle with better spacing */}
+  <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+    Explore the latest software, AI, and tech opportunities. Your next role in tech is just a click away.
+  </p>
+
+  {/* Interactive CTA Section */}
+  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
+    <h3 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-3">
+      Find the Role That Matches Your Skills
+    </h3>
+    
+    <div className="flex flex-wrap items-center gap-2 text-base md:text-lg">
+      <span className="text-yellow-600 font-medium">•</span>
+      <Link 
+        to="/login" 
+        className="text-[#002B5B] font-semibold underline decoration-2 underline-offset-4 hover:text-blue-600 transition-colors"
+      >
+        Sign in
+      </Link>
+      <span className="typing-text text-gray-700">
+        <TypingText
+          phrases={[
+            "to personalize your tech job search",
+            "to track your applications easily",
+            "to get tailored job recommendations",
+          ]}
+        />
+      </span>
+    </div>
+  </div>
+</div>
+
 
             {/* Upload CV */}
 
