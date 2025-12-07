@@ -179,6 +179,14 @@ class JobsController extends Controller
         return response()->json($job);
     }
 
+    public function getFeaturedJobs()
+    {
+        $FeaturedJobs = Job::with('employer', 'qualifications', 'responsibilities')
+            ->where('is_featured', 1)
+            ->get();
+
+        return response()->json($FeaturedJobs);
+    }
 
     public function getEmployerJobs($employerId)
     {

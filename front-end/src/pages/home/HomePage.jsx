@@ -27,11 +27,6 @@ const HomePage = () => {
   const [uploading, setUploading] = useState(false);
   const [notification, setNotification] = useState(null);
 
-
-
-  const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState("");
-
   useEffect(() => {
     // Initial fetch on page load
     const fetchInitialJobs = async () => {
@@ -68,8 +63,6 @@ const HomePage = () => {
     fetchInitialJobs();
   }, []); // run once on mount
 
-
-
   useEffect(() => {
     if (!shouldFetch) return;
     console.log(filters);
@@ -81,7 +74,7 @@ const HomePage = () => {
         });
         setJobs(response.data);
       } catch (err) {
-        setError("Failed to fetch job listings.");
+        // setError("Failed to fetch job listings.");
 
         // NETWORK ERROR (no response received)
         if (!err.response) {
@@ -103,7 +96,6 @@ const HomePage = () => {
 
     fetchFilteredJobs();
   }, [shouldFetch, filters, page, setShouldFetch]);
-
 
   // upload CV
   const openCvModal = () => setUploadCvOpen(true);
@@ -147,17 +139,6 @@ const HomePage = () => {
     }));
   };
 
-  // subscribe
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await apiClient.post(`/subscribe`, { email });
-      return response.data;
-    }
-    catch (err) {
-
-    }
-  }
   // 🔹 Conditional rendering
   if (loading) return <PulsePreloader loading={loading} />;
   if (error) return (

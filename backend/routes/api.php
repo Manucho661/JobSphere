@@ -15,6 +15,7 @@ Route::middleware('auth:sanctum')->post('/postJobs', [JobsController::class, 'st
 Route::middleware('auth:sanctum')->put('/updateJobs/{id}', [JobsController::class, 'update']);
 
 Route::get('/jobs/{id}', [JobsController::class, 'show']);  // View specific job details
+Route::get('/featuredJobs', [JobsController::class, 'getFeaturedJobs']);  // Get featured Jobs
 Route::post('/subscribe', [JobNotificationController::class, 'subscribe']);  // Subscribe to job notifications
 
 // Protected route, requires authentication

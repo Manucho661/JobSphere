@@ -1,18 +1,16 @@
 import Header from "../components/home/Header";
 import Footer from "../components/home/Footer";
+// import FeaturedJobs from "../components/home/FeaturedJobs.jsx";
 import TypingText from "../components/home/TypingText";
+import apiClient from "../api/apiClient";
+
 import { Link, Outlet } from "react-router-dom";
 
 import "./mainlayout.css";
 import React, { useState, useEffect, useRef } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 import {
-  Search,
-  Briefcase,
-  ChevronDown,
-  Clock,
-  Building2,
-  GraduationCap,
   X,
 } from "lucide-react";
 
@@ -29,8 +27,13 @@ const MainLayout = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [shouldFetch, setShouldFetch] = useState(false);
   const [page, setPage] = useState(1);
+  const [featuredJobs, setFeaturedJobs] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [error, setError] = useState(null);
 
+
+  // featured jobs
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const dropdownRef = useRef(null);
 
@@ -50,6 +53,39 @@ const MainLayout = () => {
     return () =>
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+
+  // get featured jobs
+  useEffect(() => {
+    const getFeaturedJobs = async () => {
+      try {
+        const response = await apiClient.get(`${API_URL}/featuredJobs`);
+        console.log(response.data);
+        setFeaturedJobs(response.data);
+      }
+      catch (err) {
+        setError("Failed to fetch featured job listings.");
+
+        // NETWORK ERROR (no response received)
+        if (!err.response) {
+          console.log("NETWORK ERROR:", err.message);
+          return;
+        }
+
+        // BACKEND ERROR (Laravel returned a status code)
+        console.log("BACKEND ERROR");
+        console.log("Status:", err.response.status);
+        console.log("Message:", err.response.data.message);
+        console.log("Internal:", err.response.data.error);
+      }
+    }
+    getFeaturedJobs();
+  }, []);
+
+  // Watch state updates
+  useEffect(() => {
+    console.log("FEATURED JOBS STATE:", featuredJobs);
+  }, [featuredJobs]);
 
   // Multi-checkbox handler
   const handleCheckboxChange = (category, value) => {
@@ -139,88 +175,61 @@ const MainLayout = () => {
 
                 <div className="flex justify-center gap-12">
                   <ul className="space-y-4">
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <a href="#" className="transition-colors duration-200 hover:underline"
-                        style={{ color: hoveredIndex === 'job3' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job3' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
-                        onMouseEnter={() => setHoveredIndex('job3')}
-                        onMouseLeave={() => setHoveredIndex(null)}>
-                        Software Engineer at chwele
-                      </a>
-                    </li>
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <a href="#" className="transition-colors duration-200 hover:underline"
-                        style={{ color: hoveredIndex === 'job4' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job4' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
-                        onMouseEnter={() => setHoveredIndex('job4')}
-                        onMouseLeave={() => setHoveredIndex(null)}>
-                        Software Engineer at chwele
-                      </a>
-                    </li>
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <a href="#" className="transition-colors duration-200 hover:underline"
-                        style={{ color: hoveredIndex === 'job5' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job5' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
-                        onMouseEnter={() => setHoveredIndex('job5')}
-                        onMouseLeave={() => setHoveredIndex(null)}>
-                        Software Engineer at chwele
-                      </a>
-                    </li>
-                  </ul>
-                  <ul className="space-y-4">
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <a href="#" className="transition-colors duration-200 hover:underline"
-                        style={{ color: hoveredIndex === 'job6' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job6' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
-                        onMouseEnter={() => setHoveredIndex('job6')}
-                        onMouseLeave={() => setHoveredIndex(null)}>
-                        Software Engineer at chwele
-                      </a>
-                    </li>
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <a href="#" className="transition-colors duration-200 hover:underline"
-                        style={{ color: hoveredIndex === 'job7' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job7' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
-                        onMouseEnter={() => setHoveredIndex('job7')}
-                        onMouseLeave={() => setHoveredIndex(null)}>
-                        Software Engineer at chwele
-                      </a>
-                    </li>
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <a href="#" className="transition-colors duration-200 hover:underline"
-                        style={{ color: hoveredIndex === 'job8' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job8' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
-                        onMouseEnter={() => setHoveredIndex('job8')}
-                        onMouseLeave={() => setHoveredIndex(null)}>
-                        Software Engineer at chwele
-                      </a>
-                    </li>
+                    {featuredJobs?.length === 0 ? (
+                      <li className="flex items-start group">
+                        <span className="mr-3 mt-1 flex-shrink-0">
+                          <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                        <a href="#" className="transition-colors duration-200 hover:underline"
+                          style={{ color: hoveredIndex === 'job3' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job3' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
+                          onMouseEnter={() => setHoveredIndex('job3')}
+                          onMouseLeave={() => setHoveredIndex(null)}>
+                          hohoho
+                        </a>
+                      </li>
 
+                    ) : (featuredJobs?.map((job) => (
+                      <li className="flex items-start group">
+                        <span className="mr-3 mt-1 flex-shrink-0">
+                          <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                        <div className="job-title text-gray-900 cursor-pointer">
+                          <b>
+                            <Link
+                              to={`jobDetails/${job.id}`}
+                              className="text-gray-9 hover:text-yellow-600"
+                            >
+                              {job.job_title} at {job.employer.companyName}
+                            </Link>
+                          </b>
+                        </div>
+                      </li>
+                      // <div key={job.id} className="bg-white rounded-lg p-2">
+                      //   <div className="job-card flex gap-3">
+                      //     <div className="flex-1">
+                      //       <div className="flex justify-between items-start">
+                      //         <div className="job-title text-gray-900 cursor-pointer">
+                      //           <b>
+                      //             <Link
+                      //               to={`jobDetails/${job.id}`}
+                      //               className="text-gray-9 hover:text-yellow-600"
+                      //             >
+                      //               {job.job_title} at {job.employer.companyName}
+                      //             </Link>
+                      //           </b>
+                      //         </div>
+                      //       </div>
+                      //     </div>
+                      //   </div>
+                      // </div>
+                    )))
+                    }
                   </ul>
+
                 </div>
               </div>
             </div>
