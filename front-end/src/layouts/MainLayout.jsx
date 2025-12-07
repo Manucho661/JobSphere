@@ -186,7 +186,7 @@ const MainLayout = () => {
                           style={{ color: hoveredIndex === 'job3' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job3' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
                           onMouseEnter={() => setHoveredIndex('job3')}
                           onMouseLeave={() => setHoveredIndex(null)}>
-                          hohoho
+                          loading...
                         </a>
                       </li>
 
