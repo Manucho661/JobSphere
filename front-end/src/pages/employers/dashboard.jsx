@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./employers.css";
 
 const user = JSON.parse(localStorage.getItem('user'));
 const jobCount = user?.employer?.jobs?.length ?? 0;
