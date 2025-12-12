@@ -97,13 +97,34 @@ const HomePage = () => {
     fetchFilteredJobs();
   }, [shouldFetch, filters, page, setShouldFetch]);
 
-  // upload CV
-  const openCvModal = () => setUploadCvOpen(true);
+  // Update openCvModal to clear localStorage when re-uploading
+  const openCvModal = () => {
+    if (selectedFile) {
+      // Clear from localStorage when re-uploading
+      localStorage.removeItem('uploadedCV');
+      setSelectedFile(null);
+    }
+    setUploadCvOpen(true);
+  };
   const closeModal = () => {
     setUploadCvOpen(false);
-    setSelectedFile(null);
+    // Don't clear selectedFile here anymore since it's stored in localStorage
+    // setSelectedFile(null);
     setUploading(false);
   };
+  // useEffect to load file from localStorage on mount
+  useEffect(() => {
+    const storedFile = localStorage.getItem('uploadedCV');
+    if (storedFile) {
+      const fileData = JSON.parse(storedFile);
+      // Reconstruct a File-like object for display purposes
+      setSelectedFile({
+        name: fileData.name,
+        size: fileData.size,
+        type: fileData.type
+      });
+    }
+  }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -112,11 +133,22 @@ const HomePage = () => {
     }
   };
 
+
+
   const handleUpload = () => {
     if (selectedFile) {
       setUploading(true);
       // Simulate upload
       setTimeout(() => {
+        // Store file metadata in localStorage
+        const fileData = {
+          name: selectedFile.name,
+          size: selectedFile.size,
+          type: selectedFile.type,
+          uploadedAt: new Date().toISOString()
+        };
+        localStorage.setItem('uploadedCV', JSON.stringify(fileData));
+
         setNotification({
           type: 'success',
           message: `File uploaded successfully!`,
@@ -124,11 +156,14 @@ const HomePage = () => {
           fileSize: (selectedFile.size / 1024).toFixed(2)
         });
         closeModal();
+        setUploading(false); // Move this here since we removed it from closeModal effect
         // Auto-hide notification after 5 seconds
         setTimeout(() => setNotification(null), 5000);
       }, 1500);
     }
   };
+
+
 
 
   const handleLike = async (jobId) => {
@@ -313,14 +348,25 @@ const HomePage = () => {
             {/* Right sidebar */}
             <div className="md:col-span-1 space-y-4">
               {/* upload CV */}
-              <div className="rounded-lg"  >
-                <i><b>Upload your CV to check how it aligns with Jobs</b></i>
-                <button
-                  onClick={openCvModal}
-                  className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 mt-2">
-                  <b>Upload your CV</b>
-                </button>
-              </div>
+              {selectedFile ? (
+                <div className="rounded-lg p-4">
+                  <i><b>CV uploaded successfully! Ready to check alignment with jobs.</b></i>
+                  <button
+                    onClick={openCvModal}
+                    className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 mt-2">
+                    <b>Re-upload CV</b>
+                  </button>
+                </div>
+              ) : (
+                <div className="rounded-lg p-4">
+                  <i><b>Upload your CV to check how it aligns with Jobs</b></i>
+                  <button
+                    onClick={openCvModal}
+                    className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 mt-2">
+                    <b>Upload your CV</b>
+                  </button>
+                </div>
+              )}
 
               {/* Featured Service */}
               <div className="bg-white p-4 rounded-lg" >
@@ -401,19 +447,22 @@ const HomePage = () => {
                   <b>View All Locations</b>
                 </button>
               </div>
-              <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h4 class="font-semibold text-primary mb-3 flex items-center">
-                  <svg class="w-5 h-5 mr-2 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                  </svg>
-                  <b>Note</b>
-                </h4>
-                <p className="space-y-2 text-sm text-gray-700"> <i>JobSphere relies on <b>Donations</b> to run its activities and keep you updated about new opportunities, you can channel your contribution of any amount by clicking the  donate button below :-</i> </p>
-                <div className='Donation flex'>
-                  <div className='flex items-center'> Your yearly donations <span className='mx-4'><b style={{ whiteSpace: 'nowrap' }}>KSH 0</b></span></div>
-                  {""} {""}
-                  <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
+              <div className="mt-6 p-4">
+                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <h4 class="font-semibold text-primary mb-3 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    </svg>
+                    <b>Note</b>
+                  </h4>
+                  <p className="space-y-2 text-sm text-gray-700"> <i>JobSphere relies on <b>Donations</b> to run its activities and keep you updated about new opportunities, you can channel your contribution of any amount by clicking the  donate button below :-</i> </p>
+                  <div className='Donation flex'>
+                    <div className='flex items-center'> Your yearly donations <span className='mx-4'><b style={{ whiteSpace: 'nowrap' }}>KSH 0</b></span></div>
+                    {""} {""}
+                    <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
+                  </div>
                 </div>
+
               </div>
 
             </div>

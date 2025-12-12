@@ -43,13 +43,13 @@ const JobDetails = () => {
 
                         </div>
                         <section className="bg-white rounded-2xl p-4 transition-all duration-300 border border-gray-100">
-                            <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-2xl font-bold text-[#002b5b] flex items-center gap-2">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                                <h3 className="text-xl sm:text-2xl font-bold text-[#002b5b] flex items-center gap-2">
                                     {job.job_title} at {job.employer?.companyName}
                                 </h3>
 
-                                <div className="text-sm text-yellow-900 italic text-right">
-                                    <p>
+                                <div className="text-xs sm:text-sm text-yellow-900 italic sm:text-right shrink-0">
+                                    <p className="whitespace-nowrap">
                                         <strong>Posted:</strong>{" "}
                                         {new Date(job.created_at).toLocaleDateString("en-US", {
                                             day: "numeric",
@@ -58,7 +58,7 @@ const JobDetails = () => {
                                         })}
                                     </p>
                                     {job.created_at && (
-                                        <p>
+                                        <p className="whitespace-nowrap">
                                             <strong>Expires:</strong>{" "}
                                             {new Date(job.created_at).toLocaleDateString("en-US", {
                                                 day: "numeric",

@@ -119,7 +119,12 @@ const MainLayout = () => {
 
       setTimeout(() => {
         setIsVisible(false);
-      }, 4000);
+      }, 1000);
+
+      setTimeout(() => {
+        setShowSuccess(false)
+      }, 5000);
+
     }, 1000);
   };
 
@@ -487,7 +492,7 @@ const MainLayout = () => {
                         <option value="30d">Last 30 days</option>
                       </select>
                       {/* APPLY */}
-                      <button onClick={applyFilters} className="w-48 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900">
+                      <button onClick={applyFilters} className="w-48 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 whitespace-nowrap">
                         <b>Filter Jobs</b>
                       </button>
                     </div>
@@ -653,6 +658,30 @@ const MainLayout = () => {
         </div>
 
       )}
+
+      {
+        showSuccess && (
+          <div className="fixed top-6 right-6 z-2002 animate-slideDown">
+            <div className="bg-white rounded-xl shadow-2xl p-6 max-w-sm" style={{ borderLeft: '6px solid #FFC107' }}>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-7 h-7 text-[#FFC107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-[#002B5B] mb-1">
+                    Successfully Subscribed!
+                  </h3>
+                  <p className="text-sm text-[#002B5B] opacity-70">
+                    You have successfully subscribed to job alerts. We'll notify you about new opportunities.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
     </div>
   );
 };
