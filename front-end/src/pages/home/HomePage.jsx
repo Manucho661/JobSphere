@@ -1,5 +1,4 @@
 import apiClient from "../../api/apiClient";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -311,35 +310,105 @@ const HomePage = () => {
                   ))
                 )}
               </div>
-              <div className="flex justify-between items-center mt-6">
+
+
+              <div className="flex justify-center items-center mt-6 gap-2">
                 {/* Previous Button */}
                 <button
                   disabled={!jobs?.prev_page_url}
                   onClick={() => setPage((old) => Math.max(old - 1, 1))}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
-               bg-yellow-600  text-white hover:bg-yellow-900 hover:text-dark
-               disabled:cursor-not-allowed "
+      bg-yellow-600 text-white hover:bg-yellow-900
+      disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  <b>Previous</b>
+                  <span className="hidden sm:inline">Previous</span>
                 </button>
 
-                {/* Page Info */}
-                <span className="text-[#002B5B] font-medium">
-                  Page {jobs?.current_page} of {jobs?.last_page}
-                </span>
+                {/* Page Numbers */}
+                <div className="flex gap-1">
+                  {(() => {
+                    const currentPage = jobs?.current_page || 1;
+                    const lastPage = jobs?.last_page || 1;
+                    const pages = [];
+
+                    // Always show first page
+                    if (currentPage > 3) {
+                      pages.push(
+                        <button
+                          key={1}
+                          onClick={() => setPage(1)}
+                          className="px-4 py-2 rounded-lg font-medium transition-all duration-200
+              bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200"
+                        >
+                          1
+                        </button>
+                      );
+
+                      if (currentPage > 4) {
+                        pages.push(
+                          <span key="dots1" className="px-2 py-2 text-[#002B5B]">
+                            ...
+                          </span>
+                        );
+                      }
+                    }
+
+                    // Show pages around current page
+                    const startPage = Math.max(1, currentPage - 2);
+                    const endPage = Math.min(lastPage, currentPage + 2);
+
+                    for (let i = startPage; i <= endPage; i++) {
+                      pages.push(
+                        <button
+                          key={i}
+                          onClick={() => setPage(i)}
+                          className={`px-4 py-2 rounded-lg font-medium transition-all duration-200
+              ${i === currentPage
+                              ? 'bg-yellow-600 text-white'
+                              : 'bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200'
+                            }`}
+                        >
+                          {i}
+                        </button>
+                      );
+                    }
+
+                    // Always show last page
+                    if (currentPage < lastPage - 2) {
+                      if (currentPage < lastPage - 3) {
+                        pages.push(
+                          <span key="dots2" className="px-2 py-2 text-[#002B5B]">
+                            ...
+                          </span>
+                        );
+                      }
+
+                      pages.push(
+                        <button
+                          key={lastPage}
+                          onClick={() => setPage(lastPage)}
+                          className="px-4 py-2 rounded-lg font-medium transition-all duration-200
+              bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200"
+                        >
+                          {lastPage}
+                        </button>
+                      );
+                    }
+
+                    return pages;
+                  })()}
+                </div>
 
                 {/* Next Button */}
                 <button
                   disabled={!jobs?.next_page_url}
-                  onClick={() =>
-                    setPage((old) => (jobs?.next_page_url ? old + 1 : old))
-                  }
+                  onClick={() => setPage((old) => (jobs?.next_page_url ? old + 1 : old))}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
-               bg-yellow-600 text-white hover:bg-yellow-900
-                disabled:cursor-not-allowed"
+                    bg-yellow-600 text-white hover:bg-yellow-900
+                    disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <b>Next</b>
+                  <span className="hidden sm:inline">Next</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
