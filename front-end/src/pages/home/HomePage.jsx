@@ -404,8 +404,8 @@ const HomePage = () => {
                   disabled={!jobs?.next_page_url}
                   onClick={() => setPage((old) => (jobs?.next_page_url ? old + 1 : old))}
                   className="flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-      bg-yellow-600 text-white hover:bg-yellow-900
-      disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
+                  bg-yellow-600 text-white hover:bg-yellow-900
+                  disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
                 >
                   <span className="hidden sm:inline">Next</span>
                   <ArrowRight className="w-4 h-4" />

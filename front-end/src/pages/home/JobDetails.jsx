@@ -5,7 +5,6 @@ import PulsePreloader from "../../components/PulsePreloader";
 
 const JobDetails = () => {
     const API_URL = import.meta.env.VITE_API_URL;
-
     const { id } = useParams();
     const [job, setJob] = useState(null);
     const [loading, setLoading] = useState(true);

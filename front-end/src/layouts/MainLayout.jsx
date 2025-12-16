@@ -111,21 +111,35 @@ const MainLayout = () => {
 
     setIsSubmitting(true);
 
+
     // Simulate subscription without actual API call
-    setTimeout(() => {
+    try {
+      // Send subscription data to AWS backend
+      const response = await apiClient.post(
+        `${API_URL}/job-alerts/subscribe`,
+        { email, categories: selectedCategories },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      console.log("Response from backend:", response.data);
+
+      // Show success message and store flag
       setShowSuccess(true);
-      localStorage.setItem('jobAlertsInteracted', 'subscribed');
+      localStorage.setItem("jobAlertsInteracted", "subscribed");
+
+      // Hide modal after 1 second
+      setTimeout(() => setIsVisible(false), 1000);
+
+      // Hide success message after 5 seconds
+      setTimeout(() => setShowSuccess(false), 5000);
+
+    } catch (err) {
+      console.error("Subscription failed:", err.response?.data || err.message);
+      setError(err.response?.data?.message || "Something went wrong!");
+    } finally {
       setIsSubmitting(false);
+    }
 
-      setTimeout(() => {
-        setIsVisible(false);
-      }, 1000);
-
-      setTimeout(() => {
-        setShowSuccess(false)
-      }, 5000);
-
-    }, 1000);
   };
 
   const handleClose = () => {
