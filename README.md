@@ -5,19 +5,19 @@ Employers can post and manage jobs, while users can browse, filter, and apply wi
 
 ---
 
-## 🚀 Features
+## Features
 
-### 👩‍💼 Employers
+### Employers
 - Create, edit, and manage job listings  
 - Categorize jobs by type, experience level, and workplace type  
 - Manage applications and candidates  
 
-### 🙋‍♂️ Job Seekers
+### Job Seekers
 - Browse and search jobs  
 - Filter by category, location, or type  
 - Apply to jobs and save favorites  
 
-### ⚙️ System
+### System
 - RESTful API with Laravel  
 - Authentication & Authorization (Sanctum / JWT)  
 - Role-based access (Admin, Employer, Job Seeker)  
@@ -26,7 +26,7 @@ Employers can post and manage jobs, while users can browse, filter, and apply wi
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-------------|
