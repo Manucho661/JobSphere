@@ -660,13 +660,11 @@ const HomePage = () => {
         <div className="fixed top-4 right-4 z-2000 animate-slide-in">
           <div
             className="bg-white rounded-lg shadow-2xl p-4 max-w-sm border-l-4 flex items-start gap-3"
-            style={{ borderColor: notification.type === 'success' ? '#FFC107' : '#ef4444' }}
-          >
+            style={{ borderColor: notification.type === 'success' ? '#FFC107' : '#ef4444' }}>
             {/* Icon */}
             <div
               className="rounded-full p-1 flex-shrink-0"
-              style={{ backgroundColor: notification.type === 'success' ? '#d1fae5' : '#fee2e2' }}
-            >
+              style={{ backgroundColor: notification.type === 'success' ? '#d1fae5' : '#fee2e2' }}>
               {notification.type === 'success' ? (
                 <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

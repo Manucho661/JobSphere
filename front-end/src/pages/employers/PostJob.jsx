@@ -8,6 +8,7 @@ const PostJob = () => {
     const API_URL = import.meta.env.VITE_API_URL;
 
     const [showPreview, setShowPreview] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     // Step 1: Manage form state
     const [formData, setFormData] = useState({
@@ -44,8 +45,9 @@ const PostJob = () => {
     // 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            const token = localStorage.getItem("auth_token"); // ✅ Correct key name
+            const token = localStorage.getItem("auth_token");
 
             const res = await apiClient.put(
                 `${API_URL}/postJobs`,
@@ -58,13 +60,26 @@ const PostJob = () => {
                 }
             );
 
+            // ✅ Success (2xx)
             alert(res.data.message || "Job posted successfully!");
             setFormData({}); // reset your form fields here
+
         } catch (err) {
-            console.error(err.response?.data || err.message);
-            alert("Error submitting form");
+            const status = err.response?.status;
+
+            if (status === 405) {
+                setErrorMessage(
+                    "We couldn’t submit your job post due to a server request issue. Please try again."
+                );
+            } else if (status === 404) {
+                setErrorMessage("The submission service is temporarily unavailable. Please try again later.");
+            } else {
+                console.error(err.response?.data || err.message);
+                setErrorMessage("Something went wrong while submitting your job post.");
+            }
         }
     };
+
 
     return (
         <>
@@ -451,6 +466,45 @@ const PostJob = () => {
                     </div>
                 </div>
             )};
+
+            {
+                errorMessage && (
+                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-2000">
+                        <div
+                            className="bg-white rounded-lg shadow-2xl p-4 max-w-sm border-l-4 flex items-start gap-3 animate-slide-in"
+                            style={{ borderColor: '#FFC107' }}
+                        >
+                            {/* Content */}
+                            <div className="flex-1">
+                                <p className="font-semibold" style={{ color: '#ef4444' }}>
+                                    {errorMessage}
+                                </p>
+                            </div>
+
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setErrorMessage(null)}
+                                className="text-gray-400 hover:text-gray-600 flex-shrink-0"
+                            >
+                                <svg
+                                    className="h-5 w-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                )
+            }
         </>
     );
 }
