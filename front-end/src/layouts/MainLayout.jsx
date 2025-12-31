@@ -134,8 +134,17 @@ const MainLayout = () => {
       setTimeout(() => setShowSuccess(false), 5000);
 
     } catch (err) {
-      console.error("Subscription failed:", err.response?.data || err.message);
-      setError(err.response?.data?.message || "Something went wrong!");
+      const status = err.response?.status;
+      if (status === 405) {
+        setError(
+          "We couldn’t submit your job post due to a server request issue. Please try again."
+        );
+      } else if (status === 404) {
+        setError("The submission service is temporarily unavailable. Please try again later.");
+      } else {
+        console.error("Subscription failed:", err.response?.data || err.message);
+        setError("Something went wrong while submitting your job post.");
+      }
     } finally {
       setIsSubmitting(false);
     }

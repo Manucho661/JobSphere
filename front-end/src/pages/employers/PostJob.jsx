@@ -4,7 +4,7 @@ import apiClient from "../../api/apiClient";
 
 
 const PostJob = () => {
-    console.log("PostJob component rendered");
+    // console.log("PostJob component rendered");
     const API_URL = import.meta.env.VITE_API_URL;
 
     const [showPreview, setShowPreview] = useState(false);
@@ -45,11 +45,10 @@ const PostJob = () => {
     // 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        console.log(formData);
         try {
             const token = localStorage.getItem("auth_token");
-
-            const res = await apiClient.put(
+            const res = await apiClient.post(
                 `${API_URL}/postJobs`,
                 formData,
                 {
