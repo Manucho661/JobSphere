@@ -20,7 +20,7 @@ return new class extends Migration
             // Foreign key relationship to jobs table
             $table->foreign('job_id')
                 ->references('id')
-                ->on('jobs')
+                ->on('job_listings')
                 ->onDelete('cascade');
         });
     }

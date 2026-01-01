@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Job;
+use App\Models\JobListing;
 use App\Models\Employer;
 use App\Models\JobBenefit;
 use App\Mail\JobPostedMail;
@@ -13,8 +13,9 @@ use App\Models\JobNotification;
 use App\Models\JobQualification;
 use App\Models\JobResponsibility;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use App\Models\JobPreferredQualification;
+use App\Jobs\SendNewJobNotification;
+
 
 class JobsController extends Controller
 {
@@ -22,7 +23,7 @@ class JobsController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = Job::with('employer.user')->latest();
+            $query = JobListing::with('employer.user')->latest();
 
             // 1️⃣ Search by job title or description
             if ($request->filled('search')) {
@@ -71,7 +72,7 @@ class JobsController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Server Error — something went wrong.',
-                'error' => $e->getMessage(), // optional
+                // 'error' => $e->getMessage(), // optional
             ], 500);
         }
     }
@@ -115,7 +116,7 @@ class JobsController extends Controller
                 'employment_type' => $validated['employmentType'],
                 'category' => $validated['category'],
                 'experience_level' => $validated['experienceLevel'],
-                'workPlace' => $validated['workPlace'],
+                'work_place' => $validated['workPlace'],
                 'location' => $validated['location'],
                 'description' => $validated['description'],
                 'salary_min' => $validated['salaryMin'],
@@ -149,10 +150,8 @@ class JobsController extends Controller
             DB::commit();
 
             // Send email notifications (optional: use queue)
-            $subscribers = JobNotification::pluck('email');
-            foreach ($subscribers as $email) {
-                Mail::to($email)->queue(new JobPostedMail($job));
-            }
+            // Dispatch the job to the queue
+            // SendNewJobNotification::dispatch($job);
 
             return response()->json([
                 'message' => 'Job created successfully',
@@ -170,7 +169,7 @@ class JobsController extends Controller
 
     public function show($id)
     {
-        $job = Job::with('employer', 'qualifications', 'responsibilities')->find($id);
+        $job = JobListing::with('employer', 'qualifications', 'responsibilities')->find($id);
 
         if (!$job) {
             return response()->json(['message' => 'Job not found'], 404);
@@ -181,7 +180,7 @@ class JobsController extends Controller
 
     public function getFeaturedJobs()
     {
-        $FeaturedJobs = Job::with('employer', 'qualifications', 'responsibilities')
+        $FeaturedJobs = JobListing::with('employer', 'qualifications', 'responsibilities')
             ->where('is_featured', 1)
             ->get();
 
@@ -190,7 +189,7 @@ class JobsController extends Controller
 
     public function getEmployerJobs($employerId)
     {
-        $jobs = job::where('employer_id', $employerId);
+        $jobs = jobListing::where('employer_id', $employerId);
         if (!$jobs) {
             return response()->json(['message' => 'No jobs found'], 404);
         }
@@ -219,7 +218,7 @@ class JobsController extends Controller
         ]);
 
         // Find the job
-        $job = Job::findOrFail($id);
+        $job = JobListing::findOrFail($id);
 
         // Update main job fields
         $job->update([

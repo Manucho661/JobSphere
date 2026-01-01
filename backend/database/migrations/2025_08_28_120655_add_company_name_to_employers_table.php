@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('employers', function (Blueprint $table) {
             $table->string('companyName')
-                ->after('userId')
+                ->after('user_id')
                 ->nullable(); // allow null until data is filled
 
         });

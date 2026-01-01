@@ -7,6 +7,7 @@ use App\Models\JobQualification;
 use App\Models\JobResponsibility;
 use App\Models\JobBenefit;
 use App\Models\Employer;
+use App\Models\JobListing;
 use Illuminate\Database\Seeder;
 
 class JobSeeder extends Seeder
@@ -18,7 +19,7 @@ class JobSeeder extends Seeder
         foreach ($employers as $employer) {
 
             // Each employer gets between 2–5 jobs
-            $jobs = Job::factory(rand(1, 3))->create([
+            $jobs = JobListing::factory(rand(1, 3))->create([
                 'employer_id' => $employer->id
             ]);
 
