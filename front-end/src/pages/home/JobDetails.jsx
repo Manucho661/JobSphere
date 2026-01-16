@@ -9,12 +9,16 @@ const JobDetails = () => {
     const [job, setJob] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isSaved, setIsSaved] = useState(false);
+    const [saving, setSaving] = useState(false);
+
 
     useEffect(() => {
         const fetchJob = async () => {
             try {
                 const response = await apiClient.get(`${API_URL}/jobs/${id}`);
                 setJob(response.data);
+                setIsSaved(response.data.is_saved);
             } catch (err) {
                 setError("Failed to fetch job details.");
                 console.error(err);
@@ -25,6 +29,31 @@ const JobDetails = () => {
 
         fetchJob();
     }, [id]);
+
+    // handle save job
+    const handleSaveJob = async () => {
+        if (saving) return;
+        setSaving(true);
+        try {
+            if (isSaved) {
+                const response = await apiClient.get(`${API_URL}/saved-jobs/${id}`);
+                setIsSaved(false);
+            } else {
+                const response = await apiClient.post(`${API_URL}/saved-jobs`, {
+                    job_listing_id: id
+                });
+                setIsSaved(false);
+            }
+
+        } catch (error) {
+            console.error("Error saving/unsaving job:", error);
+        } finally {
+            setSaving(false);
+        }
+
+
+    }
+
 
     if (loading) return <PulsePreloader />;
     if (error) return <p className="text-red-500">{error}</p>;
@@ -136,9 +165,11 @@ const JobDetails = () => {
                                 </div>
                             </div>
                         </section>
+
                         <section>
                             <div className="mt-6">
                                 <div className="font-semibold mb-2">How to Apply</div>
+
                                 <p className="text-gray-700 leading-relaxed">
                                     Interested candidates should send their CV and portfolio to{" "}
                                     <a
@@ -148,10 +179,31 @@ const JobDetails = () => {
                                         careers@pixelytetech.com
                                     </a>{" "}
                                     with the subject line{" "}
-                                    <strong>"Application for Front-End Developer – Nairobi"</strong>. Applications will be reviewed on a rolling basis. Early applicants will be given priority.
+                                    <strong>"Application for Front-End Developer – Nairobi"</strong>.
+                                    Applications will be reviewed on a rolling basis. Early applicants will be given priority.
                                 </p>
+
+                                <div className="mt-4 flex justify-end">
+                                    <button
+                                        onClick={handleSaveJob}
+                                        disabled={saving}
+                                        className={`mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 ${isSaved
+                                            ? "mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900"
+                                            : "mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900"
+                                            }`}
+                                    >
+                                        {saving
+                                            ? isSaved
+                                                ? "Unsaving..."
+                                                : "Saving..."
+                                            : isSaved
+                                                ? "Saved"
+                                                : "Save Job"}
+                                    </button>
+                                </div>
                             </div>
                         </section>
+
                     </div>
 
                     <aside class="space-y-6">
@@ -236,13 +288,14 @@ const JobDetails = () => {
                             <div className='Donation flex'>
                                 <div className='flex items-center'> Your yearly donations <span className='mx-4'><b>KSH 0</b></span></div>
                                 {""} {""}
+
                                 <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
                             </div>
                         </div>
                     </aside>
                     {/* <!-- Optional Sidebar --> */}
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     )
 }
