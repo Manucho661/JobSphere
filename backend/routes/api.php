@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobsController;
+use App\Http\Controllers\JobLikeController;
+use App\Http\Controllers\SavedJobController;
 use App\Http\Controllers\JobNotificationController;
 
 // Public routes
@@ -22,3 +24,14 @@ Route::post('/subscribe', [JobNotificationController::class, 'subscribe']);  // 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();  // Return authenticated user data
 });
+
+// jobs savings
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/saved-jobs', [SavedJobController::class, 'index']);
+    Route::post('/saved-jobs', [SavedJobController::class, 'store']);
+    Route::delete('/saved-jobs/{id}', [SavedJobController::class, 'destroy']);
+});
+
+// job likes
+Route::middleware('auth:sanctum')->post('/job-likes/toggle', [JobLikeController::class, 'toggle']);
+Route::middleware('auth:sanctum')->get('/liked-jobs', [JobLikeController::class, 'index']);

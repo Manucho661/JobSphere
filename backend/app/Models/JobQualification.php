@@ -10,7 +10,7 @@ class JobQualification extends Model
     use HasFactory;
 
     protected $fillable = [
-        'job_id',
+        'job_listing_id',
         'qualification',
     ];
 
@@ -19,6 +19,6 @@ class JobQualification extends Model
      */
     public function job()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(JobListing::class);
     }
 }

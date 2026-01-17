@@ -9,7 +9,7 @@ class JobResponsibility extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'job_id',
+        'job_listing_id',
         'responsibility',
     ];
 
@@ -18,6 +18,6 @@ class JobResponsibility extends Model
      */
     public function job()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(JobListing::class);
     }
 }

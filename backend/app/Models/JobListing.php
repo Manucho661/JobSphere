@@ -20,7 +20,6 @@ class JobListing extends Model
         'salary_min',
         'salary_max',
         'salary',
-        'likes',
         'active',
     ];
 
@@ -47,5 +46,45 @@ class JobListing extends Model
     public function benefits()
     {
         return $this->hasMany(JobBenefit::class);
+    }
+
+    /*
+|--------------------------------------------------------------------------
+| SAVES
+|--------------------------------------------------------------------------
+*/
+
+    // Users who saved this job
+    public function savedBy()
+    {
+        return $this->hasMany(SavedJob::class, 'job_listing_id');
+    }
+
+    // Check if a given user saved this job
+    public function isSavedByUser($userId)
+    {
+        return $this->savedBy()
+            ->where('user_id', $userId)
+            ->exists();
+    }
+
+    /*
+|--------------------------------------------------------------------------
+| LIKES
+|--------------------------------------------------------------------------
+*/
+
+    // Users who liked this job
+    public function likes()
+    {
+        return $this->hasMany(JobLike::class);
+    }
+
+    // Check if a given user liked this job
+    public function isLikedByUser($userId)
+    {
+        return $this->likes()
+            ->where('user_id', $userId)
+            ->exists();
     }
 }

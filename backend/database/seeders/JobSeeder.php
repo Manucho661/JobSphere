@@ -27,17 +27,17 @@ class JobSeeder extends Seeder
 
                 // Seed Qualifications: 3–6
                 JobQualification::factory(rand(3, 6))->create([
-                    'job_id' => $job->id
+                    'job_listing_id' => $job->id
                 ]);
 
                 // Seed Responsibilities: 4–8
                 JobResponsibility::factory(rand(4, 8))->create([
-                    'job_id' => $job->id
+                    'job_listing_id' => $job->id
                 ]);
 
                 // Seed Benefits: 2–4
                 JobBenefit::factory(rand(2, 4))->create([
-                    'job_id' => $job->id
+                    'job_listing_id' => $job->id
                 ]);
             }
         }

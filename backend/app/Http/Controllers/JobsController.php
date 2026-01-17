@@ -22,10 +22,33 @@ class JobsController extends Controller
     // GET /api/jobs
     public function index(Request $request)
     {
-        try {
-            $query = JobListing::with('employer.user')->latest();
+        $user = $request->user(); // may be null (guest)
 
-            // 1️⃣ Search by job title or description
+        try {
+            $query = JobListing::with('employer.user')
+                ->withCount('likes')
+                ->withExists([
+                    // 👍 is_liked
+                    'likes as is_liked' => function ($q) use ($user) {
+                        if ($user) {
+                            $q->where('user_id', $user->id);
+                        } else {
+                            $q->whereRaw('0 = 1'); // always false for guests
+                        }
+                    },
+
+                    // 💾 is_saved
+                    'savedBy as is_saved' => function ($q) use ($user) {
+                        if ($user) {
+                            $q->where('user_id', $user->id);
+                        } else {
+                            $q->whereRaw('0 = 1');
+                        }
+                    },
+                ])
+                ->latest();
+
+            // 1️⃣ Search
             if ($request->filled('search')) {
                 $search = $request->search;
                 $query->where(function ($q) use ($search) {
@@ -34,17 +57,17 @@ class JobsController extends Controller
                 });
             }
 
-            // 2️⃣ Employment Type (single value)
+            // 2️⃣ Employment Type
             if ($request->filled('employmentType')) {
                 $query->where('employment_type', $request->employmentType);
             }
 
-            // 3️⃣ Work Mode / Remote (single value)
+            // 3️⃣ Work Mode
             if ($request->filled('remoteWork')) {
                 $query->where('work_place', $request->remoteWork);
             }
 
-            // 4️⃣ Experience Level (single value)
+            // 4️⃣ Experience Level
             if ($request->filled('experienceLevel')) {
                 $query->where('experience_level', $request->experienceLevel);
             }
@@ -59,9 +82,8 @@ class JobsController extends Controller
                     '30d' => now()->subDays(30),
                 ];
 
-                $date = $timeMap[$request->postedWithin] ?? null;
-                if ($date) {
-                    $query->where('created_at', '>=', $date);
+                if (isset($timeMap[$request->postedWithin])) {
+                    $query->where('created_at', '>=', $timeMap[$request->postedWithin]);
                 }
             }
 
@@ -72,7 +94,6 @@ class JobsController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Server Error — something went wrong.',
-                // 'error' => $e->getMessage(), // optional
             ], 500);
         }
     }

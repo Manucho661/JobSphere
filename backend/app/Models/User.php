@@ -59,4 +59,12 @@ class User extends Authenticatable
     {
         return $this->role === 'employer';
     }
+
+    public function likedJobs()
+    {
+        return $this->belongsToMany(
+            JobListing::class,
+            'job_likes'
+        )->withTimestamps();
+    }
 }
