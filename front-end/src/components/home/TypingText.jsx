@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const TypingText = ({ phrases, typingSpeed = 100, deletingSpeed = 50, delayBetween = 1500 }) => {
+const TypingText = ({ phrases, typingSpeed = 100, deletingSpeed = 50, delayBetween = 2000 }) => {
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopIndex, setLoopIndex] = useState(0);

@@ -11,14 +11,15 @@ const JobDetails = () => {
     const [error, setError] = useState(null);
     const [isSaved, setIsSaved] = useState(false);
     const [saving, setSaving] = useState(false);
+    
 
 
     useEffect(() => {
         const fetchJob = async () => {
             try {
                 const response = await apiClient.get(`${API_URL}/jobs/${id}`);
-                setJob(response.data);
-                setIsSaved(response.data.is_saved);
+                setJob(response.data);          // fixed
+                setIsSaved(response.data.is_saved ?? false);
             } catch (err) {
                 setError("Failed to fetch job details.");
                 console.error(err);
@@ -30,19 +31,39 @@ const JobDetails = () => {
         fetchJob();
     }, [id]);
 
+
     // handle save job
     const handleSaveJob = async () => {
         if (saving) return;
         setSaving(true);
         try {
+            const token = localStorage.getItem("auth_token");
+
+            if (!token) {
+                console.error("No auth token found");
+                return;
+            }
             if (isSaved) {
-                const response = await apiClient.get(`${API_URL}/saved-jobs/${id}`);
+                await apiClient.delete(
+                    `${API_URL}/saved-jobs/${id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
                 setIsSaved(false);
             } else {
-                const response = await apiClient.post(`${API_URL}/saved-jobs`, {
-                    job_listing_id: id
-                });
-                setIsSaved(false);
+                await apiClient.post(
+                    `${API_URL}/saved-jobs`,
+                    { job_listing_id: id },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+                setIsSaved(true);
             }
 
         } catch (error) {

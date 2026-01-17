@@ -276,6 +276,7 @@ const MainLayout = () => {
                         "to personalize your tech job search",
                         "to track your applications easily",
                         "to get tailored job recommendations",
+                        "to like and save Jobs.",
                       ]}
                     />
                   </span>

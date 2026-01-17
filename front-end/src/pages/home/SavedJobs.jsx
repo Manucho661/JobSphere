@@ -11,7 +11,7 @@ import { useOutletContext } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
 
 
-const HomePage = () => {
+const SavedJobs = () => {
   const { filters, shouldFetch, setShouldFetch } = useOutletContext();
 
   // states
@@ -310,37 +310,55 @@ const HomePage = () => {
             {/* Left content */}
             <div className="md:col-span-2">
               {/* Tabs */}
-              <ul className="flex flex-wrap py-2 gap-6 border-b border-gray-300 mb-4 relative" role="tablist">
-                {/* Latest Jobs (ACTIVE) */}
+              <ul className="flex flex-wrap gap-3 border-b border-gray-300 mb-4" role="tablist">
+                {/* Latest Jobs */}
                 <li>
-                  <span className="px-4 py-2 text-sm font-semibold text-yellow-600 relative">
-                    <span className="absolute left-0 bottom-0 w-full h-1 bg-yellow-600 rounded-t-full"></span>
-                    Latest Jobs
-                  </span>
+                  <button
+                    onClick={() => setActiveTab("latest")}
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors
+        ${activeTab === "latest"
+                        ? "border-yellow-600 text-yellow-600"
+                        : "border-transparent text-gray-600 hover:text-yellow-600"}`}
+                    role="tab"
+                  >
+                    <b>Latest Jobs</b>
+                  </button>
                 </li>
 
                 {/* Liked Jobs */}
                 <li>
-                  <Link
-                    to="/LikedJobs"
-                    className="px-4 py-2 text-sm font-medium text-gray-600 relative group"
+                  <button
+                    onClick={() => {
+                      setActiveTab("liked");
+                      if (likedJobs === null) fetchLikedJobs();
+                    }}
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors
+                    ${activeTab === "liked"
+                        ? "border-yellow-600 text-yellow-600"
+                        : "border-transparent text-gray-600 hover:text-yellow-600"}`}
+                    role="tab"
                   >
-                    Liked Jobs
-                    <span className="absolute left-0 bottom-0 w-0 h-1 bg-yellow-600 rounded-t-full transition-all group-hover:w-full"></span>
-                  </Link>
+                    <b>Liked Jobs</b>
+                  </button>
                 </li>
 
                 {/* Saved Jobs */}
                 <li>
-                  <Link
-                    to="/SavedJobs"
-                    className="px-4 py-2 text-sm font-medium text-gray-600 relative group"
+                  <button
+                    onClick={() => {
+                      setActiveTab("saved");
+                    }}
+                    className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors
+                    ${activeTab === "saved"
+                        ? "border-yellow-600 text-yellow-600"
+                        : "border-transparent text-gray-600 hover:text-yellow-600"}`}
+                    role="tab"
                   >
-                    Saved Jobs
-                    <span className="absolute left-0 bottom-0 w-0 h-1 bg-yellow-600 rounded-t-full transition-all group-hover:w-full"></span>
-                  </Link>
+                    <b>Saved Jobs</b>
+                  </button>
                 </li>
               </ul>
+
 
 
               {/* Job list */}
@@ -800,4 +818,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default SavedJobs;

@@ -10,6 +10,8 @@ import ManageJobs from "./pages/employers/ManageJobs";
 // Home
 import MainLayout from './layouts/MainLayout';
 import JobDetails from "./pages/home/JobDetails";
+import LikedJobs from "./pages/home/LikedJobs";
+import SavedJobs from "./pages/home/SavedJobs";
 import AuthLayout from "./layouts/AuthLayout";
 // Auth
 import Register from './pages/auth/Register';
@@ -30,6 +32,8 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="jobDetails/:id" element={<JobDetails />} />
+            <Route path="likedJobs" element= {<LikedJobs/>}/>
+            <Route path="SavedJobs" element= {<SavedJobs/>}/>
           </Route>
 
           {/* Auth layout for Register and Login pages */}
