@@ -1,6 +1,7 @@
 import { useState } from "react";
-import apiClient from "../../api/apiClient";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import apiClient from "../../api/apiClient";
 
 const JobSeekerSignUp = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -11,116 +12,162 @@ const JobSeekerSignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "jobseeker", // 👈 default hidden role
+    role: "jobseeker",
   });
 
-  
-  function handleChange(e) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  }
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const res = await apiClient.post(`${API_URL}/register`, formData); // POST → Laravel
-      console.log(formData);
-      // alert(res.data.message || "User registered successfully!");
+      const res = await apiClient.post(`${API_URL}/register`, formData);
+
+      toast.success(res.data.message || "Account created successfully 🎉");
+
       setFormData({
         name: "",
         email: "",
         password: "",
         confirmPassword: "",
-        role: "jobseeker", // reset with same role
+        role: "jobseeker",
       });
+
       navigate("/login");
     } catch (error) {
       console.error(error.response?.data || error.message);
-      alert("Error submitting form");
+      toast.error(
+        error.response?.data?.message || "Registration failed"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Hidden role input */}
+      {/* Hidden role */}
       <input type="hidden" name="role" value="jobseeker" />
 
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
-          <i className="fas fa-user mr-2"></i> Name
+        <label className="block text-sm font-medium text-white mb-1">
+          <i className="fas fa-user mr-2"></i>Name
         </label>
         <input
           type="text"
-          id="name"
           name="name"
-          placeholder="Full Name"
+          value={formData.name}
           onChange={handleChange}
+          disabled={loading}
           required
-          className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          placeholder="Full Name"
+          className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-yellow-400 disabled:opacity-60"
         />
       </div>
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
-          <i className="fas fa-envelope mr-2"></i> Email
+        <label className="block text-sm font-medium text-white mb-1">
+          <i className="fas fa-envelope mr-2"></i>Email
         </label>
         <input
           type="email"
-          id="email"
           name="email"
-          placeholder="Enter your email"
+          value={formData.email}
           onChange={handleChange}
+          disabled={loading}
           required
-          className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          placeholder="Enter your email"
+          className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-yellow-400 disabled:opacity-60"
         />
       </div>
 
       {/* Password */}
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
-          <i className="fas fa-lock mr-2"></i> Password
+        <label className="block text-sm font-medium text-white mb-1">
+          <i className="fas fa-lock mr-2"></i>Password
         </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Create a password"
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            disabled={loading}
+            required
+            placeholder="Create a password"
+            className="w-full px-3 py-2 pr-10 rounded-lg border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-yellow-400 disabled:opacity-60"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-2 text-gray-400 hover:text-white"
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </button>
+        </div>
       </div>
 
       {/* Confirm Password */}
       <div>
-        <label htmlFor="confirmPassword" className="block text-sm font-medium text-white mb-1">
-          <i className="fas fa-lock mr-2"></i> Confirm Password
+        <label className="block text-sm font-medium text-white mb-1">
+          <i className="fas fa-lock mr-2"></i>Confirm Password
         </label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="Confirm your password"
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        />
+        <div className="relative">
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            disabled={loading}
+            required
+            placeholder="Confirm your password"
+            className="w-full px-3 py-2 pr-10 rounded-lg border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-yellow-400 disabled:opacity-60"
+          />
+          <button
+            type="button"
+            onClick={() =>
+              setShowConfirmPassword(!showConfirmPassword)
+            }
+            className="absolute right-3 top-2 text-gray-400 hover:text-white"
+          >
+            {showConfirmPassword ? "🙈" : "👁️"}
+          </button>
+        </div>
       </div>
 
       {/* Submit */}
       <button
         type="submit"
-        className="w-full bg-yellow-400 text-gray-900 font-bold py-2 rounded-lg hover:bg-yellow-500 transition"
+        disabled={loading}
+        className={`w-full flex items-center justify-center gap-2 font-bold py-2 rounded-lg transition ${
+          loading
+            ? "bg-gray-500 cursor-not-allowed"
+            : "bg-yellow-400 hover:bg-yellow-500 text-gray-900"
+        }`}
       >
-        Create Account
+        {loading && (
+          <span className="w-4 h-4 border-2 border-gray-900 border-t-transparent rounded-full animate-spin"></span>
+        )}
+        {loading ? "Creating account..." : "Create Account"}
       </button>
 
-      {/* Already have an account */}
+      {/* Login link */}
       <p className="text-center text-sm text-white mt-2">
         Already have an account?{" "}
         <Link to="/login" className="text-yellow-400 hover:underline">

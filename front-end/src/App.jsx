@@ -21,19 +21,33 @@ import ProtectedRoute from "./pages/auth/ProtectRoute";
 // navigate
 import { Navigate } from "react-router-dom";
 
+// toast container
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 
 function App() {
   return (
+
     <AuthProvider> {/* ADD THIS */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
       <Router>
         <Routes>
           {/* Main layout with nested route */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="jobDetails/:id" element={<JobDetails />} />
-            <Route path="likedJobs" element= {<LikedJobs/>}/>
-            <Route path="SavedJobs" element= {<SavedJobs/>}/>
+            <Route path="likedJobs" element={<LikedJobs />} />
+            <Route path="SavedJobs" element={<SavedJobs />} />
           </Route>
 
           {/* Auth layout for Register and Login pages */}
