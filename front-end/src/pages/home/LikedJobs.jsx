@@ -19,6 +19,8 @@ const LikedJobs = () => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isUnauthenticated, setIsUnauthenticated] = useState(false);
+
 
 
     // Modals states
@@ -27,75 +29,113 @@ const LikedJobs = () => {
     const [uploading, setUploading] = useState(false);
     const [notification, setNotification] = useState(null);
 
+    // auth helper
+    const isAuthError = (err) => {
+        const status = err?.response?.status;
+        const msg = err?.response?.data?.message;
+        return status === 401 || msg === "Unauthenticated.";
+    };
+
+    // Initial fetch
     useEffect(() => {
-        // Initial fetch on page load
         const fetchInitialJobs = async () => {
             const token = localStorage.getItem("auth_token");
-            try {
 
+            // No token => unauthenticated (no error)
+            if (!token) {
+                setIsUnauthenticated(true);
+                setError(null);
+                setLoading(false);
+                return;
+            }
+
+            try {
                 setLoading(true);
+                setIsUnauthenticated(false);
+                setError(null);
 
                 const response = await apiClient.get(`${API_URL}/liked-jobs`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    headers: { Authorization: `Bearer ${token}` },
                 });
-                setJobsData(response.data);        // store pagination info
-                // 🔥 Normalize: extract only job_listing
+
+                setJobsData(response.data);
+
                 const normalizedJobs = response.data.liked_jobs.map(
-                    like => like.job_listing
+                    (like) => like.job_listing
                 );
 
                 setJobsList(normalizedJobs);
             } catch (err) {
                 console.error(err);
-                setError("Failed to fetch job listings.");
 
-                // NETWORK ERROR (no response received)
+                // ✅ Auth case (NOT an error)
+                if (isAuthError(err)) {
+                    setIsUnauthenticated(true);
+                    setError(null);
+                    setJobsList([]);
+                    setJobsData(null);
+                    return;
+                }
+
+                // ❌ Real error case
+                setIsUnauthenticated(false);
+                setError("We’re experiencing technical issues. Please try again.");
+
                 if (!err.response) {
                     console.log("NETWORK ERROR:", err.message);
                     return;
                 }
 
-                // BACKEND ERROR (Laravel returned a status code)
                 console.log("BACKEND ERROR");
                 console.log("Status:", err.response.status);
-                console.log("Message:", err.response.data.message);
-                console.log("Internal:", err.response.data.error);
-
+                console.log("Message:", err.response.data?.message);
+                console.log("Internal:", err.response.data?.error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchInitialJobs();
-    }, []); // run once on mount
+    }, []);
 
     useEffect(() => {
         if (!shouldFetch) return;
-        console.log(filters);
+
         const fetchFilteredJobs = async () => {
             try {
                 setLoading(true);
-                const response = await apiClient.get(`${API_URL}/jobs`, {
-                    params: { page, ...filters } // now latest filters
-                });
-                setJobs(response.data.data);
-            } catch (err) {
-                // setError("Failed to fetch job listings.");
+                setIsUnauthenticated(false);
+                setError(null);
 
-                // NETWORK ERROR (no response received)
+                const response = await apiClient.get(`${API_URL}/jobs`, {
+                    params: { page, ...filters },
+                });
+
+                setJobsList(response.data.data);
+            } catch (err) {
+                console.error(err);
+
+                // ✅ Auth case (NOT an error)
+                if (isAuthError(err)) {
+                    setIsUnauthenticated(true);
+                    setError(null);
+                    setJobsList([]);
+                    return;
+                }
+
+                // ❌ Real error case
+                setIsUnauthenticated(false);
+                setError("We’re experiencing technical issues. Please try again.");
+
                 if (!err.response) {
                     console.log("NETWORK ERROR:", err.message);
                     return;
                 }
 
-                // BACKEND ERROR (Laravel returned a status code)
                 console.log("BACKEND ERROR");
                 console.log("Status:", err.response.status);
-                console.log("Message:", err.response.data.message);
-                console.log("Internal:", err.response.data.error);
-
+                console.log("Message:", err.response.data?.message);
+                console.log("Internal:", err.response.data?.error);
             } finally {
                 setLoading(false);
                 setShouldFetch(false);
@@ -275,8 +315,7 @@ const LikedJobs = () => {
                                 <h2 className="text-gray-600 text-sm mb-4">
                                     <b><i>Latest Jobs</i></b>
                                 </h2>
-
-                                {jobsList?.length === 0 ? (
+                                {isUnauthenticated ? (
                                     <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
                                         <div className="mb-4">
                                             <svg
@@ -289,103 +328,136 @@ const LikedJobs = () => {
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
                                                     strokeWidth={1.5}
-                                                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                                                 />
                                             </svg>
                                         </div>
                                         <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                                            No Jobs Available
+                                            Login to Save Your Favorite Jobs
                                         </h3>
                                         <p className="text-gray-500 mb-4">
-                                            There are currently no such job postings. Check back later for new opportunities!
+                                            Sign in to like jobs and keep track of opportunities you're interested in. Your liked jobs will be waiting for you here!
                                         </p>
-                                        <button className="bg-yellow-600 hover:bg-yellow-900 text-white font-medium px-6 py-2 rounded-lg transition-colors">
-                                            Get Notified
+                                        <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-medium px-6 py-2 rounded-lg transition-colors">
+                                            Login Now
                                         </button>
                                     </div>
-
-                                ) : (
-                                    jobsList?.map((job) => (
-                                        <div key={job.id} className="bg-white rounded-lg p-2 mb-4">
-                                            <div className="job-card flex gap-3 p-2">
-                                                <div className="job-logo-section flex-shrink-0">
-                                                    <img
-                                                        src={
-                                                            job.employer?.logoUrl
-                                                                ? job.employer.logoUrl
-                                                                : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                                                    job.employer?.companyName || "Unknown"
-                                                                )}&background=random&size=50`
-                                                        }
-                                                        alt={`${job.employer?.companyName || "Employer"} Logo`}
-                                                        className="w-12 h-12 object-cover rounded-md"
+                                ) :
+                                    jobsList?.length === 0 ? (
+                                        <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
+                                            <div className="mb-4">
+                                                <svg
+                                                    className="mx-auto h-16 w-16 text-gray-400"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={1.5}
+                                                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                                                     />
-                                                </div>
+                                                </svg>
+                                            </div>
+                                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                                No Jobs Available
+                                            </h3>
+                                            <p className="text-gray-500 mb-4">
+                                                There are currently no such job postings. Check back later for new opportunities!
+                                            </p>
+                                            <button className="bg-yellow-600 hover:bg-yellow-900 text-white font-medium px-6 py-2 rounded-lg transition-colors">
+                                                Get Notified
+                                            </button>
+                                        </div>
 
-                                                <div className="flex-1">
-                                                    <div className="flex justify-between items-start">
-                                                        <div className="job-title text-gray-900 cursor-pointer">
-                                                            <b>
-                                                                <Link
-                                                                    to={`/jobDetails/${job.id}`}
-                                                                    className="text-gray-9 hover:text-yellow-600"
-                                                                >
-                                                                    {job.job_title} at {job.employer.companyName}
-                                                                </Link>
-                                                            </b>
-                                                        </div>
-                                                        <button
-                                                            onClick={() => handleLike(job.id)}
-                                                            className={`flex items-center gap-1 text-sm transition 
+                                    ) : (
+                                        jobsList?.map((job) => (
+                                            <div key={job.id} className="bg-white rounded-lg p-2 mb-4">
+                                                <div className="job-card flex gap-3 p-2">
+                                                    <div className="job-logo-section flex-shrink-0">
+                                                        <img
+                                                            src={
+                                                                job.employer?.logoUrl
+                                                                    ? job.employer.logoUrl
+                                                                    : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                                                        job.employer?.companyName || "Unknown"
+                                                                    )}&background=random&size=50`
+                                                            }
+                                                            alt={`${job.employer?.companyName || "Employer"} Logo`}
+                                                            className="w-12 h-12 object-cover rounded-md"
+                                                        />
+                                                    </div>
+
+                                                    <div className="flex-1">
+                                                        <div className="flex justify-between items-start">
+                                                            <div className="job-title text-gray-900 cursor-pointer">
+                                                                <b>
+                                                                    <Link
+                                                                        to={`/jobDetails/${job.id}`}
+                                                                        className="text-gray-9 hover:text-yellow-600"
+                                                                    >
+                                                                        {job.job_title} at {job.employer.companyName}
+                                                                    </Link>
+                                                                </b>
+                                                            </div>
+                                                            <button
+                                                                onClick={() => handleLike(job.id)}
+                                                                className={`flex items-center gap-1 text-sm transition 
                               ${job.is_liked ? 'text-red-600' : 'text-gray-400 hover:text-red-600'}`}
-                                                        >
-                                                            ❤️ {job.likes_count}
-                                                        </button>
+                                                            >
+                                                                ❤️ {job.likes_count}
+                                                            </button>
+                                                        </div>
+                                                        <div className="text-gray-500 text-sm mb-2">
+                                                            Posted:{" "}
+                                                            {new Date(job.created_at).toLocaleDateString("en-US", {
+                                                                day: "numeric",
+                                                                month: "long",
+                                                            })}{" "}
+                                                            • Salary range: KSH {job.salary_min} - KSH {job.salary_max} • Onsite
+                                                        </div>
+                                                        <p className="text-gray-700 leading-relaxed">{job.employer.companyDescription}</p>
                                                     </div>
-                                                    <div className="text-gray-500 text-sm mb-2">
-                                                        Posted:{" "}
-                                                        {new Date(job.created_at).toLocaleDateString("en-US", {
-                                                            day: "numeric",
-                                                            month: "long",
-                                                        })}{" "}
-                                                        • Salary range: KSH {job.salary_min} - KSH {job.salary_max} • Onsite
-                                                    </div>
-                                                    <p className="text-gray-700 leading-relaxed">{job.employer.companyDescription}</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))
-                                )}
+                                        ))
+                                    )}
                             </div>
                             <div className="flex justify-center items-center mt-6 gap-2 p-4">
-                                {/* Previous Button */}
+                                {/* Previous */}
                                 <button
+                                    type="button"
                                     disabled={!jobs?.prev_page_url}
-                                    onClick={() => setPage((old) => Math.max(old - 1, 1))}
-                                    className="flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-                  bg-yellow-600 text-white hover:bg-yellow-900
-                  disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
+                                    onClick={() => {
+                                        setPage((old) => Math.max(old - 1, 1));
+                                        setShouldFetch(true);
+                                    }}
+                                    className="flex items-center justify-center px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
+    bg-yellow-600 text-white hover:bg-yellow-900
+    disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
                                 >
-                                    <ArrowLeft className="w-4 h-4" />
-                                    <span className="hidden sm:inline">Previous</span>
+                                    <span className="text-lg font-bold">&laquo;</span>
                                 </button>
 
-                                {/* Page Numbers */}
+                                {/* Page numbers */}
                                 <div className="flex gap-1 sm:gap-2">
                                     {(() => {
                                         const currentPage = jobs?.current_page || 1;
                                         const lastPage = jobs?.last_page || 1;
-                                        console.log(lastPage);
                                         const pages = [];
 
-                                        // Always show first page
                                         if (currentPage > 3) {
                                             pages.push(
                                                 <button
                                                     key={1}
-                                                    onClick={() => setPage(1)}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setPage(1);
+                                                        setShouldFetch(true);
+                                                    }}
                                                     className="px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-                            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
+            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
                                                 >
                                                     1
                                                 </button>
@@ -393,14 +465,16 @@ const LikedJobs = () => {
 
                                             if (currentPage > 4) {
                                                 pages.push(
-                                                    <span key="dots1" className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center">
-                                                        ...
+                                                    <span
+                                                        key="dots1"
+                                                        className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center"
+                                                    >
+                                                        …
                                                     </span>
                                                 );
                                             }
                                         }
 
-                                        // Show pages around current page
                                         const startPage = Math.max(1, currentPage - 2);
                                         const endPage = Math.min(lastPage, currentPage + 2);
 
@@ -408,11 +482,15 @@ const LikedJobs = () => {
                                             pages.push(
                                                 <button
                                                     key={i}
-                                                    onClick={() => setPage(i)}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setPage(i);
+                                                        setShouldFetch(true);
+                                                    }}
                                                     className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 min-w-[44px]
-                            ${i === currentPage
-                                                            ? 'bg-yellow-600 text-white'
-                                                            : 'bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200'
+            ${i === currentPage
+                                                            ? "bg-yellow-600 text-white"
+                                                            : "bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200"
                                                         }`}
                                                 >
                                                     {i}
@@ -420,12 +498,14 @@ const LikedJobs = () => {
                                             );
                                         }
 
-                                        // Always show last page
                                         if (currentPage < lastPage - 2) {
                                             if (currentPage < lastPage - 3) {
                                                 pages.push(
-                                                    <span key="dots2" className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center">
-                                                        ...
+                                                    <span
+                                                        key="dots2"
+                                                        className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center"
+                                                    >
+                                                        …
                                                     </span>
                                                 );
                                             }
@@ -433,9 +513,13 @@ const LikedJobs = () => {
                                             pages.push(
                                                 <button
                                                     key={lastPage}
-                                                    onClick={() => setPage(lastPage)}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setPage(lastPage);
+                                                        setShouldFetch(true);
+                                                    }}
                                                     className="px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-                          bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
+            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
                                                 >
                                                     {lastPage}
                                                 </button>
@@ -446,16 +530,20 @@ const LikedJobs = () => {
                                     })()}
                                 </div>
 
-                                {/* Next Button */}
+                                {/* Next */}
                                 <button
+                                    type="button"
                                     disabled={!jobs?.next_page_url}
-                                    onClick={() => setPage((old) => (jobs?.next_page_url ? old + 1 : old))}
-                                    className="flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-                  bg-yellow-600 text-white hover:bg-yellow-900
-                  disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
+                                    onClick={() => {
+                                        if (!jobs?.next_page_url) return;
+                                        setPage((old) => old + 1);
+                                        setShouldFetch(true);
+                                    }}
+                                    className="flex items-center justify-center px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
+                                        bg-yellow-600 text-white hover:bg-yellow-900
+                                        disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
                                 >
-                                    <span className="hidden sm:inline">Next</span>
-                                    <ArrowRight className="w-4 h-4" />
+                                    <span className="text-lg font-bold">&raquo;</span>
                                 </button>
                             </div>
                         </div>

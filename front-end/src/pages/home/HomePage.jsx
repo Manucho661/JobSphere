@@ -12,55 +12,57 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 
 const HomePage = () => {
+  // ✅ Outlet context
   const { filters, shouldFetch, setShouldFetch } = useOutletContext();
 
-  // states
-  const [jobs, setJobsData] = useState(null); // full paginated response
-  const [jobsList, setJobsList] = useState([]);   // just array for renderingG
+  // ✅ Jobs state
+  const [jobs, setJobsData] = useState(null);      // full paginated response
+  const [jobsList, setJobsList] = useState([]);    // array for rendering
   const [page, setPage] = useState(1);
-  const [latestJobs, setLatestJobs] = useState(null);
-  const [likedJobs, setLikedJobs] = useState(null);
-  const [savedJobs, setSavedJobs] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("latest"); // 'latest', 'saved', 'liked'
 
-
-  // Modals states
+  // ✅ CV modal state
   const [isUploadCvOpen, setUploadCvOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [notification, setNotification] = useState(null);
 
+  // -------------------------
+  // Helpers
+  // -------------------------
+  const logAxiosError = (err) => {
+    // NETWORK ERROR (no response received)
+    if (!err.response) {
+      console.log("NETWORK ERROR:", err.message);
+      return;
+    }
+
+    // BACKEND ERROR (Laravel returned a status code)
+    console.log("BACKEND ERROR");
+    console.log("Status:", err.response.status);
+    console.log("Message:", err.response.data?.message);
+    console.log("Internal:", err.response.data?.error);
+  };
+
+  // -------------------------
+  // Fetch jobs (initial load)
+  // -------------------------
   useEffect(() => {
-    // Initial fetch on page load
     const fetchInitialJobs = async () => {
       try {
         setLoading(true);
 
         const response = await apiClient.get(`${API_URL}/jobs`, {
-          params: { page }
+          params: { page },
         });
-        setJobsData(response.data);        // store pagination info
-        setJobsList(response.data.data); // if backend uses Laravel pagination
 
-
+        setJobsData(response.data);        // pagination + metadata
+        setJobsList(response.data.data);   // actual jobs array
       } catch (err) {
         console.error(err);
         setError("Failed to fetch job listings.");
-
-        // NETWORK ERROR (no response received)
-        if (!err.response) {
-          console.log("NETWORK ERROR:", err.message);
-          return;
-        }
-
-        // BACKEND ERROR (Laravel returned a status code)
-        console.log("BACKEND ERROR");
-        console.log("Status:", err.response.status);
-        console.log("Message:", err.response.data.message);
-        console.log("Internal:", err.response.data.error);
-
+        logAxiosError(err);
       } finally {
         setLoading(false);
       }
@@ -69,31 +71,25 @@ const HomePage = () => {
     fetchInitialJobs();
   }, []); // run once on mount
 
+  // -------------------------
+  // Fetch jobs (filtered)
+  // -------------------------
   useEffect(() => {
     if (!shouldFetch) return;
-    console.log(filters);
+
     const fetchFilteredJobs = async () => {
       try {
         setLoading(true);
+
         const response = await apiClient.get(`${API_URL}/jobs`, {
-          params: { page, ...filters } // now latest filters
+          params: { page, ...filters },
         });
-        setJobs(response.data.data);
+
+        setJobsData(response.data);
+        setJobsList(response.data.data);
       } catch (err) {
-        // setError("Failed to fetch job listings.");
-
-        // NETWORK ERROR (no response received)
-        if (!err.response) {
-          console.log("NETWORK ERROR:", err.message);
-          return;
-        }
-
-        // BACKEND ERROR (Laravel returned a status code)
-        console.log("BACKEND ERROR");
-        console.log("Status:", err.response.status);
-        console.log("Message:", err.response.data.message);
-        console.log("Internal:", err.response.data.error);
-
+        console.error(err);
+        logAxiosError(err);
       } finally {
         setLoading(false);
         setShouldFetch(false);
@@ -103,121 +99,89 @@ const HomePage = () => {
     fetchFilteredJobs();
   }, [shouldFetch, filters, page, setShouldFetch]);
 
-  // Update openCvModal to clear localStorage when re-uploading
+  // -------------------------
+  // CV modal handlers
+  // -------------------------
   const openCvModal = () => {
     if (selectedFile) {
-      // Clear from localStorage when re-uploading
-      localStorage.removeItem('uploadedCV');
+      localStorage.removeItem("uploadedCV");
       setSelectedFile(null);
     }
     setUploadCvOpen(true);
   };
+
   const closeModal = () => {
     setUploadCvOpen(false);
-    // Don't clear selectedFile here anymore since it's stored in localStorage
-    // setSelectedFile(null);
     setUploading(false);
   };
-  // useEffect to load file from localStorage on mount
+
+  // Load saved file metadata from localStorage once
   useEffect(() => {
-    const storedFile = localStorage.getItem('uploadedCV');
-    if (storedFile) {
-      const fileData = JSON.parse(storedFile);
-      // Reconstruct a File-like object for display purposes
-      setSelectedFile({
-        name: fileData.name,
-        size: fileData.size,
-        type: fileData.type
-      });
-    }
+    const storedFile = localStorage.getItem("uploadedCV");
+    if (!storedFile) return;
+
+    const fileData = JSON.parse(storedFile);
+    setSelectedFile({
+      name: fileData.name,
+      size: fileData.size,
+      type: fileData.type,
+    });
   }, []);
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
+    const file = e.target.files?.[0];
+    if (file) setSelectedFile(file);
   };
-
-
 
   const handleUpload = () => {
-    if (selectedFile) {
-      setUploading(true);
-      // Simulate upload
-      setTimeout(() => {
-        // Store file metadata in localStorage
-        const fileData = {
-          name: selectedFile.name,
-          size: selectedFile.size,
-          type: selectedFile.type,
-          uploadedAt: new Date().toISOString()
-        };
-        localStorage.setItem('uploadedCV', JSON.stringify(fileData));
+    if (!selectedFile) return;
 
-        setNotification({
-          type: 'success',
-          message: `File uploaded successfully!`,
-          fileName: selectedFile.name,
-          fileSize: (selectedFile.size / 1024).toFixed(2)
-        });
-        closeModal();
-        setUploading(false); // Move this here since we removed it from closeModal effect
-        // Auto-hide notification after 5 seconds
-        setTimeout(() => setNotification(null), 5000);
-      }, 1500);
-    }
-  };
+    setUploading(true);
 
-  // handle saved jobs
-  const fetchSavedJobs = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem("auth_token");
-      console.log(token);
-      if (!token) {
-        console.error("No auth token found");
-        return;
-      }
-      const res = await apiClient.get(`${API_URL}/saved-jobs`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    setTimeout(() => {
+      const fileData = {
+        name: selectedFile.name,
+        size: selectedFile.size,
+        type: selectedFile.type,
+        uploadedAt: new Date().toISOString(),
+      };
+
+      localStorage.setItem("uploadedCV", JSON.stringify(fileData));
+
+      setNotification({
+        type: "success",
+        message: "File uploaded successfully!",
+        fileName: selectedFile.name,
+        fileSize: (selectedFile.size / 1024).toFixed(2),
       });
-      // Normalize saved jobs to match jobs API
-      const savedJobsNormalized = res.data.saved_jobs.map(sj => sj.job_listing);
 
-      // Set jobs state
-      setJobsList(savedJobsNormalized);
-    } catch (err) {
-      console.error("Error fetching saved jobs:", err);
-    } finally {
-      setLoading(false);
-    }
+      closeModal();
+      setUploading(false);
+      setTimeout(() => setNotification(null), 5000);
+    }, 1500);
   };
 
+  // -------------------------
+  // Likes (optimistic update)
+  // -------------------------
+  const toggleLikeInJobs = (list, jobId) =>
+    list.map((job) => {
+      if (job.id !== jobId) return job;
 
-  // Helper to toggle like state in the jobs array
-  const toggleLikeInJobs = (jobsArray, jobId) => {
-    return jobsArray.map(job => {
-      if (job.id === jobId) {
-        const isLiked = !job.is_liked;
-        const likesCount = isLiked ? job.likes_count + 1 : job.likes_count - 1;
-        return { ...job, is_liked: isLiked, likes_count: likesCount };
-      }
-      return job;
+      const isLiked = !job.is_liked;
+      const likesCount = isLiked ? job.likes_count + 1 : job.likes_count - 1;
+
+      return { ...job, is_liked: isLiked, likes_count: likesCount };
     });
-  };
 
   const handleLike = async (jobId) => {
     const token = localStorage.getItem("auth_token");
     if (!token) return;
 
-    // 1️⃣ Optimistic UI update
-    setJobsList(prev => toggleLikeInJobs(prev, jobId));
+    // optimistic update
+    setJobsList((prev) => toggleLikeInJobs(prev, jobId));
 
     try {
-      // 2️⃣ Send request to backend
       await apiClient.post(
         `${API_URL}/job-likes/toggle`,
         { job_listing_id: jobId },
@@ -226,58 +190,10 @@ const HomePage = () => {
     } catch (err) {
       console.error("Like request failed:", err);
 
-      // 3️⃣ Rollback if backend fails
-      setJobs(prev => toggleLikeInJobs(prev, jobId));
+      // rollback
+      setJobsList((prev) => toggleLikeInJobs(prev, jobId));
     }
   };
-
-
-  const displayedJobs = (() => {
-    switch (activeTab) {
-      case "liked":
-        return likedJobs ?? []; // safe fallback
-
-      case "saved":
-        return savedJobs ?? [];
-
-      case "latest":
-      default:
-        return jobsList ?? [];
-    }
-  })();
-
-  // get liked jobs
-  const fetchLikedJobs = async () => {
-    const token = localStorage.getItem("auth_token");
-    console.log(token);
-    console.log("ypy");
-
-    if (!token) {
-      // User not logged in → no liked jobs
-      setLikedJobs([]);
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const res = await apiClient.get(`${API_URL}/liked-jobs`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setLikedJobs(res.data.liked_jobs || []);
-    } catch (err) {
-      console.error("Error fetching liked jobs:", err);
-
-      // Fail gracefully — don’t break UI
-      setLikedJobs([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
 
 
   // 🔹 Conditional rendering
@@ -349,7 +265,7 @@ const HomePage = () => {
                   <b><i>Latest Jobs</i></b>
                 </h2>
 
-                {displayedJobs?.length === 0 ? (
+                {jobsList?.length === 0 ? (
                   <div className="bg-white rounded-lg p-8 text-center border border-gray-200">
                     <div className="mb-4">
                       <svg
@@ -378,7 +294,7 @@ const HomePage = () => {
                   </div>
 
                 ) : (
-                  displayedJobs?.map((job) => (
+                  jobsList?.map((job) => (
                     <div key={job.id} className="bg-white rounded-lg p-2 mb-4">
                       <div className="job-card flex gap-3 p-2">
                         <div className="job-logo-section flex-shrink-0">
@@ -421,7 +337,7 @@ const HomePage = () => {
                               day: "numeric",
                               month: "long",
                             })}{" "}
-                            • Salary range: KSH {job.salary_min} - KSH {job.salary_max} • Onsite
+                            • Salary range: KSH {job.salary_min} - KSH {job.salary_max} • {job.work_place}
                           </div>
                           <p className="text-gray-700 leading-relaxed">{job.employer.companyDescription}</p>
                         </div>
@@ -430,35 +346,42 @@ const HomePage = () => {
                   ))
                 )}
               </div>
+              {/* pagination */}
+
               <div className="flex justify-center items-center mt-6 gap-2 p-4">
-                {/* Previous Button */}
+                {/* Previous */}
                 <button
+                  type="button"
                   disabled={!jobs?.prev_page_url}
-                  onClick={() => setPage((old) => Math.max(old - 1, 1))}
-                  className="flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-                  bg-yellow-600 text-white hover:bg-yellow-900
-                  disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
+                  onClick={() => {
+                    setPage((old) => Math.max(old - 1, 1));
+                    setShouldFetch(true);
+                  }}
+                  className="flex items-center justify-center px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
+    bg-yellow-600 text-white hover:bg-yellow-900
+    disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
                 >
-                  <ArrowLeft className="w-4 h-4" />
-                  <span className="hidden sm:inline">Previous</span>
+                  <span className="text-lg font-bold">&laquo;</span>
                 </button>
 
-                {/* Page Numbers */}
+                {/* Page numbers */}
                 <div className="flex gap-1 sm:gap-2">
                   {(() => {
                     const currentPage = jobs?.current_page || 1;
                     const lastPage = jobs?.last_page || 1;
-                    console.log(lastPage);
                     const pages = [];
 
-                    // Always show first page
                     if (currentPage > 3) {
                       pages.push(
                         <button
                           key={1}
-                          onClick={() => setPage(1)}
+                          type="button"
+                          onClick={() => {
+                            setPage(1);
+                            setShouldFetch(true);
+                          }}
                           className="px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-                            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
+            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
                         >
                           1
                         </button>
@@ -466,14 +389,16 @@ const HomePage = () => {
 
                       if (currentPage > 4) {
                         pages.push(
-                          <span key="dots1" className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center">
-                            ...
+                          <span
+                            key="dots1"
+                            className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center"
+                          >
+                            …
                           </span>
                         );
                       }
                     }
 
-                    // Show pages around current page
                     const startPage = Math.max(1, currentPage - 2);
                     const endPage = Math.min(lastPage, currentPage + 2);
 
@@ -481,11 +406,15 @@ const HomePage = () => {
                       pages.push(
                         <button
                           key={i}
-                          onClick={() => setPage(i)}
+                          type="button"
+                          onClick={() => {
+                            setPage(i);
+                            setShouldFetch(true);
+                          }}
                           className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 min-w-[44px]
-                            ${i === currentPage
-                              ? 'bg-yellow-600 text-white'
-                              : 'bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200'
+            ${i === currentPage
+                              ? "bg-yellow-600 text-white"
+                              : "bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200"
                             }`}
                         >
                           {i}
@@ -493,12 +422,14 @@ const HomePage = () => {
                       );
                     }
 
-                    // Always show last page
                     if (currentPage < lastPage - 2) {
                       if (currentPage < lastPage - 3) {
                         pages.push(
-                          <span key="dots2" className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center">
-                            ...
+                          <span
+                            key="dots2"
+                            className="px-1 sm:px-2 py-2 text-[#002B5B] flex items-center"
+                          >
+                            …
                           </span>
                         );
                       }
@@ -506,9 +437,13 @@ const HomePage = () => {
                       pages.push(
                         <button
                           key={lastPage}
-                          onClick={() => setPage(lastPage)}
+                          type="button"
+                          onClick={() => {
+                            setPage(lastPage);
+                            setShouldFetch(true);
+                          }}
                           className="px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-                          bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
+            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
                         >
                           {lastPage}
                         </button>
@@ -519,16 +454,20 @@ const HomePage = () => {
                   })()}
                 </div>
 
-                {/* Next Button */}
+                {/* Next */}
                 <button
+                  type="button"
                   disabled={!jobs?.next_page_url}
-                  onClick={() => setPage((old) => (jobs?.next_page_url ? old + 1 : old))}
-                  className="flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
+                  onClick={() => {
+                    if (!jobs?.next_page_url) return;
+                    setPage((old) => old + 1);
+                    setShouldFetch(true);
+                  }}
+                  className="flex items-center justify-center px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
                   bg-yellow-600 text-white hover:bg-yellow-900
                   disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
                 >
-                  <span className="hidden sm:inline">Next</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="text-lg font-bold">&raquo;</span>
                 </button>
               </div>
             </div>
