@@ -60,8 +60,8 @@ const LikedJobs = () => {
 
         setJobsData(response.data);
 
-        const normalizedJobs = response.data.liked_jobs.map(
-          (like) => like.job_listing
+        const normalizedJobs = response.data.saved_jobs.map(
+          (save) => save.job_listing
         );
 
         setJobsList(normalizedJobs);
