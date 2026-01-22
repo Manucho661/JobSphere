@@ -2,94 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-
-use App\Models\JobListing;
 use App\Models\Employer;
+
 use App\Models\JobBenefit;
+use App\Models\JobListing;
 use App\Mail\JobPostedMail;
 use Illuminate\Http\Request;
 use App\Models\JobNotification;
 use App\Models\JobQualification;
 use App\Models\JobResponsibility;
 use Illuminate\Support\Facades\DB;
-use App\Models\JobPreferredQualification;
 use App\Jobs\SendNewJobNotification;
+use Illuminate\Support\Facades\Auth;
+use App\Models\JobPreferredQualification;
+use App\Repositories\Contracts\JobListingRepositoryInterface;
 
 
 class JobsController extends Controller
 {
+
+    public function __construct(
+        private readonly JobListingRepositoryInterface $jobs
+    ) {}
     // GET /api/jobs
     public function index(Request $request)
     {
-        $user = $request->user(); // may be null (guest)
-
         try {
-            $query = JobListing::with('employer.user')
-                ->withCount('likes')
-                ->withExists([
-                    // 👍 is_liked
-                    'likes as is_liked' => function ($q) use ($user) {
-                        if ($user) {
-                            $q->where('user_id', $user->id);
-                        } else {
-                            $q->whereRaw('0 = 1'); // always false for guests
-                        }
-                    },
-
-                    // 💾 is_saved
-                    'savedBy as is_saved' => function ($q) use ($user) {
-                        if ($user) {
-                            $q->where('user_id', $user->id);
-                        } else {
-                            $q->whereRaw('0 = 1');
-                        }
-                    },
-                ])
-                ->latest();
-
-            // 1️⃣ Search
-            if ($request->filled('search')) {
-                $search = $request->search;
-                $query->where(function ($q) use ($search) {
-                    $q->where('job_title', 'like', "%{$search}%")
-                        ->orWhere('description', 'like', "%{$search}%");
-                });
-            }
-
-            // 2️⃣ Employment Type
-            if ($request->filled('employmentType')) {
-                $query->where('employment_type', $request->employmentType);
-            }
-
-            // 3️⃣ Work Mode
-            if ($request->filled('remoteWork')) {
-                $query->where('work_place', $request->remoteWork);
-            }
-
-            // 4️⃣ Experience Level
-            if ($request->filled('experienceLevel')) {
-                $query->where('experience_level', $request->experienceLevel);
-            }
-
-            // 5️⃣ Posted Within
-            if ($request->filled('postedWithin')) {
-                $timeMap = [
-                    '24h' => now()->subDay(),
-                    '3d'  => now()->subDays(3),
-                    '7d'  => now()->subDays(7),
-                    '14d' => now()->subDays(14),
-                    '30d' => now()->subDays(30),
-                ];
-
-                if (isset($timeMap[$request->postedWithin])) {
-                    $query->where('created_at', '>=', $timeMap[$request->postedWithin]);
-                }
-            }
-
-            // 6️⃣ Pagination
-            $jobs = $query->paginate(7);
-
+            $jobs = $this->jobs->paginateForIndex($request, 7);
             return response()->json($jobs);
         } catch (\Throwable $e) {
             return response()->json([
@@ -97,7 +36,6 @@ class JobsController extends Controller
             ], 500);
         }
     }
-
 
     public function store(Request $request)
     {
@@ -201,12 +139,20 @@ class JobsController extends Controller
 
     public function getFeaturedJobs()
     {
-        $FeaturedJobs = JobListing::with('employer', 'qualifications', 'responsibilities')
-            ->where('is_featured', 1)
+        $featuredJobs = JobListing::with([
+            'employer',
+            'qualifications',
+            'responsibilities',
+        ])
+            ->withCount('likes')
+            ->where('is_featured', true)
+            ->orderBy('created_at', 'desc')
+            ->take(4)
             ->get();
 
-        return response()->json($FeaturedJobs);
+        return response()->json($featuredJobs);
     }
+
 
     public function getEmployerJobs($employerId)
     {
