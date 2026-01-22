@@ -296,70 +296,81 @@ const MainLayout = () => {
           <div className="grid md:grid-cols-4 gap-6">
 
             {/* RIGHT SIDEBAR */}
-            <div className="md:col-span-2 bg-white space-y-4 border rounded-lg p-2" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
-              <div className="rounded-lg p-8">
-                <h4 className="text-2xl"><b>Featured Jobs</b></h4>
+            <div
+              className="md:col-span-2 bg-white border rounded-lg p-2 h-full min-h-0 flex flex-col"
+              style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}
+            >
+              <div className="rounded-lg p-8 flex flex-col h-full min-h-0">
 
-                <div className="flex justify-center gap-12">
+                {/* Header */}
+                <h4 className="text-2xl mb-4">
+                  <b>Featured Jobs</b>
+                </h4>
+
+                {/* Scrollable job list */}
+                <div className="flex-1 overflow-y-auto min-h-0">
                   <ul className="space-y-4">
                     {featuredJobs?.length === 0 ? (
                       <li className="flex items-start group">
                         <span className="mr-3 mt-1 flex-shrink-0">
                           <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
                           </svg>
                         </span>
-                        <a href="#" className="transition-colors duration-200 hover:underline"
-                          style={{ color: hoveredIndex === 'job3' ? '#FFC107' : '#002B5B', transform: hoveredIndex === 'job3' ? 'translateX(4px)' : 'translateX(0)', transition: 'all 0.2s' }}
-                          onMouseEnter={() => setHoveredIndex('job3')}
-                          onMouseLeave={() => setHoveredIndex(null)}>
-                          loading...
-                        </a>
+                        <span className="text-gray-500">Loading...</span>
                       </li>
+                    ) : (
+                      featuredJobs.map((job) => (
+                        <li key={job.id} className="flex items-start group">
+                          <span className="mr-3 mt-1 flex-shrink-0">
+                            <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </span>
 
-                    ) : (featuredJobs?.map((job) => (
-                      <li className="flex items-start group">
-                        <span className="mr-3 mt-1 flex-shrink-0">
-                          <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                        <div className="job-title text-gray-900 cursor-pointer">
-                          <b>
-                            <Link
-                              to={`jobDetails/${job.id}`}
-                              className="text-gray-9 hover:text-yellow-600"
-                            >
-                              {job.job_title} at {job.employer.companyName}
-                            </Link>
-                          </b>
-                        </div>
-                      </li>
-                      // <div key={job.id} className="bg-white rounded-lg p-2">
-                      //   <div className="job-card flex gap-3">
-                      //     <div className="flex-1">
-                      //       <div className="flex justify-between items-start">
-                      //         <div className="job-title text-gray-900 cursor-pointer">
-                      //           <b>
-                      //             <Link
-                      //               to={`jobDetails/${job.id}`}
-                      //               className="text-gray-9 hover:text-yellow-600"
-                      //             >
-                      //               {job.job_title} at {job.employer.companyName}
-                      //             </Link>
-                      //           </b>
-                      //         </div>
-                      //       </div>
-                      //     </div>
-                      //   </div>
-                      // </div>
-                    )))
-                    }
+                          <div className="job-title text-gray-900 cursor-pointer">
+                            <b>
+                              <Link
+                                to={`jobDetails/${job.id}`}
+                                className="hover:text-yellow-600 transition-colors"
+                              >
+                                {job.job_title} at {job.employer.companyName}
+                              </Link>
+                            </b>
+                          </div>
+                        </li>
+                      ))
+                    )}
                   </ul>
+                </div>
 
+                {/* Footer button */}
+                <div className="pt-6">
+                  {/* <Link
+                    to="/FeaturedJobs"
+                    className="
+          block w-full text-center
+          px-6 py-3
+          bg-yellow-600 text-white
+          rounded-lg font-semibold
+          hover:bg-yellow-700
+          transition-colors
+        "
+                  >
+                    See all featured jobs
+                  </Link> */}
                 </div>
               </div>
             </div>
+
 
             {/* LEFT FILTER PANEL */}
             <div className="filter-section md:col-span-2" ref={dropdownRef} >
