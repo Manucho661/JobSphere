@@ -283,7 +283,7 @@ const LikedJobs = () => {
                                 <li>
                                     <Link
                                         to="/"
-                                        className="px-4 py-2 text-sm font-medium text-gray-600 relative group"
+                                        className="py-2 text-sm font-medium text-gray-600 relative group"
                                     >
                                         Latest Jobs
                                         <span className="absolute left-0 bottom-0 w-0 h-1 bg-yellow-600 rounded-t-full transition-all group-hover:w-full"></span>
@@ -292,7 +292,7 @@ const LikedJobs = () => {
 
                                 {/* Liked Jobs */}
                                 <li>
-                                    <span className="px-4 py-2 text-sm font-semibold text-yellow-600 relative">
+                                    <span className="py-2 text-sm font-semibold text-yellow-600 relative">
                                         <span className="absolute left-0 bottom-0 w-full h-1 bg-yellow-600 rounded-t-full"></span>
                                         Liked Jobs
                                     </span>
@@ -302,7 +302,7 @@ const LikedJobs = () => {
                                 <li>
                                     <Link
                                         to="/SavedJobs"
-                                        className="px-4 py-2 text-sm font-medium text-gray-600 relative group"
+                                        className="py-2 text-sm font-medium text-gray-600 relative group"
                                     >
                                         Saved Jobs
                                         <span className="absolute left-0 bottom-0 w-0 h-1 bg-yellow-600 rounded-t-full transition-all group-hover:w-full"></span>
@@ -434,8 +434,8 @@ const LikedJobs = () => {
                                         setShouldFetch(true);
                                     }}
                                     className="flex items-center justify-center px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-    bg-yellow-600 text-white hover:bg-yellow-900
-    disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
+                                    bg-yellow-600 text-white hover:bg-yellow-900
+                                    disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px]"
                                 >
                                     <span className="text-lg font-bold">&laquo;</span>
                                 </button>
@@ -457,7 +457,7 @@ const LikedJobs = () => {
                                                         setShouldFetch(true);
                                                     }}
                                                     className="px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
+                                                    bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
                                                 >
                                                     1
                                                 </button>
@@ -579,14 +579,16 @@ const LikedJobs = () => {
                                 <h6 className="font-bold mb-2">🗂 Jobs by Category</h6>
                                 <div className="flex flex-wrap gap-2 text-sm p-4 rounded-lg" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                                     {[
-                                        "Accounting",
-                                        "Finance",
-                                        "Marketing",
-                                        "Human Resources (HR)",
-                                        "Information Technology (IT)",
-                                        "Customer Service",
-                                        "Sales",
+                                        "Data Science",
+                                        "Software Engineering",
+                                        "Cloud Computing",
+                                        "Cybersecurity",
+                                        "Networking",
+                                        "IT Management",
                                         "Operations Management",
+                                        "Design and UX",
+                                        "Robotics Engineering",
+                                        "IT Suppport Specialist"
                                     ].map((cat) => (
                                         <a
                                             key={cat}
@@ -612,6 +614,14 @@ const LikedJobs = () => {
                                         "Thika",
                                         "Kitale",
                                         "Machakos",
+                                        "Kakamega",
+                                        "Bungoma",
+                                        "Vihiga",
+                                        "Busia",
+                                        "Kiambu",
+                                        "Nyeri",
+                                        "Murang'a",
+                                        "Kirinyaga",
                                     ].map((loc) => (
                                         <a
                                             key={loc}

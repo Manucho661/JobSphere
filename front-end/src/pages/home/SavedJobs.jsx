@@ -283,7 +283,7 @@ const LikedJobs = () => {
                 <li>
                   <Link
                     to="/"
-                    className="px-4 py-2 text-sm font-medium text-gray-600 relative group"
+                    className="py-2 text-sm font-medium text-gray-600 relative group"
                   >
                     Latest Jobs
                     <span className="absolute left-0 bottom-0 w-0 h-1 bg-yellow-600 rounded-t-full transition-all group-hover:w-full"></span>
@@ -294,7 +294,7 @@ const LikedJobs = () => {
                 <li>
                   <Link
                     to="/LikedJobs"
-                    className="px-4 py-2 text-sm font-medium text-gray-600 relative group"
+                    className="py-2 text-sm font-medium text-gray-600 relative group"
                   >
                     Liked Jobs
                     <span className="absolute left-0 bottom-0 w-0 h-1 bg-yellow-600 rounded-t-full transition-all group-hover:w-full"></span>
@@ -303,7 +303,7 @@ const LikedJobs = () => {
 
                 {/* Saved Jobs active*/}
                 <li>
-                  <span className="px-4 py-2 text-sm font-semibold text-yellow-600 relative">
+                  <span className="py-2 text-sm font-semibold text-yellow-600 relative">
                     <span className="absolute left-0 bottom-0 w-full h-1 bg-yellow-600 rounded-t-full"></span>
                     Saved Jobs
                   </span>
@@ -336,7 +336,7 @@ const LikedJobs = () => {
                       Login to Save Your Favorite Jobs
                     </h3>
                     <p className="text-gray-500 mb-4">
-                      Sign in to like jobs and keep track of opportunities you're interested in. Your liked jobs will be waiting for you here!
+                      Sign in to save jobs and keep track of opportunities you're interested in. Your liked jobs will be waiting for you here!
                     </p>
                     <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-medium px-6 py-2 rounded-lg transition-colors">
                       Login Now
@@ -579,14 +579,16 @@ const LikedJobs = () => {
                 <h6 className="font-bold mb-2">🗂 Jobs by Category</h6>
                 <div className="flex flex-wrap gap-2 text-sm p-4 rounded-lg" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                   {[
-                    "Accounting",
-                    "Finance",
-                    "Marketing",
-                    "Human Resources (HR)",
-                    "Information Technology (IT)",
-                    "Customer Service",
-                    "Sales",
+                    "Data Science",
+                    "Software Engineering",
+                    "Cloud Computing",
+                    "Cybersecurity",
+                    "Networking",
+                    "IT Management",
                     "Operations Management",
+                    "Design and UX",
+                    "Robotics Engineering",
+                    "IT Suppport Specialist"
                   ].map((cat) => (
                     <a
                       key={cat}
@@ -612,6 +614,14 @@ const LikedJobs = () => {
                     "Thika",
                     "Kitale",
                     "Machakos",
+                    "Kakamega",
+                    "Bungoma",
+                    "Vihiga",
+                    "Busia",
+                    "Kiambu",
+                    "Nyeri",
+                    "Murang'a",
+                    "Kirinyaga",
                   ].map((loc) => (
                     <a
                       key={loc}
@@ -626,24 +636,6 @@ const LikedJobs = () => {
                   <b>View All Locations</b>
                 </button>
               </div>
-              <div className="mt-6 p-4">
-                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h4 class="font-semibold text-primary mb-3 flex items-center">
-                    <svg class="w-5 h-5 mr-2 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                    </svg>
-                    <b>Note</b>
-                  </h4>
-                  <p className="space-y-2 text-sm text-gray-700"> <i>JobSphere relies on <b>Donations</b> to run its activities and keep you updated about new opportunities, you can channel your contribution of any amount by clicking the  donate button below :-</i> </p>
-                  <div className='Donation flex'>
-                    <div className='flex items-center'> Your yearly donations <span className='mx-4'><b style={{ whiteSpace: 'nowrap' }}>KSH 0</b></span></div>
-                    {""} {""}
-                    <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
-                  </div>
-                </div>
-
-              </div>
-
             </div>
           </div>
         </div>

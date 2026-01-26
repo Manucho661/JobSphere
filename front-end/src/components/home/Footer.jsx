@@ -1,4 +1,5 @@
 // import "../styles/footer.css";
+import { Link, Outlet } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -10,20 +11,52 @@ const Footer = () => {
           <h2 className="text-[#FFC107] mb-4 text-2xl font-semibold">JobSphere</h2>
 
           <p>
-          Jobsphere connects companies with the best tech talent. Post jobs, discover opportunities, and apply with ease — all in one platform  
+            Jobsphere connects companies with the best tech talent. Post jobs, discover opportunities, and apply with ease — all in one platform
           </p>
         </div>
 
         {/* Links Section */}
         <div className="footer-section flex-1 min-w-[200px]">
-          
+
           <h2 className="text-[#FFC107] mb-4 text-2xl font-semibold">Quick Links</h2>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Home</a></li>
-            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Jobs</a></li>
-            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Login</a></li>
-            <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Register</a></li>
+            <li>
+              <Link
+                to="/"
+                className="hover:text-[#FFC107] hover:underline transition-colors"
+              >
+                Home
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/"
+                className="hover:text-gray hover:underline transition-colors text-gray-500"
+              >
+                Featured Jobs <i>(coming soon)</i>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/register"
+                className="hover:text-[#FFC107] hover:underline transition-colors"
+              >
+                Register
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/login"
+                className="hover:text-[#FFC107] hover:underline transition-colors"
+              >
+                Login
+              </Link>
+            </li>
           </ul>
+
         </div>
 
         {/* Contact Section */}
@@ -31,7 +64,7 @@ const Footer = () => {
           <h2 className="text-[#FFC107] mb-4 text-2xl font-semibold">Contact Us</h2>
 
           <p className="flex items-center gap-2">
-            <i className="fas fa-phone-alt"></i> +254 712 345 678
+            <i className="fas fa-phone-alt"></i> +254 790 513859
           </p>
           <p className="flex items-center gap-2">
             <i className="fas fa-envelope"></i> support@JobSphere.co.ke

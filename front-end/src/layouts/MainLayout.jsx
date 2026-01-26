@@ -291,27 +291,127 @@ const MainLayout = () => {
           </div>
         </div>
 
+        {/* FILTER SECTION */}
+        <div className="w-screen px-8 mb-4 overflow-auto">
+
+          <div className="grid md:grid-cols-1  gap-6 overflow-auto">
+            <div className="flex justify-center">
+
+              <div>
+                <select className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg py-2" name="" id="">
+                  <option value="">Select Category </option>
+                  <option value="Full-time">Data Science</option>
+                  <option value="Part-time">Software Development</option>
+                  <option value="Contract">IT Management</option>
+                  <option value="Contract">Cloud Computing</option>
+                  <option value="Contract">Networking</option>
+                  <option value="Contract">Cybersecurity</option>
+                  <option value="Contract">IT Support</option>
+                </select>
+              </div>
+
+              {/* employment type */}
+              <div>
+                <select
+                  value={filters.employmentType}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      employmentType: e.target.value,
+                    })
+                  } className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg py-2 mx-2" name="" id="">
+                  <option value="">Employment Type</option>
+                  <option value="Full-time">Full-time</option>
+                  <option value="Part-time">Part-time</option>
+                  <option value="Contract">Contract</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  value={filters.remoteWork}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      remoteWork: e.target.value,
+                    })
+                  }
+                  className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg py-2 mx-2" name="" id="">
+                  <option value="">Work Place</option>
+                  <option value="onsite">Onsite</option>
+                  <option value="hybrid">Hybrid</option>
+                  <option value="remote">Remote</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  value={filters.experienceLevel}
+                  onChange={(e) =>
+                    setFilters({ ...filters, experienceLevel: e.target.value })
+                  }
+                  className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg py-2 mx-2" name="" id="">
+                  <option value="">Experience Level</option>
+                  <option value="Entry Level">Entry Level</option>
+                  <option value="Mid Level">Mid Level</option>
+                  <option value="Senior Level">Senior Level</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  value={filters.salaryRange}
+                  onChange={(e) =>
+                    setFilters({ ...filters, salaryRange: e.target.value })
+                  }
+                  className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg py-2 mx-2" name="" id="">
+                  <option value="">Salary Range</option>
+                  <option value="0-30k">Ksh 0 - Ksh 30,000</option>
+                  <option value="30k-50k">Ksh 30,000 - Ksh 50,000</option>
+                  <option value="50k-75k">Ksh 50,000 - Ksh 75,000</option>
+                  <option value="75k-100k">Ksh 75,000 - Ksh 100,000</option>
+                  <option value="100k-150k">Kh 100,000 - Ksh 150,000</option>
+                  <option value="150k+">Ksh 150,000+</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  value={filters.postedWithin}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      postedWithin: e.target.value,
+                    })
+                  }
+                  className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg py-2 mx-2" name="" id="">
+                  <option value="">Posted Within</option>
+                  <option value="">Anytime</option>
+                  <option value="24h">Last 24 hours</option>
+                  <option value="3d">Last 3 days</option>
+                  <option value="7d">Last 7 days</option>
+                  <option value="14d">Last 14 days</option>
+                  <option value="30d">Last 30 days</option>
+                </select>
+              </div>
+              {/* APPLY */}
+              <button onClick={applyFilters} className="w-48 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 whitespace-nowrap">
+                <b>Apply</b>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
         {/* FILTERS SECTION */}
         <div className="px-8">
           <div className="grid md:grid-cols-4 gap-6">
 
             {/* RIGHT SIDEBAR */}
-            <div
-              className="md:col-span-2 bg-white border rounded-lg p-2 h-full min-h-0 flex flex-col"
-              style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}
-            >
-              <div className="rounded-lg p-8 flex flex-col h-full min-h-0">
+            <div className="md:col-span-2 bg-white space-y-4 border rounded-lg p-2" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
+              <div className="rounded-lg p-6">
+                <h4 className="text-2xl"><b>Popular Listings</b></h4>
 
-                {/* Header */}
-                <h4 className="text-2xl mb-4">
-                  <b>Featured Jobs</b>
-                </h4>
-
-                {/* Scrollable job list */}
-                <div className="flex-1 overflow-y-auto min-h-0">
-                  <ul className="space-y-4">
+                <div className="flex justify-center">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
                     {featuredJobs?.length === 0 ? (
-                      <li className="flex items-start group">
+                      <li className="flex items-start group col-span-2">
                         <span className="mr-3 mt-1 flex-shrink-0">
                           <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
                             <path
@@ -321,7 +421,7 @@ const MainLayout = () => {
                             />
                           </svg>
                         </span>
-                        <span className="text-gray-500">Loading...</span>
+                        <i>loading...</i>
                       </li>
                     ) : (
                       featuredJobs.map((job) => (
@@ -336,205 +436,78 @@ const MainLayout = () => {
                             </svg>
                           </span>
 
-                          <div className="job-title text-gray-900 cursor-pointer">
-                            <b>
-                              <Link
-                                to={`jobDetails/${job.id}`}
-                                className="hover:text-yellow-600 transition-colors"
-                              >
-                                {job.job_title} at {job.employer.companyName}
-                              </Link>
-                            </b>
-                          </div>
+                          <b>
+                            <Link
+                              to={`jobDetails/${job.id}`}
+                              className="text-gray-900 hover:text-yellow-600 transition-colors"
+                            >
+                              {job.job_title} at {job.employer.companyName}
+                            </Link>
+                          </b>
                         </li>
                       ))
                     )}
                   </ul>
                 </div>
 
-                {/* Footer button */}
-                <div className="pt-6">
-                  {/* <Link
-                    to="/FeaturedJobs"
-                    className="
-          block w-full text-center
-          px-6 py-3
-          bg-yellow-600 text-white
-          rounded-lg font-semibold
-          hover:bg-yellow-700
-          transition-colors
-        "
-                  >
-                    See all featured jobs
-                  </Link> */}
-                </div>
               </div>
             </div>
-
 
             {/* LEFT FILTER PANEL */}
-            <div className="filter-section md:col-span-2" ref={dropdownRef} >
-              {/* CLEAR FILTERS */}
-              <div className="bg-white p-4 rounded-lg" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
-                <div className="flex items-center justify-between mb-6">
-                  {activeFiltersCount > 0 && (
-                    <button
-                      onClick={clearFilters}
-                      className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700"
-                    >
-                      <X className="w-4 h-4" />
-                      Clear all ({activeFiltersCount})
-                    </button>
-                  )}
-                </div>
+            <div className="bg-white space-y-4 border rounded-lg p-2 md:col-span-2" ref={dropdownRef}>
+              <div className="rounded-lg p-8">
+                <h4 className="text-2xl"><b>Top Categories</b></h4>
 
-                <div className="flex flex-wrap gap-3">
-
-                  {/* SEARCH INPUT (FIXED ICON OVERLAP) */}
-                  <div className="flex items-center gap-3 flex-1
-                    border border-gray-300 rounded-full px-4 py-0
-                    hover:border-yellow-400 hover:bg-gray-50
-                    focus-within:ring-2 focus-within:ring-yellow-500 transition-all">
-
-                    {/* Icon */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      className="w-5 h-5 text-gray-400"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 21l-4.35-4.35m1.1-5.4a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-
-                    {/* Input Field */}
-                    <input
-                      type="text"
-                      value={filters.search}
-                      onChange={(e) =>
-                        setFilters({
-                          ...filters,
-                          search: e.target.value,
-                        })
-                      }
-                      placeholder="Search here..."
-                      className="search-input flex-1 bg-transparent outline-none w-full border-0 ring-0 focus:ring-0"
-                    />
-                  </div>
-
-
-
-
-                  {/* DROPDOWNS */}
-                  <div className="commonFilters flex-nowrap gap-5 p-4">
-                    <div className="flex gap-5 mb-5">
-                      {/* JOB TYPE */}
-                      <div className="relative">
-                        <select
-                          value={filters.employmentType}
-                          onChange={(e) =>
-                            setFilters({
-                              ...filters,
-                              employmentType: e.target.value,
-                            })
-                          }
-                          className="w-48 px-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
-                        >
-                          <option value="">Employment Type</option>
-                          <option value="Full-time">Full-time</option>
-                          <option value="Part-time">Part-time</option>
-                          <option value="Contract">Contract</option>
-                        </select>
+                <div className="flex justify-center">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 w-full">
+                    <li className="flex items-start group">
+                      <span className="mr-3 mt-1 flex-shrink-0">
+                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      <div className="job-title text-gray-900 cursor-pointer">
+                        Software Engineering <i className="text-gray-300">(3k likes)</i>
                       </div>
+                    </li>
 
-                      {/* REMOTE WORK */}
-                      <div className="relative">
-                        <select
-                          value={filters.remoteWork}
-                          onChange={(e) =>
-                            setFilters({
-                              ...filters,
-                              remoteWork: e.target.value,
-                            })
-                          }
-                          className="w-48 px-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
-                        >
-
-                          <option value="">Work-place Type</option>
-                          <option value="onsite">Onsite</option>
-                          <option value="hybrid">Hybrid</option>
-                          <option value="remote">Remote</option>
-                        </select>
-
+                    <li className="flex items-start group">
+                      <span className="mr-3 mt-1 flex-shrink-0">
+                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      <div className="job-title text-gray-900 cursor-pointer">
+                        Cloud Computing <i className="text-gray-300">(2k likes)</i>
                       </div>
+                    </li>
 
-                      {/* EXPERIENCE LEVEL */}
-                      <div className="relative">
-
-                        <select value={filters.experienceLevel}
-                          onChange={(e) =>
-                            setFilters({ ...filters, experienceLevel: e.target.value })
-                          }
-                          className="w-48 pl-9 pr-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50">
-                          <option value="">Experience Level</option>
-                          <option value="Entry Level">Entry Level</option>
-                          <option value="Mid Level">Mid Level</option>
-                          <option value="Senior Level">Senior Level</option>
-                        </select>
+                    <li className="flex items-start group">
+                      <span className="mr-3 mt-1 flex-shrink-0">
+                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      <div className="job-title text-gray-900 cursor-pointer">
+                        Data Science <i className="text-gray-300">(1k likes)</i>
                       </div>
-                    </div>
+                    </li>
 
-                    <div className="flex gap-5">
-                      {/* SALARY RANGE */}
-                      <div className="">
-                        <select
-                          value={filters.salaryRange}
-                          onChange={(e) =>
-                            setFilters({ ...filters, salaryRange: e.target.value })
-                          }
-                          className="w-48 pl-9 pr-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
-                        >
-                          <option value="">Salary Range</option>
-                          <option value="0-30k">$0 - $30,000</option>
-                          <option value="30k-50k">$30,000 - $50,000</option>
-                          <option value="50k-75k">$50,000 - $75,000</option>
-                          <option value="75k-100k">$75,000 - $100,000</option>
-                          <option value="100k-150k">$100,000 - $150,000</option>
-                          <option value="150k+">$150,000+</option>
-                        </select>
+                    <li className="flex items-start group">
+                      <span className="mr-3 mt-1 flex-shrink-0">
+                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      <div className="job-title text-gray-900 cursor-pointer">
+                        IT Management <i className="text-gray-300">(0.5k likes)</i>
                       </div>
-                      {/* POSTED WITHIN */}
-                      <select
-                        value={filters.postedWithin}
-                        onChange={(e) =>
-                          setFilters({
-                            ...filters,
-                            postedWithin: e.target.value,
-                          })
-                        }
-                        className="w-48 px-4 py-2 border border-gray-300 rounded-lg hover:border-yellow-300 hover:bg-gray-50"
-                      >
-                        <option value="">Posted Anytime</option>
-                        <option value="24h">Last 24 hours</option>
-                        <option value="3d">Last 3 days</option>
-                        <option value="7d">Last 7 days</option>
-                        <option value="14d">Last 14 days</option>
-                        <option value="30d">Last 30 days</option>
-                      </select>
-                      {/* APPLY */}
-                      <button onClick={applyFilters} className="w-48 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 whitespace-nowrap">
-                        <b>Filter Jobs</b>
-                      </button>
-                    </div>
-                  </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
+
 
           </div>
         </div>
