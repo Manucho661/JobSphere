@@ -348,7 +348,7 @@ const HomePage = () => {
               </div>
               {/* pagination */}
 
-              <div className="flex justify-center items-center mt-6 gap-2 ">
+              <div className="flex justify-center items-center mt-6 gap-2">
                 {/* Previous */}
                 <button
                   type="button"

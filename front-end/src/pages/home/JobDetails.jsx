@@ -298,21 +298,7 @@ const JobDetails = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6">
-                            <h4 class="font-semibold text-primary mb-3 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                                </svg>
-                                Note
-                            </h4>
-                            <p className="space-y-2 text-sm text-gray-700"> <i>JobSphere relies on <b>Donations</b> to run its activities and keep you updated about new opportunities, you can channel your contribution of any amount by clicking the  donate button below :-</i> </p>
-                            <div className='Donation flex'>
-                                <div className='flex items-center'> Your yearly donations <span className='mx-4'><b>KSH 0</b></span></div>
-                                {""} {""}
-
-                                <button className='mx-4 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900'> <b>Donate</b> </button>
-                            </div>
-                        </div>
+                        
                     </aside>
                     {/* <!-- Optional Sidebar --> */}
                 </div >
