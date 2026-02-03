@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 const AuthLayout = () => {
-  
+
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
       {/* Left Side */}
@@ -9,7 +9,7 @@ const AuthLayout = () => {
       {/* Right Side */}
       <div className="loginRightSide flex items-center justify-center bg-gray-900 p-6">
         <div className="mt-10 w-full max-w-md p-6 rounded-lg shadow-lg">
-      
+
           {/* Logo */}
 
           {/* Welcome Title */}
@@ -19,7 +19,7 @@ const AuthLayout = () => {
           </h2>
 
           {/* Form */}
-          <Outlet/>
+          <Outlet />
 
           {/* Separator */}
           <div className="flex items-center my-6">
@@ -29,25 +29,17 @@ const AuthLayout = () => {
           </div>
 
           {/* Social Login */}
+          {/* Social Login */}
           <div className="text-center space-y-3">
             <p className="text-white">Sign in with:</p>
-            <div className="flex justify-center space-x-3">
-              <button className="flex items-center space-x-2 bg-blue-600 px-4 py-2 rounded-lg text-white hover:bg-blue-700">
-                <i className="fab fa-facebook-f"></i>
-                <span>Facebook</span>
-              </button>
-              <button className="flex items-center space-x-2 bg-red-500 px-4 py-2 rounded-lg text-white hover:bg-red-600">
+            <div className="flex justify-center">
+              <button className="flex items-center justify-center space-x-2 bg-red-500 px-4 py-2 rounded-lg text-white hover:bg-red-600 w-full">
                 <i className="fab fa-google"></i>
                 <span>Google</span>
-              </button>
-              <button className="flex items-center space-x-2 bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-600">
-                <i className="fab fa-linkedin-in"></i>
-                <span>LinkedIn</span>
               </button>
             </div>
           </div>
 
-          
         </div>
       </div>
     </div>
