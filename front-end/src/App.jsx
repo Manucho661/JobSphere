@@ -7,6 +7,10 @@ import PostJob from "./pages/employers/PostJob";
 import CompanyProfile from './pages/employers/CompanyProfile';
 import EmployerLayout from './layouts/EmployerLayout';
 import ManageJobs from "./pages/employers/ManageJobs";
+// jobseeker
+import JobSeekerLayout from "./layouts/jobSeekerLayout";
+import Dashboard from './pages/jobSeeker/Dashboard';
+
 // Home
 import MainLayout from './layouts/MainLayout';
 import JobDetails from "./pages/home/JobDetails";
@@ -44,12 +48,18 @@ function App() {
       <Router>
         <Routes>
           {/* Main layout with nested route */}
+
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="jobDetails/:id" element={<JobDetails />} />
             <Route path="likedJobs" element={<LikedJobs />} />
             <Route path="SavedJobs" element={<SavedJobs />} />
-            <Route path="FeaturedJobs" element={<FeaturedJobs/>} />
+            <Route path="FeaturedJobs" element={<FeaturedJobs />} />
+          </Route>
+
+          {/* Jobseekerlayout */}
+          <Route element={<JobSeekerLayout />}>
+            <Route path="jobseeker" element={<Dashboard />} />
           </Route>
 
           {/* Auth layout for Register and Login pages */}

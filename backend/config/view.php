@@ -26,6 +26,6 @@ return [
     |
     */
 
-    'compiled' => env('LAMBDA', false) ? '/tmp/views' : storage_path('framework/views'),
+    'compiled' => env('VIEW_COMPILED_PATH', '/tmp/framework/views'),
 
 ];

@@ -6,8 +6,16 @@ provider:
   runtime: provided.al2
   environment:
     APP_ENV: production
-    APP_STORAGE: /tmp
+    APP_DEBUG: false
     APP_KEY: ${env:APP_KEY}
+
+    # Lambda writable storage
+    APP_STORAGE: /tmp
+    VIEW_COMPILED_PATH: /tmp/framework/views
+
+    # Safe defaults
+    CACHE_STORE: array
+    SESSION_DRIVER: cookie
     LOG_CHANNEL: stderr
 
 plugins:
@@ -26,5 +34,6 @@ package:
   patterns:
     - '!node_modules/**'
     - '!tests/**'
-    - '!storage/**'
     - '!vendor/bref/bref/tests/**'
+    - 'storage/**'
+    - 'bootstrap/cache/**'
