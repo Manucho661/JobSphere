@@ -14,14 +14,14 @@ const Header = () => {
     {
       id: 2,
       label: isLoggedIn ? userName : "Sign In",
-      to: isLoggedIn ? "/jobseeker" : "/login",
+      to: isLoggedIn ? "#" : "/login",
     },
 
     // Employer link logic
     ...(isLoggedIn
       ? userRole === "employer"
         ? [{ id: 3, label: "Dashboard", to: "/employer/dashboard" }]
-        : [{ id: 3, label: "Logout", to: "#" }] // jobseekers: no employer link
+        : [{ id: 3, label: "Profile", to: "#" }] // jobseekers: no employer link
       : [{ id: 3, label: "Employer", to: "/employer" }]),
   ];
 
