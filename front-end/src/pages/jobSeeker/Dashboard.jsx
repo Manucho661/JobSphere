@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 
 const NAVY = "#002B5B";
 const GOLD = "#FFC107";
+const storedUser = JSON.parse(localStorage.getItem("user"));
+const userName = storedUser?.name;
 
 const jobsData = [
   {
@@ -67,7 +69,7 @@ const JobCard = ({ job, saved, liked, onSave, onLike, onApply, applied }) => {
       background: "white",
       borderRadius: 16,
       padding: "24px",
-      border: "1.5px solid #E8EDF5",
+      border: "0",
       display: "flex",
       flexDirection: "column",
       gap: 16,
@@ -140,7 +142,7 @@ const JobCard = ({ job, saved, liked, onSave, onLike, onApply, applied }) => {
             display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16,
             transition: "all 0.15s",
           }} title="Save">{saved ? "🔖" : "📌"}</button>
-          <button onClick={() => onApply(job.id)} style={{
+          {/* <button onClick={() => onApply(job.id)} style={{
             background: applied ? "#E8EDF5" : `linear-gradient(135deg, ${NAVY}, #003f85)`,
             color: applied ? "#94A3B8" : "white",
             border: "none", borderRadius: 8, padding: "8px 18px",
@@ -148,7 +150,7 @@ const JobCard = ({ job, saved, liked, onSave, onLike, onApply, applied }) => {
             transition: "all 0.15s", letterSpacing: "0.02em",
           }}>
             {applied ? "Applied ✓" : "Apply Now"}
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
@@ -205,35 +207,19 @@ export default function Dashboard() {
       fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
     }}>
       {/* Header */}
-      <div style={{
-        background: NAVY,
-        padding: "0 32px",
-        position: "sticky", top: 0, zIndex: 100,
-       
-      }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 36, height: 36, background: GOLD, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18, color: NAVY }}>J</div>
-            <span style={{ color: "white", fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>JobBoard</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <button style={{ background: "rgba(255,255,255,0.1)", border: "none", color: "white", borderRadius: 8, padding: "8px 16px", cursor: "pointer", fontSize: 13, fontWeight: 600 }}>🔔 Alerts</button>
-            <div style={{ width: 36, height: 36, borderRadius: "50%", background: GOLD, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: NAVY, fontSize: 14, cursor: "pointer" }}>AJ</div>
-          </div>
-        </div>
-      </div>
+      
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 32px" }}>
         {/* Welcome + Stats */}
         <div style={{ marginBottom: 28 }}>
           <h1 style={{ color: NAVY, fontWeight: 800, fontSize: 28, margin: 0, letterSpacing: "-0.03em" }}>
-            Good morning, Alex 👋
+            Good morning, {userName} 👋
           </h1>
-          <p style={{ color: "#64748B", marginTop: 6, marginBottom: 24, fontSize: 15 }}>
+          {/* <p style={{ color: "#64748B", marginTop: 6, marginBottom: 24, fontSize: 15 }}>
             You have <strong style={{ color: NAVY }}>{jobsData.filter(j => j.personalized).length} personalized matches</strong> waiting for you today.
-          </p>
+          </p> */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-            {stats.map(s => (
+            {/* {stats.map(s => (
               <div key={s.label} style={{
                 background: "white", borderRadius: 14, padding: "20px 22px",
                 border: "1.5px solid #E8EDF5",
@@ -246,15 +232,15 @@ export default function Dashboard() {
                   <div style={{ fontSize: 10, color: "#059669", fontWeight: 600, marginTop: 2 }}>{s.sub}</div>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
 
         {/* Search & Filters */}
         <div style={{
           background: "white", borderRadius: 16, padding: "20px 24px",
-          border: "1.5px solid #E8EDF5", marginBottom: 24,
-         
+          border: "0", marginBottom: 24,
+
         }}>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
             {/* Search */}
@@ -276,58 +262,6 @@ export default function Dashboard() {
                 onBlur={e => e.target.style.borderColor = "#E8EDF5"}
               />
             </div>
-
-            {/* Type Filter */}
-            <select value={jobType} onChange={e => setJobType(e.target.value)} style={{
-              padding: "10px 14px", border: "1.5px solid #E8EDF5", borderRadius: 10,
-              fontSize: 13, color: NAVY, fontFamily: "inherit", background: "white",
-              cursor: "pointer", outline: "none", fontWeight: 600,
-            }}>
-              <option value="all">All Types</option>
-              <option value="Full-time">Full-time</option>
-              <option value="Contract">Contract</option>
-              <option value="Part-time">Part-time</option>
-            </select>
-
-            {/* Sort */}
-            <select value={sortBy} onChange={e => setSortBy(e.target.value)} style={{
-              padding: "10px 14px", border: "1.5px solid #E8EDF5", borderRadius: 10,
-              fontSize: 13, color: NAVY, fontFamily: "inherit", background: "white",
-              cursor: "pointer", outline: "none", fontWeight: 600,
-            }}>
-              <option value="match">Sort: Best Match</option>
-              <option value="recent">Sort: Most Recent</option>
-              <option value="salary">Sort: Salary</option>
-            </select>
-
-            {/* Match Filter */}
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 12, color: "#64748B", fontWeight: 600, whiteSpace: "nowrap" }}>Min match</span>
-              <select value={minMatch} onChange={e => setMinMatch(+e.target.value)} style={{
-                padding: "10px 12px", border: "1.5px solid #E8EDF5", borderRadius: 10,
-                fontSize: 13, color: NAVY, fontFamily: "inherit", background: "white",
-                cursor: "pointer", outline: "none", fontWeight: 600,
-              }}>
-                <option value={0}>Any</option>
-                <option value={70}>70%+</option>
-                <option value={80}>80%+</option>
-                <option value={90}>90%+</option>
-              </select>
-            </div>
-
-            {/* Remote Toggle */}
-            <button
-              onClick={() => setRemoteOnly(v => !v)}
-              style={{
-                padding: "10px 16px", borderRadius: 10, fontWeight: 700, fontSize: 13,
-                cursor: "pointer", transition: "all 0.15s",
-                border: `1.5px solid ${remoteOnly ? GOLD : "#E8EDF5"}`,
-                background: remoteOnly ? `${GOLD}20` : "white",
-                color: remoteOnly ? NAVY : "#64748B",
-              }}
-            >
-              🌐 Remote Only
-            </button>
           </div>
         </div>
 
@@ -335,7 +269,7 @@ export default function Dashboard() {
         <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
           <div style={{ flex: 1 }}>
             {/* Tabs */}
-            <div style={{ display: "flex", gap: 4, marginBottom: 20, background: "white", borderRadius: 12, padding: 4, border: "1.5px solid #E8EDF5", width: "fit-content" }}>
+            <div style={{ display: "flex", gap: 4, marginBottom: 20, background: "white", borderRadius: 12, padding: 4, border: "0", width: "fit-content" }}>
               {tabs.map(t => (
                 <button key={t.id} onClick={() => setActiveTab(t.id)} style={{
                   padding: "8px 16px", borderRadius: 8, border: "none",
@@ -362,7 +296,7 @@ export default function Dashboard() {
 
             {/* Cards */}
             {filtered.length === 0 ? (
-              <div style={{ textAlign: "center", padding: "60px 20px", color: "#94A3B8" }}>
+              <div style={{ textAlign: "center", padding: "60px 20px", color: "#94A3B8", border:"0" }}>
                 <div style={{ fontSize: 48, marginBottom: 12 }}>🔍</div>
                 <div style={{ fontWeight: 700, fontSize: 16, color: "#64748B" }}>No jobs found</div>
                 <div style={{ fontSize: 13, marginTop: 4 }}>Try adjusting your filters</div>
@@ -385,7 +319,7 @@ export default function Dashboard() {
           {/* Sidebar */}
           <div style={{ width: 280, flexShrink: 0, display: "flex", flexDirection: "column", gap: 16 }}>
             {/* Profile Completion */}
-            <div style={{ background: "white", borderRadius: 16, padding: "20px", border: "1.5px solid #E8EDF5" }}>
+            {/* <div style={{ background: "white", borderRadius: 16, padding: "20px", border: "1.5px solid #E8EDF5" }}>
               <div style={{ fontWeight: 800, color: NAVY, fontSize: 14, marginBottom: 14 }}>Profile Strength</div>
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
                 <div style={{ width: 52, height: 52, borderRadius: "50%", background: GOLD, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: NAVY, fontSize: 18 }}>AJ</div>
@@ -409,10 +343,10 @@ export default function Dashboard() {
                 background: NAVY, color: "white", border: "none", borderRadius: 9,
                 fontWeight: 700, fontSize: 12, cursor: "pointer",
               }}>Complete Profile →</button>
-            </div>
+            </div> */}
 
             {/* Job Alerts */}
-            <div style={{ background: `linear-gradient(135deg, ${NAVY}, #003f85)`, borderRadius: 16, padding: "20px", color: "white" }}>
+            {/* <div style={{ background: `linear-gradient(135deg, ${NAVY}, #003f85)`, borderRadius: 16, padding: "20px", color: "white" }}>
               <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>⚡ Job Alerts</div>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
                 Get notified instantly when new jobs match your profile.
@@ -422,10 +356,10 @@ export default function Dashboard() {
                 background: GOLD, color: NAVY, border: "none", borderRadius: 9,
                 fontWeight: 800, fontSize: 12, cursor: "pointer",
               }}>Enable Alerts</button>
-            </div>
+            </div> */}
 
             {/* Top Skills */}
-            <div style={{ background: "white", borderRadius: 16, padding: "20px", border: "1.5px solid #E8EDF5" }}>
+            <div style={{ background: "white", borderRadius: 16, padding: "20px", border: "0" }}>
               <div style={{ fontWeight: 800, color: NAVY, fontSize: 14, marginBottom: 14 }}>Your Top Skills</div>
               {["Figma", "Design Systems", "UX Research", "Prototyping", "React"].map((skill, i) => (
                 <div key={skill} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
@@ -438,7 +372,7 @@ export default function Dashboard() {
             </div>
 
             {/* Recent Activity */}
-            <div style={{ background: "white", borderRadius: 16, padding: "20px", border: "1.5px solid #E8EDF5" }}>
+            {/* <div style={{ background: "white", borderRadius: 16, padding: "20px", border: "1.5px solid #E8EDF5" }}>
               <div style={{ fontWeight: 800, color: NAVY, fontSize: 14, marginBottom: 14 }}>Recent Activity</div>
               {[
                 { icon: "✅", text: "Applied to Airbnb UI Designer", time: "1d ago" },
@@ -453,7 +387,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

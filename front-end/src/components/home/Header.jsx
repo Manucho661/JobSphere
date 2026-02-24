@@ -14,7 +14,7 @@ const Header = () => {
     {
       id: 2,
       label: isLoggedIn ? userName : "Sign In",
-      to: isLoggedIn ? "#" : "/login",
+      to: isLoggedIn ? "" : "/login",
     },
 
     // Employer link logic
