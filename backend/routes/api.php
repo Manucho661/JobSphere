@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JobLikeController;
+use App\Http\Controllers\JobNotificationController;
+use App\Http\Controllers\JobsController;
+use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\SavedJobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\JobsController;
-use App\Http\Controllers\JobLikeController;
-use App\Http\Controllers\SavedJobController;
-use App\Http\Controllers\JobNotificationController;
 
 // Public routes
 Route::get('/jobs', [JobsController::class, 'index']);  // Fetch list of jobs
@@ -30,6 +31,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/saved-jobs', [SavedJobController::class, 'index']);
     Route::post('/saved-jobs', [SavedJobController::class, 'store']);
     Route::delete('/saved-jobs/{id}', [SavedJobController::class, 'destroy']);
+});
+
+// job seeker routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/job-seeker-jobs', [JobSeekerController::class, 'index']);
 });
 
 // job likes
