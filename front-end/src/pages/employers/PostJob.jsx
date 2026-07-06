@@ -89,7 +89,7 @@ const PostJob = () => {
                             <h2 className="text-2xl font-bold text-primary">Post a New Job</h2>
                             <div className="flex gap-6">
                                 <p className="text-gray-500 text-sm">Fill in the details below to create your job listing</p>
-                                <p className="text-gray-500 text-sm">N/B All job listings are free of charge, however, If you want your Job listing to appear among the featured Jobs, <span className="underline cursor-pointer"><b>Pay KSH 1000.</b></span></p>
+                                
 
                             </div>
                         </div>
@@ -100,9 +100,7 @@ const PostJob = () => {
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                                 </svg>
                             </button>
-                            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-yellow-500 font-semibold">
-                                <b>JS</b>
-                            </div>
+                            
                         </div>
                     </div>
                 </header>
@@ -361,7 +359,7 @@ const PostJob = () => {
 
                         {/* warning */}
                         <div className="mt-4">
-                            <p><i className="text-red-500">Note : Posting Scam Jobs is an offense that can be charged in the kenyan court of law. Additionally, it will lead  to the deletion of your account. Thank you for your understanding.</i> </p>
+                            <p><i className="text-red-500">Note : Posting Scam Jobs  will lead  to the deletion of your account. Thank you for your understanding.</i> </p>
                         </div>
                     </div>
                 </div>

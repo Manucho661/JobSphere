@@ -15,8 +15,8 @@ body {
   grid-template-rows: 10vh 1fr auto;
   grid-template-areas:
     "header header"
-    "sidebar main"
-    "sidebar footer";
+    "employer-sidebar main"
+    "employer-sidebar footer";
 }
 
 .header {
@@ -38,8 +38,8 @@ body {
 }
 
 /* SIDEBAR */
-.sidebar {
-  grid-area: sidebar;
+.employer-sidebar {
+  grid-area: employer-sidebar;
   background-color: #002B5B;
   color: white;
   padding-top: 1rem;
@@ -62,13 +62,13 @@ body {
     flex-wrap: wrap;
   }
 
-  .sidebar {
+  .employer-sidebar {
     position: fixed;     /* float above content */
     top: 10vh;
     left: 0;
     width: 250px;        /* IMPORTANT */
     height: calc(100vh - 10vh);
-    transform: translateX(-100%);
+    /* transform: translateX(-100%); */
     transition: transform 0.3s ease;
     z-index: 999;
   }
@@ -103,7 +103,7 @@ body {
   overflow-y: auto;
 }
 
-.sidebar a {
+.employer-sidebar a {
   color: white;
   text-decoration: none;
   padding: 10px 20px;
@@ -111,12 +111,12 @@ body {
   transition: background-color 0.2s;
 }
 
-.sidebar a:hover,
-.sidebar .active {
+.employer-sidebar a:hover,
+.employer-sidebar .active {
   background-color: #495057;
 }
 
-.sidebar .submenu a {
+.employer-sidebar .submenu a {
   padding-left: 40px;
   font-size: 0.95rem;
 }

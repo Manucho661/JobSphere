@@ -283,11 +283,7 @@ const MainLayout = () => {
                 </div>
               </div>
             </div>
-
-
             {/* Upload CV */}
-
-
           </div>
         </div>
 
@@ -395,119 +391,6 @@ const MainLayout = () => {
                 <b>Apply</b>
               </button>
             </div>
-
-          </div>
-        </div>
-
-        {/* FILTERS SECTION */}
-        <div className="px-8">
-          <div className="grid md:grid-cols-4 gap-6">
-
-            {/* RIGHT SIDEBAR */}
-            <div className="md:col-span-2 bg-white space-y-4 border rounded-lg p-2" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
-              <div className="rounded-lg p-6">
-                <h4 className="text-2xl"><b>Popular Listings</b></h4>
-
-                <div className="flex justify-center">
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
-                    {featuredJobs?.length === 0 ? (
-                      <li className="flex items-start group col-span-2">
-                        <span className="mr-3 mt-1 flex-shrink-0">
-                          <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                            <path
-                              fillRule="evenodd"
-                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        <i>loading...</i>
-                      </li>
-                    ) : (
-                      featuredJobs.map((job) => (
-                        <li key={job.id} className="flex items-start group">
-                          <span className="mr-3 mt-1 flex-shrink-0">
-                            <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </span>
-
-                          <b>
-                            <Link
-                              to={`jobDetails/${job.id}`}
-                              className="text-gray-900 hover:text-yellow-600 transition-colors"
-                            >
-                              {job.job_title} at {job.employer.companyName}
-                            </Link>
-                          </b>
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-
-            {/* LEFT FILTER PANEL */}
-            <div className="bg-white space-y-4 border rounded-lg p-2 md:col-span-2" ref={dropdownRef}>
-              <div className="rounded-lg p-8">
-                <h4 className="text-2xl"><b>Top Categories</b></h4>
-
-                <div className="flex justify-center">
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 w-full">
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <div className="job-title text-gray-900 cursor-pointer">
-                        Software Engineering <i className="text-gray-300">(3k likes)</i>
-                      </div>
-                    </li>
-
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <div className="job-title text-gray-900 cursor-pointer">
-                        Cloud Computing <i className="text-gray-300">(2k likes)</i>
-                      </div>
-                    </li>
-
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <div className="job-title text-gray-900 cursor-pointer">
-                        Data Science <i className="text-gray-300">(1k likes)</i>
-                      </div>
-                    </li>
-
-                    <li className="flex items-start group">
-                      <span className="mr-3 mt-1 flex-shrink-0">
-                        <svg className="w-5 h-5" fill="#FFC107" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <div className="job-title text-gray-900 cursor-pointer">
-                        IT Management <i className="text-gray-300">(0.5k likes)</i>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
 
           </div>
         </div>

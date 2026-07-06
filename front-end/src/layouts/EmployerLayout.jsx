@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Sidebar from "../components/employers/Sidebar";
+import EmployerSidebar from "../components/employers/EmployerSidebar";
 import Header from "../components/employers/Header";
 import Footer from "../components/employers/Footer";
 import "./EmployerLayout.css";
@@ -9,7 +9,7 @@ const EmployerLayout = () => {
   return (
     <div className="employer-app-wrapper">
       <Header />
-      <Sidebar />
+      <EmployerSidebar />
       <div className="employerMain">
         <Outlet />
       </div>

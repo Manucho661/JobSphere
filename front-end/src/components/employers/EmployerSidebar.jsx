@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const EmployerSidebar = () => {
   return (
-    <nav id='sidebar' className="sidebar">
-      <h5 class="text-center text-uppercase">Dashboard</h5>
+    <nav id='sidebar' className="employer-sidebar">
+     
       <Link to="/employer/dashboard">🏠 Dashboard</Link>
       <Link to="/employer/post-job">➕ Post Job</Link> 
       <a href="#">🏢 Applications</a>
