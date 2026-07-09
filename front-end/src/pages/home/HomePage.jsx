@@ -5,13 +5,24 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PulsePreloader from "../../components/PulsePreloader"; // ✅ default import
 import { useOutletContext } from "react-router-dom";
-
+import LoginPopup from "../../components/home/modals/LoginPopup"
+import { useNavigate } from "react-router-dom";
 
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 
 const HomePage = () => {
+  // Navigate function
+  const navigate = useNavigate();
+
+  // navigate function
+  const handleLogin = () => {
+    setLoginModalOpen(false);
+    navigate("/login");
+  };
+
+
   // ✅ Outlet context
   const { filters, shouldFetch, setShouldFetch } = useOutletContext();
 
@@ -21,6 +32,9 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // login modal
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
 
   // ✅ CV modal state
   const [isUploadCvOpen, setUploadCvOpen] = useState(false);
@@ -211,8 +225,13 @@ const HomePage = () => {
     });
 
   const handleLike = async (jobId) => {
+
+    console.log('handle like clicked');
     const token = localStorage.getItem("auth_token");
-    if (!token) return;
+    if (!token) {
+      setLoginModalOpen(true)
+      return;
+    }
 
     // optimistic update
     setJobsList((prev) => toggleLikeInJobs(prev, jobId));
@@ -229,6 +248,12 @@ const HomePage = () => {
       // rollback
       setJobsList((prev) => toggleLikeInJobs(prev, jobId));
     }
+  };
+
+  // close login popup
+  const handleLoginClose = () => {
+    console.log('yoyo');
+    setLoginModalOpen(false);
   };
 
 
@@ -859,6 +884,13 @@ const HomePage = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {isLoginModalOpen && (
+        <LoginPopup
+          onClose={handleLoginClose}
+          onLogin={handleLogin}
+        />
       )}
     </>
   );
