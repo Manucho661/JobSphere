@@ -86,23 +86,23 @@ class JobsController extends Controller
             collect(explode("\n", $validated['responsibilities']))
                 ->filter()
                 ->each(fn($r) => JobResponsibility::create([
-                    'job_id' => $job->id,
+                    'job_listing_id' => $job->id,
                     'responsibility' => trim($r)
                 ]));
 
-            // Qualifications
+            // // Qualifications
             collect(explode("\n", $validated['requiredQualifications']))
                 ->filter()
                 ->each(fn($q) => JobQualification::create([
-                    'job_id' => $job->id,
+                    'job_listing_id' => $job->id,
                     'qualification' => trim($q)
                 ]));
 
-            // Benefits
+            // // Benefits
             collect(explode("\n", $validated['benefits']))
                 ->filter()
                 ->each(fn($b) => JobBenefit::create([
-                    'job_id' => $job->id,
+                    'job_listing_id' => $job->id,
                     'benefit' => trim($b)
                 ]));
 
