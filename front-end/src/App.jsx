@@ -8,7 +8,7 @@ import CompanyProfile from './pages/employers/CompanyProfile';
 import EmployerLayout from './layouts/EmployerLayout';
 import ManageJobs from "./pages/employers/ManageJobs";
 // jobseeker
-import JobSeekerLayout from "./layouts/jobSeekerLayout";
+import JobSeekerLayout from "./layouts/JobSeekerLayout";
 import Dashboard from './pages/jobSeeker/Dashboard';
 
 // Home
