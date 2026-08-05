@@ -9,8 +9,6 @@ import LoginPopup from "../../components/home/modals/LoginPopup"
 import { useNavigate } from "react-router-dom";
 
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 
 const HomePage = () => {
   // Navigate function
@@ -70,7 +68,7 @@ const HomePage = () => {
       try {
         setLoading(true);
 
-        const response = await apiClient.get(`${API_URL}/jobs`, {
+        const response = await apiClient.get("/jobs", {
           params: { page },
         });
 

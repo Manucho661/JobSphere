@@ -10,22 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      # Install frontend dependencies
-      - name: Install Frontend Dependencies
-        working-directory: frontend
-        run: npm ci
+      - name: Install frontend dependencies
+        working-directory: front-end
+        run: npm install
 
-      # Build React
       - name: Build React
-        working-directory: frontend
+        working-directory: front-end
         run: npm run build
+
+      - name: Prepare deployment
+        run: |
+          cp -r backend deploy
+          cp -r backend/public/* deploy/
+          rm -rf deploy/public
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.jobsphere.co.ke
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: deploy/
+          server-dir: /public_html/
