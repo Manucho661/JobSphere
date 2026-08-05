@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import apiClient from "../../api/apiClient";
 
 const Register = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -35,7 +34,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const res = await apiClient.post(`${API_URL}/register`, formData);
+      const res = await apiClient.post("/register", formData);
 
       toast.success(res.data.message || "Account created successfully 🎉");
 

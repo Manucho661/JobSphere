@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import PulsePreloader from "../../components/PulsePreloader";
 
 const JobDetails = () => {
-    const API_URL = import.meta.env.VITE_API_URL;
     const { id } = useParams();
     const [job, setJob] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -17,7 +16,7 @@ const JobDetails = () => {
     useEffect(() => {
         const fetchJob = async () => {
             try {
-                const response = await apiClient.get(`${API_URL}/jobs/${id}`);
+                const response = await apiClient.get(`/jobs/${id}`);
                 setJob(response.data);          // fixed
                 setIsSaved(response.data.is_saved ?? false);
             } catch (err) {
@@ -45,7 +44,7 @@ const JobDetails = () => {
             }
             if (isSaved) {
                 await apiClient.delete(
-                    `${API_URL}/saved-jobs/${id}`,
+                    `/saved-jobs/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -55,7 +54,7 @@ const JobDetails = () => {
                 setIsSaved(false);
             } else {
                 await apiClient.post(
-                    `${API_URL}/saved-jobs`,
+                    `/saved-jobs`,
                     { job_listing_id: id },
                     {
                         headers: {

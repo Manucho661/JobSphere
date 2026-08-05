@@ -5,8 +5,6 @@ import apiClient from "../../api/apiClient";
 const API_URL = import.meta.env.VITE_API_URL;
 
 
-
-
 const NAVY = "#002B5B";
 const GOLD = "#FFC107";
 const storedUser = JSON.parse(localStorage.getItem("user"));

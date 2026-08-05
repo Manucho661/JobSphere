@@ -4,8 +4,6 @@ import apiClient from "../../api/apiClient";
 
 
 const PostJob = () => {
-    // console.log("PostJob component rendered");
-    const API_URL = import.meta.env.VITE_API_URL;
 
     const [showPreview, setShowPreview] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -49,7 +47,7 @@ const PostJob = () => {
         try {
             const token = localStorage.getItem("auth_token");
             const res = await apiClient.post(
-                `${API_URL}/postJobs`,
+                "/postJobs",
                 formData,
                 {
                     headers: {
