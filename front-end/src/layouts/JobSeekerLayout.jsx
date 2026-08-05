@@ -4,7 +4,7 @@ import Footer from "../components/home/Footer";
 import "./jobseeker.css";
 import { Outlet } from "react-router-dom"; // ✅ Must import this!
 
-const EmployerLayout = () => {
+const JobSeekerLayout = () => {
   return (
     <div className="jobSeeker-app-wrapper">
       <Header />
@@ -17,4 +17,4 @@ const EmployerLayout = () => {
   );
 };
 
-export default EmployerLayout;
+export default JobSeekerLayout;
