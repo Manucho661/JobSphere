@@ -10,7 +10,7 @@ class JobBenefit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'job_id',
+        'job_listing_id',
         'benefit',
     ];
 
