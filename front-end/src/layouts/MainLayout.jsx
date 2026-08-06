@@ -8,7 +8,6 @@ import { Link, Outlet } from "react-router-dom";
 
 import "./mainlayout.css";
 import React, { useState, useEffect, useRef } from "react";
-const API_URL = import.meta.env.VITE_API_URL;
 
 import {
   X,
@@ -40,7 +39,7 @@ const MainLayout = () => {
   const [subError, setSubError] = useState('');
 
   // featured jobs
-  const API_URL = import.meta.env.VITE_API_URL;
+
 
   const dropdownRef = useRef(null);
 
@@ -116,7 +115,7 @@ const MainLayout = () => {
     try {
       // Send subscription data to AWS backend
       const response = await apiClient.post(
-        `${API_URL}/job-alerts/subscribe`,
+        "/job-alerts/subscribe",
         { email, categories: selectedCategories },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -163,7 +162,7 @@ const MainLayout = () => {
   useEffect(() => {
     const getFeaturedJobs = async () => {
       try {
-        const response = await apiClient.get(`${API_URL}/featuredJobs`);
+        const response = await apiClient.get("/featuredJobs");
         console.log(response.data);
         setFeaturedJobs(response.data);
       }

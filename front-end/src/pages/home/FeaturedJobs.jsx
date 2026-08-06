@@ -8,9 +8,6 @@ import { useOutletContext } from "react-router-dom";
 
 
 
-const API_URL = import.meta.env.VITE_API_URL;
-
-
 const FeaturedJobs = () => {
   // ✅ Outlet context
   const { filters, shouldFetch, setShouldFetch } = useOutletContext();
@@ -53,7 +50,7 @@ const FeaturedJobs = () => {
       try {
         setLoading(true);
 
-        const response = await apiClient.get(`${API_URL}/featuredJobs`, {
+        const response = await apiClient.get("/featuredJobs", {
           params: { page },
         });
 
@@ -81,7 +78,7 @@ const FeaturedJobs = () => {
       try {
         setLoading(true);
 
-        const response = await apiClient.get(`${API_URL}/jobs`, {
+        const response = await apiClient.get("/jobs", {
           params: { page, ...filters },
         });
 
@@ -183,7 +180,7 @@ const FeaturedJobs = () => {
 
     try {
       await apiClient.post(
-        `${API_URL}/job-likes/toggle`,
+        "job-likes/toggle",
         { job_listing_id: jobId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
