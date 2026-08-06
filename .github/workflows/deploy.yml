@@ -28,9 +28,15 @@ jobs:
 
       - name: Prepare deployment
         run: |
-          cp -r backend deploy
-          cp -r backend/public/* deploy/
+          mkdir deploy
+          cp -a backend/. deploy/
+          cp -a backend/public/. deploy/
           rm -rf deploy/public
+
+      - name: Verify deployment package
+        run: |
+          ls -la deploy
+          ls -la deploy/assets || true
 
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
