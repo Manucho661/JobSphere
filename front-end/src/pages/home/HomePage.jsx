@@ -90,7 +90,7 @@ const HomePage = () => {
   useEffect(() => {
     const getFeaturedJobs = async () => {
       try {
-        const response = await apiClient.get(`${API_URL}/featuredJobs`);
+        const response = await apiClient.get("/featuredJobs");
         console.log(response.data);
         setFeaturedJobs(response.data);
       }
@@ -129,7 +129,7 @@ const HomePage = () => {
       try {
         setLoading(true);
 
-        const response = await apiClient.get(`${API_URL}/jobs`, {
+        const response = await apiClient.get("/jobs", {
           params: { page, ...filters },
         });
 
@@ -236,7 +236,7 @@ const HomePage = () => {
 
     try {
       await apiClient.post(
-        `${API_URL}/job-likes/toggle`,
+        "/job-likes/toggle",
         { job_listing_id: jobId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
