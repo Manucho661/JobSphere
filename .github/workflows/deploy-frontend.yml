@@ -1,16 +1,18 @@
-name: Deploy JobSphere
+name: Deploy Frontend
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'front-end/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -18,32 +20,20 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install frontend dependencies
+      - name: Install Dependencies
         working-directory: front-end
-        run: npm install
+        run: npm ci
 
       - name: Build React
         working-directory: front-end
         run: npm run build
 
-      - name: Prepare deployment
-        run: |
-          mkdir deploy
-          cp -a backend/. deploy/
-          cp -a backend/public/. deploy/
-          rm -rf deploy/public
-
-      - name: Verify deployment package
-        run: |
-          ls -la deploy
-          ls -la deploy/assets || true
-
-      - name: FTP Deploy
+      - name: Deploy Frontend
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.jobsphere.co.ke
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: deploy/
+          local-dir: front-end/dist/
           server-dir: /public_html/
-          log-level: verbose
+          dangerous-clean-slate: false

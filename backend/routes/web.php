@@ -9,7 +9,7 @@ use App\Http\Controllers\AuthController;
 Route::post('/login', [AuthController::class, 'login']);  // Login user
 
 
-Route::get('/{any}', function () {
-    return response()->file(public_path('index.html'));
-})->where('any', '^(?!api).*$');
 
+Route::get('/{any}', function () {
+    return response()->file(base_path('react/index.html'));
+})->where('any', '^(?!api).*$');
