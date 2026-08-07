@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Services\Job\JobService;
 use App\Models\Employer;
 
 use App\Models\JobBenefit;
@@ -22,7 +22,9 @@ class JobsController extends Controller
 {
 
     public function __construct(
-        private readonly JobListingRepositoryInterface $jobs
+        private readonly JobListingRepositoryInterface $jobs,
+                private readonly JobService $jobService
+
     ) {}
     // GET /api/jobs
     public function index(Request $request)
@@ -32,98 +34,47 @@ class JobsController extends Controller
             return response()->json($jobs);
         } catch (\Throwable $e) {
             return response()->json([
-                'message' => 'Server Error — something went wrong.',
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
 
     public function store(Request $request)
-    {
-        // return response()->json([
-        //     'auth_id' => Auth::id(),
-        //     'user' => Auth::user(),
-        // ]);
+{
+    $validated = $request->validate([
+        'jobTitle' => 'required|string',
+        'employmentType' => 'required|string',
+        'category' => 'required|string',
+        'experienceLevel' => 'required|string',
+        'workPlace' => 'required|string',
+        'location' => 'required|string',
+        'description' => 'required|string',
+        'salaryMin' => 'required|numeric',
+        'salaryMax' => 'required|numeric',
+        'responsibilities' => 'required|string',
+        'requiredQualifications' => 'required|string',
+        'benefits' => 'required|string',
+    ]);
 
-        $validated = $request->validate([
-            'jobTitle' => 'required|string',
-            'employmentType' => 'required|string',
-            'category' => 'required|string',
-            'experienceLevel' => 'required|string',
-            'workPlace' => 'required|string',
-            'location' => 'required|string',
-            'description' => 'required|string',
-            'salaryMin' => 'required|numeric',
-            'salaryMax' => 'required|numeric',
-            'responsibilities' => 'required|string',
-            'requiredQualifications' => 'required|string',
-            'benefits' => 'required|string'
-        ]);
+    try {
 
-        // Get employer record linked to current user
-        $employer = Employer::where('user_id', Auth::id())->first();
+        $job = $this->jobService->createJob(
+            Auth::id(),
+            $validated
+        );
 
-        if (!$employer) {
-            return response()->json(['message' => 'Unauthorized: Not an employer'], 403);
-        }
+        return response()->json([
+            'message' => 'Job created successfully',
+            'job' => $job,
+        ], 201);
 
-        DB::beginTransaction();
+    } catch (\Throwable $e) {
 
-        try {
-            // ✅ Create job and auto-link employer_id
-            $job = $employer->jobs()->create([
-                'job_title' => $validated['jobTitle'],
-                'employment_type' => $validated['employmentType'],
-                'category' => $validated['category'],
-                'experience_level' => $validated['experienceLevel'],
-                'work_place' => $validated['workPlace'],
-                'location' => $validated['location'],
-                'description' => $validated['description'],
-                'salary_min' => $validated['salaryMin'],
-                'salary_max' => $validated['salaryMax'],
-            ]);
-
-            // Responsibilities
-            collect(explode("\n", $validated['responsibilities']))
-                ->filter()
-                ->each(fn($r) => JobResponsibility::create([
-                    'job_listing_id' => $job->id,
-                    'responsibility' => trim($r)
-                ]));
-
-            // // Qualifications
-            collect(explode("\n", $validated['requiredQualifications']))
-                ->filter()
-                ->each(fn($q) => JobQualification::create([
-                    'job_listing_id' => $job->id,
-                    'qualification' => trim($q)
-                ]));
-
-            // // Benefits
-            collect(explode("\n", $validated['benefits']))
-                ->filter()
-                ->each(fn($b) => JobBenefit::create([
-                    'job_listing_id' => $job->id,
-                    'benefit' => trim($b)
-                ]));
-
-            DB::commit();
-
-            // Send email notifications (optional: use queue)
-            // Dispatch the job to the queue
-            // SendNewJobNotification::dispatch($job);
-
-            return response()->json([
-                'message' => 'Job created successfully',
-                'job' => $job,
-            ], 201);
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            return response()->json([
-                'error' => 'Something went wrong while creating the job',
-                'details' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'error' => $e->getMessage(),
+        ], 500);
     }
+}
 
 
     public function show($id)

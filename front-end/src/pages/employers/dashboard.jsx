@@ -52,7 +52,7 @@ const EmployerDashboard = () => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm font-medium">Total Views</p>
-              <p class="text-3xl font-bold text-primary mt-2">3,248</p>
+              <p class="text-3xl font-bold text-primary mt-2">0</p>
               <p class="text-green-600 text-sm mt-2">+215 this week</p>
             </div>
             <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
@@ -68,7 +68,7 @@ const EmployerDashboard = () => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm font-medium">Job Clicks</p>
-              <p class="text-3xl font-bold text-primary mt-2">487</p>
+              <p class="text-3xl font-bold text-primary mt-2">0</p>
               <p class="text-green-600 text-sm mt-2">+42 this week</p>
             </div>
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
@@ -83,7 +83,7 @@ const EmployerDashboard = () => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm font-medium">Days Remaining</p>
-              <p class="text-3xl font-bold text-primary mt-2">18</p>
+              <p class="text-3xl font-bold text-primary mt-2">0</p>
               <p class="text-accent text-sm mt-2 font-medium">On current plan</p>
             </div>
             <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
