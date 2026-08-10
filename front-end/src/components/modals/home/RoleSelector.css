@@ -1,0 +1,196 @@
+/* ==========================================================
+   RoleSelector modal — page-specific styles
+   Uses the same color variables and fonts as the Jobsphere
+   homepage. No hex values are defined here.
+   ========================================================== */
+
+:root {
+  /* Primary */
+  --primary-color: #002B5B;
+  /* Deep Navy */
+  --primary-dark: #001A36;
+  /* Dark Navy */
+
+  /* Supporting */
+  --secondary-color: #1E4A73;
+  /* Soft Navy */
+
+  /* Surfaces */
+  --surface-color: #FFFFFF;
+  /* White */
+  --background-soft: #F3F6F9;
+  /* Very Soft Blue-Gray */
+  --cream-color: #FFF9E6;
+  /* Soft Warm Yellow */
+
+  /* Accent */
+  --accent-color: #FFC107;
+  /* Amber / Yellow */
+  --accent-dark: #D99F00;
+  /* Dark Amber */
+
+  /* Text */
+  --text-color: #17212B;
+  /* Dark Blue-Gray */
+  --muted-text: #66727D;
+  /* Muted Blue-Gray */
+
+  /* Borders / subtle UI */
+  --border-color: #DCE3E9;
+  /* Light Blue-Gray */
+}
+
+.jobsphere-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 60, 50, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 1050;
+}
+
+.jobsphere-modal-window {
+  position: relative;
+  width: 100%;
+  max-width: 42rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--surface-color, #fff);
+  border-radius: 16px;
+  padding: 2.5rem 2rem 2rem;
+  box-shadow: 0 30px 60px -20px rgba(8, 60, 50, 0.35);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-color);
+}
+
+.jobsphere-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--muted-text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.jobsphere-modal-close svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.jobsphere-modal-close:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.jobsphere-modal-header {
+  text-align: center;
+  max-width: 30rem;
+  margin: 0 auto 2rem;
+}
+
+.jobsphere-modal-title {
+  font-family: "Fraunces", "Georgia", serif;
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+  color: var(--text-color);
+  margin-bottom: 0.6rem;
+}
+
+.jobsphere-modal-sub {
+  color: var(--muted-text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ---------- Role cards ---------- */
+
+.jobsphere-role-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.jobsphere-role-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  background: var(--background-soft);
+  border: 1.5px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+
+.jobsphere-role-card:hover,
+.jobsphere-role-card:focus-visible {
+  border-color: var(--secondary-color);
+  background: #fff;
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.jobsphere-role-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.jobsphere-role-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.jobsphere-role-title {
+  font-family: "Fraunces", serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.jobsphere-role-text {
+  color: var(--muted-text);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin-bottom: 1.1rem;
+}
+
+.jobsphere-role-cta {
+  margin-top: auto;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 575.98px) {
+  .jobsphere-modal-window {
+    padding: 2.25rem 1.25rem 1.5rem;
+  }
+
+  .jobsphere-role-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jobsphere-role-card {
+    transition: none;
+  }
+}

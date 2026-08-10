@@ -1,17 +1,32 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import apiClient from "../../api/apiClient";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // validate role
+  const role = searchParams.get("role");
+
+  useEffect(() => {
+    const validRoles = ["employer", "jobseeker"];
+
+    if (!role || !validRoles.includes(role)) {
+      navigate("/");
+    }
+  }, [role, navigate]);
+
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    role: "employer",
+    role,
   });
 
   const [loading, setLoading] = useState(false);
@@ -63,7 +78,19 @@ const Register = () => {
         {/* Name */}
         <div>
           <label className="block text-sm font-medium text-white mb-1">
-            <i className="fas fa-user mr-2"></i>Company / Institution Name
+            {
+              role === "employer" ? (
+                <>
+                  <i className="fas fa-building mr-2"></i>
+                  Company / Institution Name
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-user mr-2"></i>
+                  Full Name
+                </>
+              )
+            }
           </label>
           <input
             type="text"
@@ -155,11 +182,10 @@ const Register = () => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full flex items-center justify-center gap-2 font-bold py-2 rounded-lg transition ${
-            loading
-              ? "bg-gray-500 cursor-not-allowed"
-              : "bg-yellow-400 hover:bg-yellow-500 text-gray-900"
-          }`}
+          className={`w-full flex items-center justify-center gap-2 font-bold py-2 rounded-lg transition ${loading
+            ? "bg-gray-500 cursor-not-allowed"
+            : "bg-yellow-400 hover:bg-yellow-500 text-gray-900"
+            }`}
         >
           {loading && (
             <span className="w-4 h-4 border-2 border-gray-900 border-t-transparent rounded-full animate-spin"></span>

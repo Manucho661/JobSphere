@@ -1,9 +1,11 @@
 import Header from "../components/home/Header";
 import Footer from "../components/home/Footer";
+import { useNavigate } from "react-router-dom";
+
 // import FeaturedJobs from "../components/home/FeaturedJobs.jsx";
 import TypingText from "../components/home/TypingText";
 import apiClient from "../api/apiClient";
-
+import RoleSelector from "../components/modals/home/RoleSelector";
 import { Link, Outlet } from "react-router-dom";
 
 import "./mainlayout.css";
@@ -14,6 +16,9 @@ import {
 } from "lucide-react";
 
 const MainLayout = () => {
+
+  const navigate = useNavigate();
+
   const [filters, setFilters] = useState({
     search: "",
     employmentType: "",
@@ -37,6 +42,9 @@ const MainLayout = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [subError, setSubError] = useState('');
+
+  // role state
+  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
 
   // featured jobs
 
@@ -156,6 +164,13 @@ const MainLayout = () => {
   };
 
 
+  // register
+  function handleRoleSelect(role) {
+    console.log("Selected role:", role);
+    setIsRoleModalOpen(false);
+
+    navigate(`/register?role=${encodeURIComponent(role)}`);
+  }
 
 
   // get featured jobs
@@ -232,7 +247,7 @@ const MainLayout = () => {
 
   return (
     <div className="app-wrapper">
-      <Header />
+      <Header showRoleModal={setIsRoleModalOpen} />
 
       <main className="main min-h-screen py-2">
 
@@ -572,6 +587,12 @@ const MainLayout = () => {
           </div>
         )
       }
+
+      <RoleSelector
+        isOpen={isRoleModalOpen}
+        onClose={() => setIsRoleModalOpen(false)}
+        onSelectRole={handleRoleSelect}
+      />
     </div>
   );
 };

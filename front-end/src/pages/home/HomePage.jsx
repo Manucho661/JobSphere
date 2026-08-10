@@ -21,6 +21,7 @@ const HomePage = () => {
   };
 
 
+
   // ✅ Outlet context
   const { filters, shouldFetch, setShouldFetch } = useOutletContext();
 
@@ -59,6 +60,7 @@ const HomePage = () => {
     console.log("Message:", err.response.data?.message);
     console.log("Internal:", err.response.data?.error);
   };
+
 
   // -------------------------
   // Fetch jobs (initial load)
@@ -440,7 +442,7 @@ const HomePage = () => {
                             setShouldFetch(true);
                           }}
                           className="px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200
-            bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
+                          bg-white text-[#002B5B] hover:bg-yellow-100 border border-gray-200 min-w-[44px]"
                         >
                           1
                         </button>
@@ -890,6 +892,8 @@ const HomePage = () => {
           onLogin={handleLogin}
         />
       )}
+
+     
     </>
   );
 };
