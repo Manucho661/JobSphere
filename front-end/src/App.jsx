@@ -17,10 +17,9 @@ import JobDetails from "./pages/home/JobDetails";
 import LikedJobs from "./pages/home/LikedJobs";
 import SavedJobs from "./pages/home/SavedJobs";
 import FeaturedJobs from "./pages/home/FeaturedJobs";
-import AuthLayout from "./layouts/AuthLayout";
+
 // Auth
-import Register from './pages/auth/Register';
-import JobSeekerSignUp from "./pages/auth/JobSeekerSignUp";
+import Register1 from './pages/auth/Register';
 import Login from "./pages/auth/login";
 import ProtectedRoute from "./pages/auth/ProtectRoute";
 // navigate
@@ -63,11 +62,10 @@ function App() {
           </Route>
 
           {/* Auth layout for Register and Login pages */}
-          <Route element={<AuthLayout />}>
-            <Route path="/register" element={<Register />} />
-            <Route path="/job-seeker-sign-up" element={<JobSeekerSignUp />} />
-            <Route path="/login" element={<Login />} />
-          </Route>
+          <Route path="/register" element={<Register1 />} />
+          <Route path="/login" element={<Login />} />
+
+
 
           {/* Employer layout with nested routes, protected for logged-in employers */}
           <Route element={<ProtectedRoute roles={['employer']} />}>
@@ -81,7 +79,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
-    </AuthProvider>
+    </AuthProvider >
   );
 }
 
