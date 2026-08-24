@@ -28,19 +28,30 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const data = await login(formData.email, formData.password);
+      const data = await login(
+        formData.email,
+        formData.password
+      );
+
       const user = data.user;
 
-      toast.success("Login successful 🎉");
+      toast.success("Login successful");
 
       if (user.role === "employer") {
         navigate("/employer/dashboard");
       } else {
         navigate("/");
       }
+
     } catch (err) {
       console.error(err);
-      toast.error("Invalid email or password");
+
+      const message =
+        err.response?.data?.message ||
+        "Something went wrong. Please try again.";
+
+      toast.error(message);
+
     } finally {
       setLoading(false);
     }

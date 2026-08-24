@@ -12,8 +12,8 @@ const EmployerLayout = () => {
       <EmployerSidebar />
       <div className="employerMain">
         <Outlet />
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };

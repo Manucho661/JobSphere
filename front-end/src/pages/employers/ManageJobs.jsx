@@ -198,7 +198,7 @@ const ManageJobs = () => {
                     <div className="stat-card bg-white rounded-lg shadow p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-gray-500 text-sm font-medium">Active Jobs</p>
+                                <p className="text-gray-500 text-sm font-medium">Active Job</p>
                                 <p className="text-3xl font-bold text-primary mt-2">{jobCount}</p>
                                 <p className="text-green-600 text-sm mt-2">+2 this week</p>
                             </div>

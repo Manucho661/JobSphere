@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <>
-            <footer className="footer bg-white m-0 px-4 text-black pt-5 pb-4 mt-5 border-0">
+            <footer className="footer m-0 px-4 text-black pt-5 pb-4 mt-5 border-0 rounded-md" style={{background: '#002B5B'}}>
                 <div className="footer-grid max-w-6xl mx-auto flex flex-wrap justify-between gap-8">
 
                     {/* About Section */}
                     <div className="footer-section flex-1 min-w-[200px]">
-                        <h2 className="text-[#002B5B] mb-4 text-2xl font-semibold">JobSphere</h2>
+                        <h2 className="mb-4 text-2xl font-semibold">JobSphere</h2>
 
-                        <p>
+                        <p className='text-white'>
                             Jobsphere connects employers with the best talent. Post jobs, discover talents, and recruit with ease — all in one platform
                         </p>
                     </div>
@@ -18,8 +18,8 @@ const Footer = () => {
                     {/* Links Section */}
                     <div className="footer-section flex-1 min-w-[200px]">
 
-                        <h2 className="text-[#002B5B] mb-4 text-2xl font-semibold">Quick Links</h2>
-                        <ul className="space-y-2">
+                        <h2 className=" mb-4 text-2xl font-semibold">Quick Links</h2>
+                        <ul className="space-y-2 text-white">
                             <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Home</a></li>
                             <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Jobs</a></li>
                             <li><a href="#" className="hover:text-[#FFC107] hover:underline transition-colors">Post a Job</a></li>
@@ -28,8 +28,8 @@ const Footer = () => {
                     </div>
 
                     {/* Contact Section */}
-                    <div className="footer-section flex-1 min-w-[200px]">
-                        <h2 className="text-blue mb-4 text-2xl font-semibold">Contact Us</h2>
+                    <div className=" text-white footer-section flex-1 min-w-[200px]">
+                        <h2 className="mb-4 text-2xl font-semibold">Contact Us</h2>
 
                         <p className="flex items-center gap-2">
                             <i className="fas fa-phone-alt"></i> +254 712 345 678

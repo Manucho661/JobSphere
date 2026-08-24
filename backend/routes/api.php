@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployerDashboardController;
 use App\Http\Controllers\JobLikeController;
 use App\Http\Controllers\JobNotificationController;
 use App\Http\Controllers\JobsController;
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/jobs', [JobsController::class, 'index']);  // Fetch list of jobs
 Route::post('/register', [AuthController::class, 'register']);  // Register new user
 Route::post('/login', [AuthController::class, 'login']);  // Login user
+
+// Employer dashboard
+Route::middleware('auth:sanctum')->get('/employer-dashboard', [EmployerDashboardController::class, 'index']);
 
 Route::middleware('auth:sanctum')->post('/postJobs', [JobsController::class, 'store']);
 Route::middleware('auth:sanctum')->put('/updateJobs/{id}', [JobsController::class, 'update']);

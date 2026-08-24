@@ -44,20 +44,40 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        try {
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required', 'string'],
+            ]);
 
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            // Invalid credentials are an expected authentication failure,
+            // so don't throw an exception.
+            if (!Auth::attempt($credentials)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid credentials.'
+                ], 401);
+            }
+
+            $user = Auth::user();
+
+            $user->load('employer.jobListings');
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful.',
+                'user' => $user,
+                'token' => $token
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Server error. Please try again later.'
+            ], 500);
         }
-
-        $user = Auth::user();
-        $user->load('employer.jobs');
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-            'token' => $token
-        ]);
     }
 }

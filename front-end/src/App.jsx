@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from './pages/home/HomePage';
 import { AuthProvider } from "./pages/auth/AuthContext";
 // employer
-import Employer from './pages/employers/dashboard';
+import EmployerDashboard from './pages/employers/dashboard';
+
 import PostJob from "./pages/employers/PostJob";
 import CompanyProfile from './pages/employers/CompanyProfile';
 import EmployerLayout from './layouts/EmployerLayout';
@@ -71,7 +72,7 @@ function App() {
           <Route element={<ProtectedRoute roles={['employer']} />}>
             <Route path="employer" element={<EmployerLayout />}>
               <Route index element={<Navigate to="dashboard" replace />} />
-              <Route path="dashboard" element={<Employer />} />
+              <Route path="dashboard" element={<EmployerDashboard />} />
               <Route path="post-job" element={<PostJob />} />
               <Route path="manage-jobs" element={<ManageJobs />} />
               <Route path="company-profile" element={<CompanyProfile />} />
