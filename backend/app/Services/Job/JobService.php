@@ -3,10 +3,12 @@
 namespace App\Services\Job;
 
 use App\Models\Employer;
-use App\Models\JobListing;
 use App\Models\JobBenefit;
+use App\Models\JobListing;
 use App\Models\JobQualification;
 use App\Models\JobResponsibility;
+use App\Models\User;
+use App\Repositories\Eloquent\JobListingRepository;
 use Illuminate\Support\Facades\DB;
 
 class JobService
@@ -21,7 +23,7 @@ class JobService
 
         return DB::transaction(function () use ($employer, $data) {
 
-            $job = $employer->jobs()->create([
+            $job = $employer->jobListings()->create([
                 'job_title' => $data['jobTitle'],
                 'employment_type' => $data['employmentType'],
                 'category' => $data['category'],
@@ -35,7 +37,8 @@ class JobService
 
             collect(explode("\n", $data['responsibilities']))
                 ->filter()
-                ->each(fn ($responsibility) =>
+                ->each(
+                    fn($responsibility) =>
                     JobResponsibility::create([
                         'job_listing_id' => $job->id,
                         'responsibility' => trim($responsibility),
@@ -44,7 +47,8 @@ class JobService
 
             collect(explode("\n", $data['requiredQualifications']))
                 ->filter()
-                ->each(fn ($qualification) =>
+                ->each(
+                    fn($qualification) =>
                     JobQualification::create([
                         'job_listing_id' => $job->id,
                         'qualification' => trim($qualification),
@@ -53,7 +57,8 @@ class JobService
 
             collect(explode("\n", $data['benefits']))
                 ->filter()
-                ->each(fn ($benefit) =>
+                ->each(
+                    fn($benefit) =>
                     JobBenefit::create([
                         'job_listing_id' => $job->id,
                         'benefit' => trim($benefit),
@@ -62,5 +67,14 @@ class JobService
 
             return $job;
         });
+    }
+
+    public function getJobsForUser(?User $user)
+    {
+        if (!$user) {
+        }
+
+        if ($user->role === 'employer') {
+        }
     }
 }

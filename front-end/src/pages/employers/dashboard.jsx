@@ -136,13 +136,13 @@ const EmployerDashboard = () => {
                   >
                     <div className="flex-1">
                       <div className="flex items-center space-x-3">
-                        <h4 className="font-semibold text-primary">{job.jobTitle}</h4>
+                        <h4 className="font-semibold text-primary">{job.job_title}</h4>
                         <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
                           Active
                         </span>
                       </div>
                       <p className="text-sm text-gray-500 mt-1">
-                        Remote • Full-time • Posted 2 days ago
+                        {job.work_place} • Full-time • Posted 2 days ago
                       </p>
                       <div className="flex items-center mt-2 space-x-4">
                         <span className="text-sm text-gray-600">👁️ 842 views</span>

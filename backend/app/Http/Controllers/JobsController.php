@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Services\Job\JobService;
 use App\Models\Employer;
 
@@ -23,7 +24,7 @@ class JobsController extends Controller
 
     public function __construct(
         private readonly JobListingRepositoryInterface $jobs,
-                private readonly JobService $jobService
+        private readonly JobService $jobService
 
     ) {}
     // GET /api/jobs
@@ -40,41 +41,40 @@ class JobsController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'jobTitle' => 'required|string',
-        'employmentType' => 'required|string',
-        'category' => 'required|string',
-        'experienceLevel' => 'required|string',
-        'workPlace' => 'required|string',
-        'location' => 'required|string',
-        'description' => 'required|string',
-        'salaryMin' => 'required|numeric',
-        'salaryMax' => 'required|numeric',
-        'responsibilities' => 'required|string',
-        'requiredQualifications' => 'required|string',
-        'benefits' => 'required|string',
-    ]);
+    {
+        $validated = $request->validate([
+            'jobTitle' => 'required|string',
+            'employmentType' => 'required|string',
+            'category' => 'required|string',
+            'experienceLevel' => 'required|string',
+            'workPlace' => 'required|string',
+            'location' => 'required|string',
+            'description' => 'required|string',
+            'salaryMin' => 'required|numeric',
+            'salaryMax' => 'required|numeric',
+            'responsibilities' => 'required|string',
+            'requiredQualifications' => 'required|string',
+            'benefits' => 'required|string',
+        ]);
 
-    try {
+        try {
 
-        $job = $this->jobService->createJob(
-            Auth::id(),
-            $validated
-        );
+            $job = $this->jobService->createJob(
+                Auth::id(),
+                $validated
+            );
 
-        return response()->json([
-            'message' => 'Job created successfully',
-            'job' => $job,
-        ], 201);
+            return response()->json([
+                'message' => 'Job created successfully',
+                'job' => $job,
+            ], 201);
+        } catch (\Throwable $e) {
 
-    } catch (\Throwable $e) {
-
-        return response()->json([
-            'error' => $e->getMessage(),
-        ], 500);
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
-}
 
 
     public function show($id)

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployerDashboardController;
+use App\Http\Controllers\EmployerJobController;
 use App\Http\Controllers\JobLikeController;
 use App\Http\Controllers\JobNotificationController;
 use App\Http\Controllers\JobsController;
@@ -17,6 +18,9 @@ Route::post('/login', [AuthController::class, 'login']);  // Login user
 
 // Employer dashboard
 Route::middleware('auth:sanctum')->get('/employer-dashboard', [EmployerDashboardController::class, 'index']);
+
+// employer jobs
+Route::middleware('auth:sanctum')->get('/employer/jobs', [EmployerJobController::class, 'index']);
 
 Route::middleware('auth:sanctum')->post('/postJobs', [JobsController::class, 'store']);
 Route::middleware('auth:sanctum')->put('/updateJobs/{id}', [JobsController::class, 'update']);

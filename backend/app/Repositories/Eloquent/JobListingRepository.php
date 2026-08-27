@@ -37,7 +37,7 @@ class JobListingRepository implements JobListingRepositoryInterface
             ])
             ->latest();
 
-        // 1️⃣ Search
+        // Search
         if ($request->filled('search')) {
             $search = $request->string('search')->toString();
 
@@ -47,22 +47,22 @@ class JobListingRepository implements JobListingRepositoryInterface
             });
         }
 
-        // 2️⃣ Employment Type
+        // Employment Type
         if ($request->filled('employmentType')) {
             $query->where('employment_type', $request->string('employmentType')->toString());
         }
 
-        // 3️⃣ Work Mode
+        // Work Mode
         if ($request->filled('remoteWork')) {
             $query->where('work_place', $request->string('remoteWork')->toString());
         }
 
-        // 4️⃣ Experience Level
+        // Experience Level
         if ($request->filled('experienceLevel')) {
             $query->where('experience_level', $request->string('experienceLevel')->toString());
         }
 
-        // 5️⃣ Posted Within
+        // 5️Posted Within
         if ($request->filled('postedWithin')) {
             $timeMap = [
                 '24h' => now()->subDay(),
