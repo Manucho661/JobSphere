@@ -409,7 +409,9 @@ const MainLayout = () => {
           </div>
         </div>
 
-        <Outlet context={{ filters, shouldFetch, setShouldFetch, page }} />
+        <div className="container mx-auto" style={{paddingLeft: '5%', paddingRight: '5%', width: '90%'}}>
+          <Outlet context={{ filters, shouldFetch, setShouldFetch, page }} />
+        </div>
 
       </main>
 

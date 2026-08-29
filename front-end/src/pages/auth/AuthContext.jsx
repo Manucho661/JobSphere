@@ -9,23 +9,35 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [token, setToken] = useState(localStorage.getItem('auth_token') || '');
 
     // Fetch user data if token exists
     useEffect(() => {
-        if (token) {
-            apiClient
-                .get(`${API_URL}/user`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                .then((response) => {
-                    setUser(response.data);
-                })
-                .catch(() => {
-                    localStorage.removeItem('auth_token');
-                    setToken('');
-                });
+        if (!token) {
+            setLoading(false);
+            return;
         }
+
+        apiClient
+            .get(`${API_URL}/user`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                setUser(response.data);
+            })
+            .catch(() => {
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('user');
+                setToken('');
+                setUser(null);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+
     }, [token]);
 
     // Login function
@@ -67,7 +79,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout }}>
+        <AuthContext.Provider value={{ user, token, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

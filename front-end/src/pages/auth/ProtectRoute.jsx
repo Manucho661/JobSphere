@@ -2,18 +2,20 @@
 import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import AuthContext from './AuthContext';
+import LoadingScreen from '../../components/LoadingScreen';
 
 const ProtectedRoute = ({ roles }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  // If the user is not logged in or doesn't have the correct role, redirect them
-  if (!user || (roles && !roles.includes(user.role))) {
-    console.log("ProtectedRoute -> user:", user);
-
-    return <Navigate to="/login" />;
+  if (loading) {
+    return <LoadingScreen />;
   }
 
-  return <Outlet />; // If logged in and authorized, render the nested routes
+  if (!user || (roles && !roles.includes(user.role))) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
