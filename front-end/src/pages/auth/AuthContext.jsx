@@ -3,8 +3,6 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import apiClient from "../../api/apiClient"; // Ensure apiClient is set up to handle axios requests
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -20,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         apiClient
-            .get(`${API_URL}/user`, {
+            .get(`/user`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
