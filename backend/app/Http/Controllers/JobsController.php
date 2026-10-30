@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\DB;
 use App\Jobs\SendNewJobNotification;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobPreferredQualification;
-use App\Repositories\Contracts\JobListingRepositoryInterface;
 
 
 class JobsController extends Controller
 {
 
     public function __construct(
-        private readonly JobListingRepositoryInterface $jobs,
         private readonly JobService $jobService
 
     ) {}
@@ -31,8 +29,21 @@ class JobsController extends Controller
     public function index(Request $request)
     {
         try {
-            $jobs = $this->jobs->paginateForIndex($request, 7);
-            return response()->json($jobs);
+            $jobs = JobListing::with('employer:id,companyName')
+                ->withCount('likes')
+                ->paginate(10);
+
+            $featuredJobs = JobListing::with('employer:id,companyName')
+                ->withCount('likes')
+                ->orderByDesc('likes_count')
+                ->orderByDesc('created_at')
+                ->take(4)
+                ->get();
+
+            return response()->json([
+                'jobs' => $jobs,
+                'featuredJobs' => $featuredJobs
+            ]);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage(),

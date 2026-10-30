@@ -74,8 +74,10 @@ const HomePage = () => {
           params: { page },
         });
 
-        setJobsData(response.data);        // pagination + metadata
-        setJobsList(response.data.data);   // actual jobs array
+        setJobsData(response.data.jobs);        // pagination + metadata
+        setJobsList(response.data.jobs.data);   // actual jobs array
+        setFeaturedJobs(response.data.featuredJobs);
+
       } catch (err) {
         console.error(err);
         setError("Failed to fetch job listings.");
@@ -87,38 +89,6 @@ const HomePage = () => {
 
     fetchInitialJobs();
   }, []); // run once on mount
-
-  // get featured jobs
-  useEffect(() => {
-    const getFeaturedJobs = async () => {
-      try {
-        const response = await apiClient.get("/featuredJobs");
-        console.log(response.data);
-        setFeaturedJobs(response.data);
-      }
-      catch (err) {
-        setError("Failed to fetch featured job listings.");
-
-        // NETWORK ERROR (no response received)
-        if (!err.response) {
-          console.log("NETWORK ERROR:", err.message);
-          return;
-        }
-
-        // BACKEND ERROR (Laravel returned a status code)
-        console.log("BACKEND ERROR");
-        console.log("Status:", err.response.status);
-        console.log("Message:", err.response.data.message);
-        console.log("Internal:", err.response.data.error);
-      }
-    }
-    getFeaturedJobs();
-  }, []);
-
-  // Watch state updates
-  useEffect(() => {
-    console.log("FEATURED JOBS STATE:", featuredJobs);
-  }, [featuredJobs]);
 
 
   // -------------------------
@@ -135,8 +105,10 @@ const HomePage = () => {
           params: { page, ...filters },
         });
 
-        setJobsData(response.data);
-        setJobsList(response.data.data);
+        setJobsData(response.data.jobs);
+        setFeaturedJobs(response.data);
+        setJobsList(response.data.jobs.data);
+
       } catch (err) {
         console.error(err);
         logAxiosError(err);
@@ -256,7 +228,8 @@ const HomePage = () => {
     setLoginModalOpen(false);
   };
 
-
+  console.log('jobsList:', jobsList);
+  console.log('featuredJobs:', featuredJobs);
   // 🔹 Conditional rendering
   if (loading) return <PulsePreloader loading={loading} />;
   if (error) return (
@@ -893,7 +866,7 @@ const HomePage = () => {
         />
       )}
 
-     
+
     </>
   );
 };

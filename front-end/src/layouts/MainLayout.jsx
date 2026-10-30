@@ -2,7 +2,6 @@ import Header from "../components/home/Header";
 import Footer from "../components/home/Footer";
 import { useNavigate } from "react-router-dom";
 
-// import FeaturedJobs from "../components/home/FeaturedJobs.jsx";
 import TypingText from "../components/home/TypingText";
 import apiClient from "../api/apiClient";
 import RoleSelector from "../components/modals/home/RoleSelector";
@@ -31,7 +30,7 @@ const MainLayout = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [shouldFetch, setShouldFetch] = useState(false);
   const [page, setPage] = useState(1);
-  const [featuredJobs, setFeaturedJobs] = useState([]);
+ 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [error, setError] = useState(null);
   // subscription pop up
@@ -46,7 +45,6 @@ const MainLayout = () => {
   // role state
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
 
-  // featured jobs
 
 
   const dropdownRef = useRef(null);
@@ -173,38 +171,7 @@ const MainLayout = () => {
   }
 
 
-  // get featured jobs
-  useEffect(() => {
-    const getFeaturedJobs = async () => {
-      try {
-        const response = await apiClient.get("/featuredJobs");
-        console.log(response.data);
-        setFeaturedJobs(response.data);
-      }
-      catch (err) {
-        setError("Failed to fetch featured job listings.");
-
-        // NETWORK ERROR (no response received)
-        if (!err.response) {
-          console.log("NETWORK ERROR:", err.message);
-          return;
-        }
-
-        // BACKEND ERROR (Laravel returned a status code)
-        console.log("BACKEND ERROR");
-        console.log("Status:", err.response.status);
-        console.log("Message:", err.response.data.message);
-        console.log("Internal:", err.response.data.error);
-      }
-    }
-    getFeaturedJobs();
-  }, []);
-
-  // Watch state updates
-  useEffect(() => {
-    console.log("FEATURED JOBS STATE:", featuredJobs);
-  }, [featuredJobs]);
-
+  
   // Multi-checkbox handler
   const handleCheckboxChange = (category, value) => {
     setFilters((prev) => ({
@@ -409,7 +376,7 @@ const MainLayout = () => {
           </div>
         </div>
 
-        <div className="container mx-auto" style={{paddingLeft: '5%', paddingRight: '5%', width: '90%'}}>
+        <div className="container mx-auto">
           <Outlet context={{ filters, shouldFetch, setShouldFetch, page }} />
         </div>
 

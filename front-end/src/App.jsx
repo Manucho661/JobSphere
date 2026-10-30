@@ -3,11 +3,11 @@ import HomePage from './pages/home/HomePage';
 import { AuthProvider } from "./pages/auth/AuthContext";
 // employer
 import EmployerDashboard from './pages/employers/dashboard';
-
 import PostJob from "./pages/employers/PostJob";
 import CompanyProfile from './pages/employers/CompanyProfile';
 import EmployerLayout from './layouts/EmployerLayout';
 import ManageJobs from "./pages/employers/ManageJobs";
+
 // jobseeker
 import JobSeekerLayout from "./layouts/JobSeekerLayout";
 import Dashboard from './pages/jobSeeker/Dashboard';
