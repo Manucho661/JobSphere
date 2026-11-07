@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegistrationRequest;
 use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,37 +12,33 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     //
-    public function register(Request $request)
+    public function register(RegistrationRequest $request)
     {
-        // 1️⃣ Validate input
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'role' => 'required',
-        ]);
+        $validated = $request->validated();
 
-        // 2️⃣ Create user
+        // Create user
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => $validated['role']
         ]);
 
-
-        // 3️⃣ Create the employer details if the role is employer
-        if ($request->role == 'employer') {
+        // Create employer details if the role is employer
+        if ($validated['role'] === 'employer') {
             Employer::create([
-                'user_id' => $user->id,  // Use 'user_id' instead of 'userId'
+                'user_id' => $user->id,
             ]);
         }
-        // 3️⃣ Return JSON response
+
+        // Return JSON response
         return response()->json([
             'message' => 'User registered successfully!',
             'user' => $user,
         ], 201);
     }
+
+
     public function login(Request $request)
     {
         try {

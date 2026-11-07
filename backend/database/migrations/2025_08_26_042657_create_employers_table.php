@@ -13,10 +13,31 @@ return new class extends Migration
     {
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('company_name');
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
+            $table->string('company_name')->nullable();
             $table->string('phone')->nullable();
+            $table->boolean('verified')->default(false);
+            $table->string('logo_url')->nullable();
+
+            $table->string('industry')->nullable();
+            $table->string('company_size')->nullable();
+            $table->unsignedSmallInteger('founded_year')->nullable();
+
+            $table->string('company_website')->nullable();
+            $table->text('company_description')->nullable();
+            $table->string('county')->nullable();
+
+            $table->text('company_mission')->nullable();
+            $table->text('company_vision')->nullable();
+
+            $table->string('linkedin_url')->nullable();
+            $table->string('facebook_url')->nullable();
+            $table->string('twitter_url')->nullable();
+
             $table->timestamps();
         });
     }

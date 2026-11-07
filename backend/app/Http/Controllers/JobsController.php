@@ -29,11 +29,11 @@ class JobsController extends Controller
     public function index(Request $request)
     {
         try {
-            $jobs = JobListing::with('employer:id,companyName')
+            $jobs = JobListing::with('employer:id,company_name')
                 ->withCount('likes')
                 ->paginate(10);
 
-            $featuredJobs = JobListing::with('employer:id,companyName')
+            $featuredJobs = JobListing::with('employer:id,company_name')
                 ->withCount('likes')
                 ->orderByDesc('likes_count')
                 ->orderByDesc('created_at')

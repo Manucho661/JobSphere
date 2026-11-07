@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Employer;
 
-use App\Models\JobListing;
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EmployerDashboardController extends Controller
 {
-    //
     public function index(Request $request)
     {
         $user = $request->user();

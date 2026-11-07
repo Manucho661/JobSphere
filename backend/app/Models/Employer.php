@@ -12,12 +12,20 @@ class Employer extends Model
     // If you want to allow mass assignment (optional, but useful for seeding)
     protected $fillable = [
         'user_id',
+        'company_name',
         'phone',
-        'website',
-        'location',
-        'companySize',
-        'verified',
-        'companyDescription',
+        'logo_url',
+        'industry',
+        'company_size',
+        'founded_year',
+        'company_website',
+        'company_description',
+        'county',
+        'company_mission',
+        'company_vision',
+        'linkedin_url',
+        'facebook_url',
+        'twitter_url',
     ];
 
     public function user()

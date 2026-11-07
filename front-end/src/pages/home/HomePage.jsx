@@ -337,10 +337,10 @@ const HomePage = () => {
                               job.employer?.logoUrl
                                 ? job.employer.logoUrl
                                 : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                  job.employer?.companyName || "Unknown"
+                                  job.employer?.company_name || "Unknown"
                                 )}&background=random&size=50`
                             }
-                            alt={`${job.employer?.companyName || "Employer"} Logo`}
+                            alt={`${job.employer?.company_name || "Employer"} Logo`}
                             className="w-12 h-12 object-cover rounded-md"
                           />
                         </div>
@@ -353,7 +353,7 @@ const HomePage = () => {
                                   to={`jobDetails/${job.id}`}
                                   className="text-gray-9 hover:text-yellow-600"
                                 >
-                                  {job.job_title} at {job.employer.companyName}
+                                  {job.job_title} at {job.employer.company_name}
                                 </Link>
                               </b>
                             </div>
@@ -373,7 +373,7 @@ const HomePage = () => {
                             })}{" "}
                             • Salary range: KSH {job.salary_min} - KSH {job.salary_max} • {job.work_place}
                           </div>
-                          <p className="text-gray-700 leading-relaxed">{job.employer.companyDescription}</p>
+                          <p className="text-gray-700 leading-relaxed">{job.employer.company_description}</p>
                         </div>
                       </div>
                     </div>
@@ -568,7 +568,7 @@ const HomePage = () => {
                               to={`jobDetails/${job.id}`}
                               className="text-gray-900 hover:text-yellow-600 transition-colors"
                             >
-                              {job.job_title} at {job.employer.companyName}
+                              {job.job_title} at {job.employer.company_name}
                             </Link>
                           </b>
                         </li>
