@@ -337,10 +337,10 @@ const HomePage = () => {
                               job.employer?.logoUrl
                                 ? job.employer.logoUrl
                                 : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                  job.employer?.company_name || "Unknown"
+                                  job.employer?.user.name || "Unknown"
                                 )}&background=random&size=50`
                             }
-                            alt={`${job.employer?.company_name || "Employer"} Logo`}
+                            alt={`${job.employer?.user.name || "Employer"} Logo`}
                             className="w-12 h-12 object-cover rounded-md"
                           />
                         </div>
@@ -353,7 +353,7 @@ const HomePage = () => {
                                   to={`jobDetails/${job.id}`}
                                   className="text-gray-9 hover:text-yellow-600"
                                 >
-                                  {job.job_title} at {job.employer.company_name}
+                                  {job.job_title} at {job.employer.user.name}
                                 </Link>
                               </b>
                             </div>
@@ -568,7 +568,7 @@ const HomePage = () => {
                               to={`jobDetails/${job.id}`}
                               className="text-gray-900 hover:text-yellow-600 transition-colors"
                             >
-                              {job.job_title} at {job.employer.company_name}
+                              {job.job_title} at {job.employer.user.name}
                             </Link>
                           </b>
                         </li>

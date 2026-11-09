@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CompanyTest extends TestCase
+class EmployerTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -18,13 +18,14 @@ class CompanyTest extends TestCase
 
         $response->assertStatus(200);
     }
-    public function test_employer_can_update_company_details(): void
+
+    public function test_employer_can_update_details(): void
     {
         $employer = Employer::factory()->create();
 
         $this->actingAs($employer->user);
 
-        $response = $this->putJson('/api/employer/company', [
+        $response = $this->putJson('/api/employer', [
             'company_name' => 'Synovex Technologies',
             'phone' => '0712345678',
             'industry' => 'Technology',
@@ -69,5 +70,48 @@ class CompanyTest extends TestCase
             'founded_year' => 2020,
             'county' => 'Nairobi',
         ]);
+    }
+
+    public function test_employer_can_view_their_profile(): void
+    {
+        $employer = Employer::factory()->create([
+            'company_name' => 'Synovex Technologies',
+            'industry' => 'Technology',
+            'company_size' => '51-200',
+            'county' => 'Nairobi',
+        ]);
+
+        $this->actingAs($employer->user);
+
+        $response = $this->getJson('/api/employer');
+
+        $response->assertOk();
+
+        $response->assertJsonPath('company.id', $employer->id);
+        $response->assertJsonPath('company.company_name', 'Synovex Technologies');
+        $response->assertJsonPath('company.industry', 'Technology');
+        $response->assertJsonPath('company.company_size', '51-200');
+        $response->assertJsonPath('company.county', 'Nairobi');
+    }
+
+    public function test_guest_cannot_view_employer_profile(): void
+    {
+        $response = $this->getJson('/api/employer');
+
+        $response->assertUnauthorized();
+    }
+
+    public function test_employer_only_sees_their_own_profile(): void
+    {
+        $employer = Employer::factory()->create(['company_name' => 'Synovex Technologies']);
+        Employer::factory()->create(['company_name' => 'Other Company']);
+
+        $this->actingAs($employer->user);
+
+        $response = $this->getJson('/api/employer');
+
+        $response->assertOk();
+        $response->assertJsonPath('company.company_name', 'Synovex Technologies');
+        $response->assertJsonMissing(['company_name' => 'Other Company']);
     }
 }

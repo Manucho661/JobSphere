@@ -6,8 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateCompanyDetailsRequest;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class ProfileController extends Controller
 {
+    public function index()
+    {
+        $employer = auth()->user()->employer;
+
+        return response()->json([
+            'company' => $employer,
+        ]);
+    }
+    
     public function update(UpdateCompanyDetailsRequest $request)
     {
         $validated = $request->validated();
@@ -20,6 +29,5 @@ class CompanyController extends Controller
             'message' => 'Company details updated successfully!',
             'company' => $employer,
         ]);
-
     }
 }

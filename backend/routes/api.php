@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Employer\CompanyController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
+use App\Http\Controllers\Employer\ProfileController;
 use App\Http\Controllers\EmployerJobController;
 use App\Http\Controllers\JobLikeController;
 use App\Http\Controllers\JobNotificationController;
@@ -27,7 +27,8 @@ Route::middleware('auth:sanctum')->post('/postJobs', [JobsController::class, 'st
 Route::middleware('auth:sanctum')->put('/updateJobs/{id}', [JobsController::class, 'update']);
 
 // employer company details update
-Route::middleware('auth:sanctum')->put('/employer/company', [CompanyController::class, 'update']);
+Route::middleware('auth:sanctum')->put('/employer', [ProfileController::class, 'update']);
+Route::middleware('auth:sanctum')->get('/employer', [ProfileController::class, 'index']);
 
 Route::get('/jobs/{id}', [JobsController::class, 'show']);  // View specific job details
 Route::get('/featuredJobs', [JobsController::class, 'getFeaturedJobs']);  // Get featured Jobs
