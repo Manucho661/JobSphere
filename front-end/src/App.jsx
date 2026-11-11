@@ -29,7 +29,7 @@ import { Navigate } from "react-router-dom";
 // toast container
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./app.css";
+import "./App.css";
 
 
 
