@@ -105,10 +105,9 @@ const HomePage = () => {
           params: { page, ...filters },
         });
 
-        setJobsData(response.data.jobs);
-        setFeaturedJobs(response.data);
-        setJobsList(response.data.jobs.data);
-
+        setJobsData(response.data.jobs);        // pagination + metadata
+        setJobsList(response.data.jobs.data);   // actual jobs array
+        setFeaturedJobs(response.data.featuredJobs);
       } catch (err) {
         console.error(err);
         logAxiosError(err);
@@ -228,8 +227,8 @@ const HomePage = () => {
     setLoginModalOpen(false);
   };
 
-  console.log('jobsList:', jobsList);
-  console.log('featuredJobs:', featuredJobs);
+  // console.log('jobsList:', jobsList);
+  // console.log('featuredJobs:', featuredJobs);
   // 🔹 Conditional rendering
   if (loading) return <PulsePreloader loading={loading} />;
   if (error) return (
