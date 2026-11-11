@@ -7,6 +7,7 @@ use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -16,20 +17,25 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        // Create user
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => $validated['role']
-        ]);
+        $user = DB::transaction(function () use ($validated) {
 
-        // Create employer details if the role is employer
-        if ($validated['role'] === 'employer') {
-            Employer::create([
-                'user_id' => $user->id,
+            // Create user
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role' => $validated['role']
             ]);
-        }
+
+            // Create employer details if the role is employer
+            if ($validated['role'] === 'employer') {
+                Employer::create([
+                    'user_id' => $user->id,
+                ]);
+            }
+
+            return $user;
+        });
 
         // Return JSON response
         return response()->json([
