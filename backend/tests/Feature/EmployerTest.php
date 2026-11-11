@@ -26,7 +26,6 @@ class EmployerTest extends TestCase
         $this->actingAs($employer->user);
 
         $response = $this->putJson('/api/employer', [
-            'company_name' => 'Synovex Technologies',
             'phone' => '0712345678',
             'industry' => 'Technology',
             'company_size' => '51-200',
@@ -48,7 +47,6 @@ class EmployerTest extends TestCase
             'Company details updated successfully!'
         );
 
-        $response->assertJsonPath('company.company_name', 'Synovex Technologies');
         $response->assertJsonPath('company.phone', '0712345678');
         $response->assertJsonPath('company.industry', 'Technology');
         $response->assertJsonPath('company.company_size', '51-200');
@@ -64,7 +62,6 @@ class EmployerTest extends TestCase
 
         $this->assertDatabaseHas('employers', [
             'id' => $employer->id,
-            'company_name' => 'Synovex Technologies',
             'industry' => 'Technology',
             'company_size' => '51-200',
             'founded_year' => 2020,
@@ -72,10 +69,79 @@ class EmployerTest extends TestCase
         ]);
     }
 
+    public function test_employer_cannot_update_details_with_empty_request(): void
+    {
+        $employer = Employer::factory()->create();
+
+        $this->actingAs($employer->user);
+
+        // Send an empty request
+        $response = $this->putJson('/api/employer', []);
+
+        // Assert validation failure
+        $response->assertUnprocessable();
+
+        // Assert the expected validation error
+        $response->assertJsonValidationErrors([
+            'company_details'
+        ]);
+
+        $response->assertJsonPath(
+            'errors.company_details.0',
+            'At least one company detail must be provided.'
+        );
+    }
+
+    public function test_employer_cannot_update_details_with_invalid_data(): void
+    {
+        $employer = Employer::factory()->create();
+
+        $this->actingAs($employer->user);
+
+        // Send an invalid request
+        $response = $this->putJson('/api/employer', [
+            'founded_year' => 20,
+            'company_website' => 'invalid-url',
+        ]);
+
+        // Assert validation failure
+        $response->assertUnprocessable();
+
+        // Assert the expected validation errors
+        $response->assertJsonValidationErrors([
+            'founded_year',
+            'company_website',
+        ]);
+    }
+
+    public function test_employer_can_update_details_with_optional_fields(): void
+    {
+        $employer = Employer::factory()->create();
+
+        $this->actingAs($employer->user);
+
+        // Send a request with only a few fields
+        $response = $this->putJson('/api/employer', [
+            'industry' => 'Technology',
+            'phone' => ''
+        ]);
+
+        // Assert successful update
+        $response->assertOk();
+
+        // Assert the expected response structure
+        $response->assertJsonPath('message', 'Company details updated successfully!');
+        $response->assertJsonPath('company.industry', 'Technology');
+
+        // Assert the database has been updated correctly
+        $this->assertDatabaseHas('employers', [
+            'id' => $employer->id,
+            'industry' => 'Technology',
+        ]);
+    }
     public function test_employer_can_view_their_profile(): void
     {
         $employer = Employer::factory()->create([
-            'company_name' => 'Synovex Technologies',
             'industry' => 'Technology',
             'company_size' => '51-200',
             'county' => 'Nairobi',
@@ -88,7 +154,6 @@ class EmployerTest extends TestCase
         $response->assertOk();
 
         $response->assertJsonPath('company.id', $employer->id);
-        $response->assertJsonPath('company.company_name', 'Synovex Technologies');
         $response->assertJsonPath('company.industry', 'Technology');
         $response->assertJsonPath('company.company_size', '51-200');
         $response->assertJsonPath('company.county', 'Nairobi');
@@ -103,15 +168,28 @@ class EmployerTest extends TestCase
 
     public function test_employer_only_sees_their_own_profile(): void
     {
-        $employer = Employer::factory()->create(['company_name' => 'Synovex Technologies']);
-        Employer::factory()->create(['company_name' => 'Other Company']);
+        $employer = Employer::factory()->create();
+
+        $employer->user->update([
+            'name' => 'Synovex Technologies'
+        ]);
+
+        $otherEmployer = Employer::factory()->create();
+
+        $otherEmployer->user->update([
+            'name' => 'Other Company'
+        ]);
 
         $this->actingAs($employer->user);
 
         $response = $this->getJson('/api/employer');
-
+        $response->dump();
         $response->assertOk();
-        $response->assertJsonPath('company.company_name', 'Synovex Technologies');
-        $response->assertJsonMissing(['company_name' => 'Other Company']);
+
+        $response->assertJsonPath('company.name', 'Synovex Technologies');
+
+        $response->assertJsonMissing([
+            'name' => 'Other Company'
+        ]);
     }
 }

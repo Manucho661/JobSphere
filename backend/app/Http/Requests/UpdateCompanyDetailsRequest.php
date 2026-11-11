@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class UpdateCompanyDetailsRequest extends FormRequest
 {
@@ -22,19 +23,27 @@ class UpdateCompanyDetailsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_name' => ['required', 'string', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'industry' => ['required', 'string', 'max:255'],
-            'company_size' => ['required', 'string', 'max:255'],
-            'founded_year' => ['required', 'integer', 'digits:4'],
-            'company_website' => ['nullable', 'url', 'max:255'],
-            'company_description' => ['nullable', 'string'],
-            'county' => ['required', 'string', 'max:255'],
-            'company_mission' => ['nullable', 'string'],
-            'company_vision' => ['nullable', 'string'],
-            'linkedin_url' => ['nullable', 'url', 'max:255'],
-            'facebook_url' => ['nullable', 'url', 'max:255'],
-            'twitter_url' => ['nullable', 'url', 'max:255'],
+            'phone' => ['sometimes', 'nullable', 'string', 'max:20'],
+            'industry' => ['sometimes', 'nullable', 'string', 'max:255'],
+            'company_size' => ['sometimes', 'nullable', 'string', 'max:255'],
+            'founded_year' => ['sometimes', 'nullable', 'integer', 'digits:4'],
+            'company_website' => ['sometimes', 'nullable', 'url', 'max:255'],
+            'company_description' => ['sometimes', 'nullable', 'string'],
+            'county' => ['sometimes', 'nullable', 'string', 'max:255'],
+            'company_mission' => ['sometimes', 'nullable', 'string'],
+            'company_vision' => ['sometimes', 'nullable', 'string'],
+            'linkedin_url' => ['sometimes', 'nullable', 'url', 'max:255'],
+            'facebook_url' => ['sometimes', 'nullable', 'url', 'max:255'],
+            'twitter_url' => ['sometimes', 'nullable', 'url', 'max:255'],
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function ($validator) {
+            if (collect($this->rules())->keys()->intersect(array_keys($this->all()))->isEmpty()) {
+                $validator->errors()->add('company_details', 'At least one company detail must be provided.');
+            }
+        });
     }
 }

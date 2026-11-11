@@ -9,19 +9,7 @@ class EmployerFactory extends Factory
 {
     public function definition(): array
     {
-        $kenyanCompanies = [
-            'Safaritech Solutions',
-            'Nairobi Dynamics',
-            'Kenya Digital Labs',
-            'Mombasa IT Hub',
-            'TechBridge Africa',
-            'Wanyonyi Industries',
-            'RapidSoft Kenya',
-            'Busia Innovations',
-            'Eldoret Connect Limited',
-            'Lamu Smart Systems',
-        ];
-
+      
         $descriptions = [
             'A Kenyan tech company focused on building secure, scalable digital solutions for businesses across East Africa.',
             'We specialize in mobile and web applications that help organizations automate workflows and improve customer experience.',
@@ -42,7 +30,6 @@ class EmployerFactory extends Factory
                 'role' => 'employer',
             ]),
 
-            'company_name' => $this->faker->randomElement($kenyanCompanies),
             'phone' => '07' . rand(10, 99) . rand(100000, 999999),
             'logo_url' => 'https://placehold.co/100x100',
 

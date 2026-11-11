@@ -66,8 +66,6 @@ function App() {
           <Route path="/register" element={<Register1 />} />
           <Route path="/login" element={<Login />} />
 
-
-
           {/* Employer layout with nested routes, protected for logged-in employers */}
           <Route element={<ProtectedRoute roles={['employer']} />}>
             <Route path="employer" element={<EmployerLayout />}>

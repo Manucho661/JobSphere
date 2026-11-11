@@ -18,8 +18,20 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $kenyanCompanies = [
+            'Safaritech Solutions',
+            'Nairobi Dynamics',
+            'Kenya Digital Labs',
+            'Mombasa IT Hub',
+            'TechBridge Africa',
+            'Wanyonyi Industries',
+            'RapidSoft Kenya',
+            'Busia Innovations',
+            'Eldoret Connect Limited',
+            'Lamu Smart Systems',
+        ];
         return [
-            'name' => fake()->name(),
+            'name' => $this->faker->randomElement($kenyanCompanies),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make('Manu1538'), // hashed password

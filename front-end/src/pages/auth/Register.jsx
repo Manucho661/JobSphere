@@ -77,11 +77,11 @@ const Register = () => {
     return (
         <>
             <div className="registration-page flex items-center justify-center p-6">
-                <div className="w-full max-w-md p-6 rounded-lg shadow-lg bg-gray-900">
+                <div className="w-full max-w-md p-6 rounded-lg bg-white">
                     <form onSubmit={handleSubmit} className="space-y-4 ">
                         {/* Name */}
                         <div>
-                            <label className="block text-sm font-medium text-white mb-1">
+                            <label className="block text-sm font-medium mb-1">
                                 {
                                     role === "employer" ? (
                                         <>
@@ -104,13 +104,13 @@ const Register = () => {
                                 disabled={loading}
                                 required
                                 placeholder="Full Name"
-                                className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-yellow-400 disabled:opacity-60"
+                                className="w-full px-3 py-2 rounded-lg border border-gray-600 focus:ring-2 focus:ring-yellow-400 disabled:opacity-60"
                             />
                         </div>
 
                         {/* Email */}
                         <div>
-                            <label className="block text-sm font-medium text-white mb-1">
+                            <label className="block text-sm font-medium mb-1">
                                 <i className="fas fa-envelope mr-2"></i>Email
                             </label>
                             <input
@@ -127,7 +127,7 @@ const Register = () => {
 
                         {/* Password */}
                         <div>
-                            <label className="block text-sm font-medium text-white mb-1">
+                            <label className="block text-sm font-medium mb-1">
                                 <i className="fas fa-lock mr-2"></i>Password
                             </label>
                             <div className="relative">
@@ -153,7 +153,7 @@ const Register = () => {
 
                         {/* Confirm Password */}
                         <div>
-                            <label className="block text-sm font-medium text-white mb-1">
+                            <label className="block text-sm font-medium mb-1">
                                 <i className="fas fa-lock mr-2"></i>Confirm Password
                             </label>
                             <div className="relative">
@@ -198,9 +198,9 @@ const Register = () => {
                         </button>
 
                         {/* Login link */}
-                        <p className="text-center text-sm text-white mt-2">
+                        <p className="text-center text-sm mt-2">
                             Already have an account?{" "}
-                            <Link to="/login" className="text-yellow-400 hover:underline">
+                            <Link to="/login" className="text-yellow-900 hover:underline">
                                 Sign in
                             </Link>
                         </p>

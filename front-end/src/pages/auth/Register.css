@@ -1,14 +1,16 @@
 .registration-page {
     position: relative;
     min-height: 100vh;
-    background: url('second.jpg') center / cover no-repeat;
+    background: linear-gradient(to bottom right, white, #d9e2ec);
+    /* background: url('second.jpg') center / cover no-repeat; */
 }
 
 .registration-page::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    /* background: rgba(0, 0, 0, 0.5); */
+    background: linear-gradient(to bottom right, white, rgba(0, 0, 0, 0.7));
 }
 
 .registration-page > * {

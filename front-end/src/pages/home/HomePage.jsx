@@ -9,7 +9,6 @@ import LoginPopup from "../../components/home/modals/LoginPopup"
 import { useNavigate } from "react-router-dom";
 
 
-
 const HomePage = () => {
   // Navigate function
   const navigate = useNavigate();
@@ -253,7 +252,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="py-3">
+      <div className="py-3 ">
         <div className="mt-2 rounded-xl p-8 mb-6">
           <div className="grid md:grid-cols-3 gap-6">
             {/* Left content */}
@@ -293,7 +292,7 @@ const HomePage = () => {
 
 
               {/* Job list */}
-              <div className="tab-content">
+              <div className="tab-content bg-white p-4 rounded-lg border border-gray-200 bg-white shadow-sm">
                 <h2 className="text-gray-600 text-sm mb-4">
                   <b><i>Latest Jobs</i></b>
                 </h2>
@@ -507,34 +506,32 @@ const HomePage = () => {
 
             {/* Right sidebar */}
             <div className="md:col-span-1 space-y-4">
-              {/* upload CV */}
-              {selectedFile ? (
-                <div className="rounded-lg p-4">
-                  <i><b>CV uploaded successfully! Ready to check alignment with jobs.</b></i>
-                  <button
-                    onClick={openCvModal}
-                    className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 mt-2">
-                    <b>Re-upload CV</b>
-                  </button>
-                </div>
-              ) : (
-                <div className="rounded-lg p-4">
-                  <i><b>Upload your CV to check how it aligns with Jobs</b></i>
-                  <button
-                    onClick={openCvModal}
-                    className="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-semibold hover:bg-yellow-900 mt-2">
-                    <b>Upload your CV</b>
-                  </button>
-                </div>
-              )}
 
-              {/* Featured Service */}
-
-
-              {/* Jobs by Category */}
+              {/* Cv upload */}
               <div className="bg-white p-4 rounded-lg">
-                <h6 className="font-bold mb-2">🗂 Popular listings</h6>
-                <div className="flex justify-center">
+                <h6 className="font-bold mb-2">{selectedFile ? 'Your CV is uploaded' : 'Upload Your CV'}</h6>
+                <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg p-4" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
+                  {selectedFile ? (
+                    <p className="text-gray-600 text-sm mb-4">
+                      {selectedFile.name}
+                    </p>
+                  ) : (
+                    <p className="text-gray-600 text-sm mb-4">
+                      Upload your Cv to check how it aligns with job requirements.
+                    </p>
+                  )}
+
+                  <button onClick={openCvModal} className="bg-yellow-600 text-white text-sm px-3 py-2 rounded-lg hover:bg-yellow-900">
+                    {selectedFile ? 'Change CV' : 'Upload CV'}
+                  </button>
+                </div>
+
+              </div>
+
+              {/* Popular Listings */}
+              <div className="bg-white p-4 rounded-lg">
+                <h6 className="font-bold mb-2"> Popular listings</h6>
+                <div className="flex justify-center border border-gray-200 rounded-lg p-4" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
                     {featuredJobs?.length === 0 ? (
                       <li className="flex items-start group col-span-2">
@@ -565,7 +562,7 @@ const HomePage = () => {
                           <b>
                             <Link
                               to={`jobDetails/${job.id}`}
-                              className="text-gray-900 hover:text-yellow-600 transition-colors"
+                              className="text-gray-600 hover:text-yellow-600 transition-colors"
                             >
                               {job.job_title} at {job.employer.user.name}
                             </Link>
@@ -576,8 +573,10 @@ const HomePage = () => {
                   </ul>
                 </div>
               </div>
+
+              {/* Jobs by Category */}
               <div className="bg-white p-4 rounded-lg">
-                <h6 className="font-bold mb-2">🗂 Jobs by Category</h6>
+                <h6 className="font-bold mb-2">Jobs by Category</h6>
                 <div className="flex flex-wrap gap-2 text-sm p-4 rounded-lg" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                   {[
                     "Data Science",
@@ -604,7 +603,7 @@ const HomePage = () => {
 
               {/* Jobs by Location */}
               <div className="bg-white p-4 rounded-lg">
-                <h6 className="font-bold mb-2">📍 Jobs by Location</h6>
+                <h6 className="font-bold mb-2">Jobs by Location</h6>
                 <div className="flex flex-wrap gap-2 text-sm rounded-lg p-4" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                   {[
                     "Nairobi",
@@ -632,16 +631,19 @@ const HomePage = () => {
                       {loc}
                     </a>
                   ))}
+                  <div className="w-full flex justify-center mt-4">
+                    <button className="bg-yellow-600 text-white text-sm px-3 py-2 rounded-lg hover:bg-yellow-900">
+                      View Locations
+                    </button>
+                  </div>
                 </div>
-                <button className="mt-3 bg-yellow-600 text-white text-sm px-3 py-2 rounded-lg hover:bg-yellow-900">
-                  <b>View All Locations</b>
-                </button>
+
               </div>
 
               {/* Top categories */}
               <div className="bg-white p-4 rounded-lg">
-                <h6 className="font-bold mb-2">🗂 Top Categories</h6>
-                <div className="flex justify-center">
+                <h6 className="font-bold mb-2">Top Categories</h6>
+                <div className="flex justify-center border border-gray-200 rounded-lg p-4" style={{ borderColor: 'rgba(0, 43, 91, 0.2)', borderWidth: '1px' }}>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 w-full">
                     <li className="flex items-start group">
                       <span className="mr-3 mt-1 flex-shrink-0">

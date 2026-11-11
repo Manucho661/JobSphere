@@ -13,10 +13,12 @@ class ProfileController extends Controller
         $employer = auth()->user()->employer;
 
         return response()->json([
-            'company' => $employer,
+            'company' => array_merge($employer->toArray(), [
+                'name' => auth()->user()->name,
+            ]),
         ]);
     }
-    
+
     public function update(UpdateCompanyDetailsRequest $request)
     {
         $validated = $request->validated();

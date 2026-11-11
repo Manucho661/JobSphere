@@ -8,8 +8,8 @@ import RoleSelector from "../components/modals/home/RoleSelector";
 import { Link, Outlet } from "react-router-dom";
 
 import "./mainlayout.css";
-import React, { useState, useEffect, useRef } from "react";
-
+import React, { useState, useEffect, useRef, useContext } from "react";
+import AuthContext from '../pages/auth/AuthContext';
 import {
   X,
 } from "lucide-react";
@@ -17,6 +17,7 @@ import {
 const MainLayout = () => {
 
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const [filters, setFilters] = useState({
     search: "",
@@ -30,7 +31,7 @@ const MainLayout = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [shouldFetch, setShouldFetch] = useState(false);
   const [page, setPage] = useState(1);
- 
+
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [error, setError] = useState(null);
   // subscription pop up
@@ -171,7 +172,7 @@ const MainLayout = () => {
   }
 
 
-  
+
   // Multi-checkbox handler
   const handleCheckboxChange = (category, value) => {
     setFilters((prev) => ({
@@ -238,10 +239,11 @@ const MainLayout = () => {
               </p>
 
               {/* Interactive CTA Section */}
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
+              {!user && (<div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
                 <h3 className="text-xl md:text-2xl font-semibold text-[#002B5B] mb-3">
                   Find the Role That Matches Your Skills
                 </h3>
+
 
                 <div className="flex flex-wrap items-center gap-2 text-base md:text-lg">
                   <span className="text-yellow-600 font-medium">•</span>
@@ -263,6 +265,8 @@ const MainLayout = () => {
                   </span>
                 </div>
               </div>
+            )}
+
             </div>
             {/* Upload CV */}
           </div>
